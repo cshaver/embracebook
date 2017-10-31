@@ -1,9 +1,9 @@
 {
   "projects": {
-    "dev": "redux-firebasev3",
-    "stage": "redux-firebasev3",
-    "master": "redux-firebasev3",
-    "prod": "redux-firebasev3"
+    "dev": "embracebook-e403d",
+    "stage": "embracebook-e403d",
+    "master": "embracebook-e403d",
+    "prod": "embracebook-e403d"
   },
   "ci": {
     "createConfig": {
@@ -11,11 +11,11 @@
         "version": "${npm_package_version}",
         "env": "development",
         "firebase": {
-          "apiKey": "AIzaSyCTUERDM-Pchn_UDTsfhVPiwM4TtNIxots",
-          "authDomain": "redux-firebasev3.firebaseapp.com",
-          "databaseURL": "https://redux-firebasev3.firebaseio.com",
-          "projectId": "redux-firebasev3",
-          "storageBucket": "redux-firebasev3.appspot.com"
+          "apiKey": "AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus",
+          "authDomain": "embracebook-e403d.firebaseapp.com",
+          "databaseURL": "https://embracebook-e403d.firebaseio.com",
+          "projectId": "embracebook-e403d",
+          "storageBucket": "embracebook-e403d.appspot.com"
         },
         "reduxFirebase": {
           "userProfile": "users",
@@ -27,11 +27,11 @@
         "version": "${npm_package_version}",
         "env": "production",
         "firebase": {
-          "apiKey": "AIzaSyCTUERDM-Pchn_UDTsfhVPiwM4TtNIxots",
-          "authDomain": "redux-firebasev3.firebaseapp.com",
-          "databaseURL": "https://redux-firebasev3.firebaseio.com",
-          "projectId": "redux-firebasev3",
-          "storageBucket": "redux-firebasev3.appspot.com"
+          "apiKey": "AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus",
+          "authDomain": "embracebook-e403d.firebaseapp.com",
+          "databaseURL": "https://embracebook-e403d.firebaseio.com",
+          "projectId": "embracebook-e403d",
+          "storageBucket": "embracebook-e403d.appspot.com"
         },
         "reduxFirebase": {
           "userProfile": "users",

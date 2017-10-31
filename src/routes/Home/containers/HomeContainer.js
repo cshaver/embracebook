@@ -38,8 +38,8 @@ const Home = ({ todos, uid, addNew, onSubmitFail }) => (
     <div className={classes.info}>
       <span>data loaded from</span>
       <span>
-        <a href="https://redux-firebasev3.firebaseio.com/">
-          redux-firebasev3.firebaseio.com
+        <a href="https://embracebook-e403d.firebaseapp.com/">
+          embracebook-e403d.firebaseapp.com
         </a>
       </span>
       <span style={{ marginTop: '2rem' }}>
