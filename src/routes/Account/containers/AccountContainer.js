@@ -9,7 +9,7 @@ import {
 } from 'react-redux-firebase'
 // import { reduxFirebase as rfConfig } from 'config'
 // import { UserIsAuthenticated } from 'utils/router'
-import { fbReduxSettings } from 'config'
+import { fbReduxSettings } from '../../../../project.config'
 import defaultUserImageUrl from 'static/User.png'
 import LoadingSpinner from 'components/LoadingSpinner'
 import AccountForm from '../components/AccountForm/AccountForm'

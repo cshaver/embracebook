@@ -4,41 +4,5 @@
     "stage": "embracebook-e403d",
     "master": "embracebook-e403d",
     "prod": "embracebook-e403d"
-  },
-  "ci": {
-    "createConfig": {
-      "master": {
-        "version": "${npm_package_version}",
-        "env": "development",
-        "firebase": {
-          "apiKey": "AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus",
-          "authDomain": "embracebook-e403d.firebaseapp.com",
-          "databaseURL": "https://embracebook-e403d.firebaseio.com",
-          "projectId": "embracebook-e403d",
-          "storageBucket": "embracebook-e403d.appspot.com"
-        },
-        "reduxFirebase": {
-          "userProfile": "users",
-          "enableLogging": false,
-          "updateProfileOnLogin": false
-        }
-      },
-      "prod": {
-        "version": "${npm_package_version}",
-        "env": "production",
-        "firebase": {
-          "apiKey": "AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus",
-          "authDomain": "embracebook-e403d.firebaseapp.com",
-          "databaseURL": "https://embracebook-e403d.firebaseio.com",
-          "projectId": "embracebook-e403d",
-          "storageBucket": "embracebook-e403d.appspot.com"
-        },
-        "reduxFirebase": {
-          "userProfile": "users",
-          "enableLogging": false,
-          "updateProfileOnLogin": false
-        }
-      }
-    }
   }
 }

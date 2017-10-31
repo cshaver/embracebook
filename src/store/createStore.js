@@ -5,7 +5,7 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import makeRootReducer from './reducers'
 import firebase from 'firebase'
 // import 'firebase/firestore' // make sure you add this for firestore
-import { firebase as fbConfig, reduxFirebase as reduxConfig } from '../config'
+import { firebase as fbConfig, reduxFirebase as reduxConfig } from '../../project.config'
 import { version } from '../../package.json'
 import { updateLocation } from './location'
 

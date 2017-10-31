@@ -37,32 +37,15 @@ module.exports = {
    * Settings used to create src/config.js using firebase-ci
    * in ci environment. If you are running locally, go to src/config.js.
    */
-  ci: {
-    development: {
-      firebase: {
-        apiKey: 'AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus',
-        authDomain: 'embracebook-e403d.firebaseapp.com',
-        databaseURL: 'https://embracebook-e403d.firebaseio.com',
-        storageBucket: 'embracebook-e403d.appspot.com'
-      },
-      reduxFirebase: {
-        userProfile: 'users', // root that user profiles are written to
-        enableLogging: false, // enable/disable Firebase Database Logging
-        updateProfileOnLogin: false // enable/disable updating of profile on login
-      }
-    },
-    production: {
-      firebase: {
-        apiKey: 'AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus',
-        authDomain: 'embracebook-e403d.firebaseapp.com',
-        databaseURL: 'https://embracebook-e403d.firebaseio.com',
-        storageBucket: 'embracebook-e403d.appspot.com'
-      },
-      reduxFirebase: {
-        userProfile: 'users',
-        enableLogging: false,
-        updateProfileOnLogin: false
-      }
-    }
+  firebase: {
+    apiKey: 'AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus',
+    authDomain: 'embracebook-e403d.firebaseapp.com',
+    databaseURL: 'https://embracebook-e403d.firebaseio.com',
+    storageBucket: 'embracebook-e403d.appspot.com'
+  },
+  reduxFirebase: {
+    userProfile: 'users', // root that user profiles are written to
+    enableLogging: false, // enable/disable Firebase Database Logging
+    updateProfileOnLogin: false // enable/disable updating of profile on login
   }
 }
