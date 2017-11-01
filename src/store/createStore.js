@@ -5,7 +5,7 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import makeRootReducer from './reducers'
 import firebase from 'firebase'
 // import 'firebase/firestore' // make sure you add this for firestore
-import { firebase as fbConfig, reduxFirebase as reduxConfig } from '../../project.config'
+import * as config from '../../project.config'
 import { version } from '../../package.json'
 import { updateLocation } from './location'
 
@@ -23,32 +23,28 @@ export default (initialState = {}) => {
     // This is where you add other middleware like redux-observable
   ]
 
-  // ======================================================
-  // Store Enhancers
-  // ======================================================
-  const enhancers = []
-  if (__DEV__) {
-    const devToolsExtension = window.devToolsExtension
-    if (typeof devToolsExtension === 'function') {
-      enhancers.push(devToolsExtension())
-    }
-  }
-
   // Initialize Firebase instance and Firestore (optional)
-  firebase.initializeApp(fbConfig)
+  firebase.initializeApp(config.firebase)
   // firebase.firestore()
 
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
+
+  let composeReducers = compose
+
+  // enable Redux dev tools
+  if (__DEV__) {
+    composeReducers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  }
+
   const store = createStore(
     makeRootReducer(),
     initialState,
-    compose(
+    composeReducers(
       // pass firebase or app instance and config
-      reactReduxFirebase(firebase, reduxConfig),
-      applyMiddleware(...middleware),
-      ...enhancers
+      reactReduxFirebase(firebase, config.reduxFirebase),
+      applyMiddleware(...middleware)
     )
   )
   store.asyncReducers = {}
