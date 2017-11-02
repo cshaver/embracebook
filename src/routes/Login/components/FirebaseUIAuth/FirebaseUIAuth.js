@@ -13,10 +13,15 @@ export default class FirebaseUIAuth extends Component {
 
     this.uiConfig = this.uiConfig || {
       credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-      signInFlow: 'popup',
+      signInFlow: 'redirect',
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        {
+          provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+          recaptchaParameters: {
+            size: 'invisible'
+          }
+        }
       ],
       signInSuccessUrl: LIST_PATH,
       tosUrl: TERMS_PATH
