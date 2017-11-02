@@ -2,10 +2,8 @@
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
 import LoginRoute from './Login'
-import SignupRoute from './Signup'
 import ProjectsRoute from './Projects'
 import AccountRoute from './Account'
-import RecoverRoute from './Recover'
 import NotFoundRoute from './NotFound'
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -18,11 +16,10 @@ export const createRoutes = store => ({
   childRoutes: [
     AccountRoute,
     LoginRoute,
-    SignupRoute,
-    ProjectsRoute(store), // async route definitions recieve store
-    RecoverRoute(store), // async route definitions recieve store
-    /* Place all Routes above here so NotFoundRoute can act as a 404 page */
-    NotFoundRoute(store) // async route definitions recieve store
+    // async route definitions recieve store
+    ProjectsRoute(store),
+    // Place all Routes above here so NotFoundRoute can act as a 404 page
+    NotFoundRoute(store)
   ]
 })
 

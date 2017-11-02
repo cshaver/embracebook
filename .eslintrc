@@ -20,8 +20,8 @@ globals:
   __TEST__: false
 
 rules:
-  semi: [2, 'never']
-  no-console: 'error'
+  semi: [1, 'never']
+  no-console: 'warn'
   jsx-quotes: ['error', 'prefer-double']
   prettier/prettier: ['error', {
     singleQuote: true,

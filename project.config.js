@@ -31,7 +31,8 @@ module.exports = {
     'redux-thunk',
     'react-router',
     'react-redux-firebase',
-    'material-ui'
+    'material-ui',
+    'firebaseui'
   ],
   /**
    * Settings used to create src/config.js using firebase-ci
