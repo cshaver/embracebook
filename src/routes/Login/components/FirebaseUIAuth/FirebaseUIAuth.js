@@ -9,26 +9,28 @@ var authUI
 @firebaseConnect()
 export default class FirebaseUIAuth extends Component {
   componentDidMount() {
-    this.uiConfig = {
+    let firebase = this.props.firebase
+
+    this.uiConfig = this.uiConfig || {
       credentialHelper: firebaseui.auth.CredentialHelper.NONE,
       signInFlow: 'popup',
       signInOptions: [
-        this.props.firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        this.props.firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
       ],
       signInSuccessUrl: LIST_PATH,
       tosUrl: TERMS_PATH
     }
 
     // Initialize the FirebaseUI auth widget
-    this.ui = authUI =
-      authUI || new firebaseui.auth.AuthUI(this.props.firebase.auth())
-
+    this.ui = authUI = authUI || new firebaseui.auth.AuthUI(firebase.auth())
     this.ui.start(this.container, this.uiConfig)
   }
 
   componentWillUnmount() {
-    this.ui.reset()
+    if (this.ui) {
+      this.ui.reset()
+    }
   }
 
   render() {
