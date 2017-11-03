@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { firebaseConnect } from 'react-redux-firebase'
 import * as firebaseui from 'firebaseui'
-import { LIST_PATH, TERMS_PATH } from 'constants'
 
 var authUI
 
@@ -23,8 +22,11 @@ export default class FirebaseUIAuth extends Component {
           }
         }
       ],
-      signInSuccessUrl: LIST_PATH,
-      tosUrl: TERMS_PATH
+      callbacks: {
+        signInSuccess: this.props.signInSuccess || (() => true)
+      },
+      signInSuccessUrl: this.props.signInSuccessUrl,
+      tosUrl: this.props.tosUrl
     }
 
     // Initialize the FirebaseUI auth widget
@@ -40,11 +42,16 @@ export default class FirebaseUIAuth extends Component {
 
   render() {
     return (
-      <div ref={(element) => {this.container = element}} />
+      <div
+        ref={element => {
+          this.container = element
+        }}
+      />
     )
   }
 
   static propTypes = {
-    firebase: PropTypes.object.isRequired
+    firebase: PropTypes.object.isRequired,
+    signInSuccess: PropTypes.func
   }
 }

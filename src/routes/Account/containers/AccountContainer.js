@@ -7,45 +7,37 @@ import {
   isLoaded
   // populate
 } from 'react-redux-firebase'
-// import { reduxFirebase as rfConfig } from 'config'
-// import { UserIsAuthenticated } from 'utils/router'
-import { fbReduxSettings } from '../../../../project.config'
-import defaultUserImageUrl from 'static/User.png'
+import { UserIsAuthenticated } from 'utils/router'
 import LoadingSpinner from 'components/LoadingSpinner'
 import AccountForm from '../components/AccountForm/AccountForm'
 import classes from './AccountContainer.scss'
 
-// @UserIsAuthenticated // redirect to /login if user is not authenticated
+@UserIsAuthenticated
 @firebaseConnect()
 @connect(({ firebase: { profile, auth } }) => ({
-  profile,
-  authUid: auth.uid
+  profile
+  // authUid: auth.uid
   // profile: populate(firebase, 'profile', rfConfig.profileParamsToPopulate) // if populating profile
 }))
 export default class Account extends Component {
-  static propTypes = {
-    profile: PropTypes.object,
-    authUid: PropTypes.string,
-    firebase: PropTypes.shape({
-      updateProfile: PropTypes.func.isRequired,
-      logout: PropTypes.func.isRequired
-    })
-  }
+  updateAccount = newData => {
+    delete newData.isLoaded
+    delete newData.isEmpty
 
-  updateAccount = newAccount => {
-    const { firebase: { update }, authUid } = this.props
-    // corresponds to /users/${uid}
-    return update(`${fbReduxSettings.userProfile}/${authUid}`, newAccount)
+    return this.props.firebase
+      .updateProfile(newData)
+      .catch(err => {
+        console.error('Error updating account', err) // eslint-disable-line no-console
+      })
+      .then(() => console.groupEnd())
   }
-
-  updateAccount = newData =>
-    this.props.firebase.updateProfile(newData).catch(err => {
-      console.error('Error updating account', err) // eslint-disable-line no-console
-      // TODO: Display error to user
-    })
 
   render() {
     const { profile } = this.props
+
+    console.group('AccountContainer::render')
+    console.log(profile)
+    console.groupEnd()
 
     if (!isLoaded(profile)) {
       return <LoadingSpinner />
@@ -58,7 +50,7 @@ export default class Account extends Component {
             <div className={classes.avatar}>
               <img
                 className={classes.avatarCurrent}
-                src={(profile && profile.avatarUrl) || defaultUserImageUrl}
+                src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars/285/${profile && profile.email}`}
                 onClick={this.toggleModal}
               />
             </div>
@@ -73,5 +65,13 @@ export default class Account extends Component {
         </Paper>
       </div>
     )
+  }
+
+  static propTypes = {
+    profile: PropTypes.object,
+    firebase: PropTypes.shape({
+      updateProfile: PropTypes.func.isRequired,
+      logout: PropTypes.func.isRequired
+    })
   }
 }

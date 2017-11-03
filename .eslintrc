@@ -21,7 +21,7 @@ globals:
 
 rules:
   semi: [1, 'never']
-  no-console: 'warn'
+  no-console: false
   jsx-quotes: ['error', 'prefer-double']
   prettier/prettier: ['error', {
     singleQuote: true,
