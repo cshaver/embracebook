@@ -11,7 +11,6 @@ import Avatar from 'material-ui/Avatar'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { LIST_PATH, ACCOUNT_PATH, LOGIN_PATH } from 'constants'
-import defaultUserImage from 'static/User.png'
 import classes from './Navbar.scss'
 
 const buttonStyle = {
@@ -65,7 +64,7 @@ export default class Navbar extends Component {
               src={
                 profile && profile.avatarUrl
                   ? profile.avatarUrl
-                  : defaultUserImage
+                  : `https://api.adorable.io/avatars/285/${profile && profile.email}`
               }
             />
           </div>
