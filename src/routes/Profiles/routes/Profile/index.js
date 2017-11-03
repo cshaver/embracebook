@@ -1,7 +1,5 @@
-import { PROJECT_LIST_PATH as path } from 'constants'
-
 export default store => ({
-  path,
+  path: ':profilename',
   /*  Async getComponent is only invoked when route matches   */
   getComponent(nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -11,24 +9,14 @@ export default store => ({
       require => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Projects = require('./containers/ProjectsContainer').default
+        const Profile = require('./containers/ProfileContainer').default
 
         /*  Return getComponent   */
-        cb(null, Projects)
+        cb(null, Profile)
 
         /* Webpack named bundle   */
       },
-      'Projects'
+      'Profile'
     )
-  },
-  getChildRoutes(partialNextState, cb) {
-    require.ensure([], require => {
-      /*  Webpack - use require callback to define
-          dependencies for bundling   */
-      const Project = require('./routes/Project').default
-
-      /*  Return getComponent   */
-      cb(null, [Project(store)])
-    })
   }
 })

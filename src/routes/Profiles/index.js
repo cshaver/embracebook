@@ -1,4 +1,4 @@
-import { PROJECT_LIST_PATH as path } from 'constants'
+import { PROFILE_LIST_PATH as path } from 'constants'
 
 export default store => ({
   path,
@@ -11,24 +11,24 @@ export default store => ({
       require => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Projects = require('./containers/ProjectsContainer').default
+        const Profiles = require('./containers/ProfilesContainer').default
 
         /*  Return getComponent   */
-        cb(null, Projects)
+        cb(null, Profiles)
 
         /* Webpack named bundle   */
       },
-      'Projects'
+      'Profiles'
     )
   },
   getChildRoutes(partialNextState, cb) {
     require.ensure([], require => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const Project = require('./routes/Project').default
+      const Profile = require('./routes/Profile').default
 
       /*  Return getComponent   */
-      cb(null, [Project(store)])
+      cb(null, [Profile(store)])
     })
   }
 })

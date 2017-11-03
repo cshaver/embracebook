@@ -35,7 +35,9 @@ export default (initialState = {}) => {
 
   // enable Redux dev tools
   if (__DEV__) {
-    composeReducers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    composeReducers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      actionsBlacklist: ['@@reactReduxFirebase']
+    }) || compose
   }
 
   const store = createStore(

@@ -45,6 +45,7 @@
     "redux-form": "^6.6.1",
     "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
+    "slugify": "^1.2.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
