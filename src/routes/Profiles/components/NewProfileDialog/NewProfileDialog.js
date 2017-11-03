@@ -21,6 +21,7 @@ export class NewProfileDialog extends Component {
       onRequestClose,
       submit,
       handleSubmit,
+      newProfile
     } = this.props
 
     return (
@@ -52,6 +53,10 @@ export class NewProfileDialog extends Component {
             floatingLabelText="Avatar Url"
             validate={[required]}
           />
+          {
+            newProfile.values && newProfile.values.avatarUrl &&
+            (<div><img src={newProfile.values.avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
+          }
         </form>
       </Dialog>
     )
@@ -71,5 +76,5 @@ NewProfileDialog = reduxForm({
 })(NewProfileDialog)
 
 export default connect(
-  ({ form: { newProfile: { initialValues } } }) => ({ initialValues })
+  ({ form: { newProfile, newProfile: { initialValues, values } } }) => ({ initialValues, newProfile })
 )(NewProfileDialog)

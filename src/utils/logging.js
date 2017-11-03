@@ -6,8 +6,9 @@ export function VerboseLogging(component) {
   properties('render', 'props')
   group('render')
 
-  args('componentWillReceiveProps')
-  group('componentWillReceiveProps')
+  // args('componentWillReceiveProps')
+  // group('componentWillReceiveProps')
+
   // 'componentDidMount',
   // 'componentWillMount',
   // 'componentWillUnmount',
