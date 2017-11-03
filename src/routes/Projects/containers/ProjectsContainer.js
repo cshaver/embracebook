@@ -8,7 +8,7 @@ import {
   isLoaded,
   isEmpty
 } from 'react-redux-firebase'
-import { LIST_PATH } from 'constants'
+import { PROJECT_LIST_PATH } from 'constants'
 // import { UserIsAuthenticated } from 'utils/router'
 import LoadingSpinner from 'components/LoadingSpinner'
 import ProjectTile from '../components/ProjectTile'
@@ -103,7 +103,7 @@ export default class Projects extends Component {
                 key={`${project.name}-Collab-${key}`}
                 project={project}
                 onCollabClick={this.collabClick}
-                onSelect={() => this.context.router.push(`${LIST_PATH}/${key}`)}
+                onSelect={() => this.context.router.push(`${PROJECT_LIST_PATH}/${key}`)}
                 onDelete={() => this.deleteProject(key)}
                 showDelete={this.getDeleteVisible(key)}
               />

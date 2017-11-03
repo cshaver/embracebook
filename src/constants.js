@@ -1,5 +1,5 @@
-export const LIST_PATH = '/projects'
-export const DETAIL_PATH = ':projectname'
+export const PROJECT_LIST_PATH = '/projects'
+export const PROJECT_DETAIL_PATH = ':projectname'
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
 export const TERMS_PATH = '/terms'
@@ -16,10 +16,10 @@ export const formNames = {
 }
 
 export const paths = {
-  list: LIST_PATH,
   account: ACCOUNT_PATH,
-  detail: DETAIL_PATH,
+  projectList: PROJECT_LIST_PATH,
+  projectDetail: PROJECT_DETAIL_PATH,
   login: LOGIN_PATH
 }
 
-export default { ...paths, ...formNames }
+export default { paths, formNames }

@@ -10,7 +10,7 @@ import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down'
 import Avatar from 'material-ui/Avatar'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
-import { LIST_PATH, ACCOUNT_PATH, LOGIN_PATH } from 'constants'
+import { PROJECT_LIST_PATH, ACCOUNT_PATH, LOGIN_PATH } from 'constants'
 import classes from './Navbar.scss'
 
 const buttonStyle = {
@@ -102,7 +102,7 @@ export default class Navbar extends Component {
     return (
       <AppBar
         title={
-          <Link to={authExists ? LIST_PATH : '/'} className={classes.brand}>
+          <Link to={authExists ? PROJECT_LIST_PATH : '/'} className={classes.brand}>
             material
           </Link>
         }
