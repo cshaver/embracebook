@@ -30,7 +30,7 @@ export const addProfile = ({ dispatch }) => {
 export const profileReducer = (state = null, action) => {
   switch (action.type) {
     case '@@reactReduxFirebase/SET_PROFILE':
-      console.log('@@reactReduxFirebase/SET_PROFILE')
+      // console.log('@@reactReduxFirebase/SET_PROFILE')
       // if (!state.type) {
       //   state.isNew = true
       // }

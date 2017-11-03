@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import { newProfileReducer } from 'routes/Profiles/reducers'
+import { newProfileFormReducer as newProfile } from 'routes/Profiles/reducers'
 
 export const formReducer = combineReducers({
-	newProfile: newProfileReducer
+	newProfile
 })

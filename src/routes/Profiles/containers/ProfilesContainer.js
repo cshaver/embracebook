@@ -17,6 +17,8 @@ import NewProfileTile from '../components/NewProfileTile'
 import NewProfileDialog from '../components/NewProfileDialog'
 import { toggleNewProfileModal } from '../actions'
 
+// import { VerboseLogging } from 'utils/logging'
+
 import classes from './ProfilesContainer.scss'
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
@@ -39,6 +41,7 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
     toggleNewProfileModal: toggleNewProfileModal(dispatch)
   })
 )
+// @VerboseLogging
 export default class Profiles extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
@@ -63,7 +66,12 @@ export default class Profiles extends Component {
   deleteProfile = key => this.props.firebase.remove(`profiles/${key}`)
 
   toggleModal = (open) => {
-    this.props.toggleNewProfileModal(open)
+    this.props.toggleNewProfileModal({
+      open,
+      initialValues: {
+        avatarUrl: 'https://api.adorable.io/avatars/default.png'
+      }
+    })
   }
 
   getDeleteVisible = key => {
@@ -76,9 +84,6 @@ export default class Profiles extends Component {
   }
 
   render() {
-    console.group('ProfilesContainer::render')
-    // console.log(this.props)
-    console.groupEnd()
     const { profiles, auth, newProfileModal } = this.props
     // const { newProfileModal } = this.state
 
@@ -123,7 +128,6 @@ export default class Profiles extends Component {
     children: PropTypes.object,
     firebase: PropTypes.object.isRequired,
     profiles: PropTypes.object,
-    unpopulatedProfiles: PropTypes.object,
     auth: PropTypes.object
   }
 }
