@@ -50,7 +50,7 @@ export default class Account extends Component {
             <div className={classes.avatar}>
               <img
                 className={classes.avatarCurrent}
-                src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars/285/${profile && profile.email}`}
+                src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars//${profile && profile.email}`}
                 onClick={this.toggleModal}
               />
             </div>

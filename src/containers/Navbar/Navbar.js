@@ -64,7 +64,7 @@ export default class Navbar extends Component {
               src={
                 profile && profile.avatarUrl
                   ? profile.avatarUrl
-                  : `https://api.adorable.io/avatars/285/${profile && profile.email}`
+                  : `https://api.adorable.io/avatars//${profile && profile.email}`
               }
             />
           </div>

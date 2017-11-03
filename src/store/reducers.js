@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import reduceReducers from 'reduce-reducers';
-import { reducer as form } from 'redux-form'
+import { reducer as reduxFormReducer } from 'redux-form'
 import {
   firebaseStateReducer /*,
   firestoreReducer */
@@ -8,6 +8,7 @@ import {
 import { reducer as notifications } from 'modules/notification'
 import locationReducer from './location'
 import { profileReducer } from './profile'
+import { formReducer } from './form'
 
 const firebase = reduceReducers(
   firebaseStateReducer,
@@ -18,6 +19,11 @@ const firebase = reduceReducers(
     }
     return state
   }
+)
+
+const form = reduceReducers(
+  reduxFormReducer,
+  formReducer
 )
 
 export const makeRootReducer = asyncReducers => {

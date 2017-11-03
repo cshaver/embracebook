@@ -10,7 +10,7 @@ export const ProfileTile = ({ profile, onSelect, onDelete, showDelete }) => (
   <Paper className={classes.container}>
     <div className={classes.top}>
       <span className={classes.name} onClick={() => onSelect(profile)}>
-        {profile.name}
+        {profile.displayName}
       </span>
       {showDelete && onDelete ? (
         <IconButton tooltip="delete" onClick={onDelete}>

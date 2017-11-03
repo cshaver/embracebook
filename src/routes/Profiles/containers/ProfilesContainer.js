@@ -8,25 +8,35 @@ import {
   isLoaded,
   isEmpty
 } from 'react-redux-firebase'
+
 import { PROFILE_LIST_PATH } from 'constants'
-// import { UserIsAuthenticated } from 'utils/router'
+import { UserIsAuthenticated } from 'utils/router'
 import LoadingSpinner from 'components/LoadingSpinner'
 import ProfileTile from '../components/ProfileTile'
 import NewProfileTile from '../components/NewProfileTile'
 import NewProfileDialog from '../components/NewProfileDialog'
+import { toggleNewProfileModal } from '../actions'
+
 import classes from './ProfilesContainer.scss'
 
-const populates = [{ child: 'createdBy', root: 'users' }]
+const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 
-// @UserIsAuthenticated
+@UserIsAuthenticated
 @firebaseConnect([
   { path: 'profiles', populates }
-  // 'profiles#populate=owner:users' // string equivalent
 ])
 @connect(
-  ({ firebase, firebase: { auth, data: { profiles } } }, { params }) => ({
-    auth,
-    profiles: populate(firebase, 'profiles', populates)
+  // map state to props
+  ({ firebase, firebase: { auth, data: { profiles } }, form: { newProfile } }, { params }) => (
+    {
+      auth,
+      newProfileModal: newProfile,
+      profiles: populate(firebase, 'profiles', populates)
+    }
+  ),
+  // map dispatch to props
+  dispatch => ({
+    toggleNewProfileModal: toggleNewProfileModal(dispatch)
   })
 )
 export default class Profiles extends Component {
@@ -34,22 +44,16 @@ export default class Profiles extends Component {
     router: PropTypes.object.isRequired
   }
 
-  static propTypes = {
-    children: PropTypes.object,
-    firebase: PropTypes.object.isRequired,
-    profiles: PropTypes.object,
-    unpopulatedProfiles: PropTypes.object,
-    auth: PropTypes.object
-  }
-
   state = {
     newProfileModal: false
   }
 
   newSubmit = newProfile => {
+    newProfile.createdBy = this.props.auth.uid
+
     return this.props.firebase
       .push('profiles', newProfile)
-      .then(() => this.setState({ newProfileModal: false }))
+      .then(() => this.toggleModal(false))
       .catch(err => {
         // TODO: Show Snackbar
         console.error('error creating new profile', err) // eslint-disable-line
@@ -58,23 +62,25 @@ export default class Profiles extends Component {
 
   deleteProfile = key => this.props.firebase.remove(`profiles/${key}`)
 
-  toggleModal = (name, profile) => {
-    let newState = {}
-    newState[`${name}Modal`] = !this.state[`${name}Modal`]
-    this.setState(newState)
+  toggleModal = (open) => {
+    this.props.toggleNewProfileModal(open)
   }
 
   getDeleteVisible = key => {
-    const { auth, unpopulatedProfiles } = this.props
+    const { auth, profiles } = this.props
     return (
       !isEmpty(this.props.auth) &&
-      get(unpopulatedProfiles, `${key}.createdBy`) === auth.uid
+      profiles[key] &&
+      profiles[key].createdBy.uid === auth.uid
     )
   }
 
   render() {
-    const { profiles, auth } = this.props
-    const { newProfileModal } = this.state
+    console.group('ProfilesContainer::render')
+    // console.log(this.props)
+    console.groupEnd()
+    const { profiles, auth, newProfileModal } = this.props
+    // const { newProfileModal } = this.state
 
     if (!isLoaded(profiles, auth)) {
       return <LoadingSpinner />
@@ -90,17 +96,17 @@ export default class Profiles extends Component {
       <div className={classes.container}>
         {newProfileModal && (
           <NewProfileDialog
-            open={newProfileModal}
+            open={!!newProfileModal}
             onSubmit={this.newSubmit}
-            onRequestClose={() => this.toggleModal('newProfile')}
+            onRequestClose={() => this.toggleModal(false)}
           />
         )}
         <div className={classes.tiles}>
-          <NewProfileTile onClick={() => this.toggleModal('newProfile')} />
+          <NewProfileTile onClick={() => this.toggleModal(true)} />
           {!isEmpty(profiles) &&
             map(profiles, (profile, key) => (
               <ProfileTile
-                key={`${profile.name}-Collab-${key}`}
+                key={`${profile.displayName}-Collab-${key}`}
                 profile={profile}
                 onCollabClick={this.collabClick}
                 onSelect={() => this.context.router.push(`${PROFILE_LIST_PATH}/${key}`)}
@@ -111,5 +117,13 @@ export default class Profiles extends Component {
         </div>
       </div>
     )
+  }
+
+  static propTypes = {
+    children: PropTypes.object,
+    firebase: PropTypes.object.isRequired,
+    profiles: PropTypes.object,
+    unpopulatedProfiles: PropTypes.object,
+    auth: PropTypes.object
   }
 }
