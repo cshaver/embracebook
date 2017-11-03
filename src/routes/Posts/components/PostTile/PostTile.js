@@ -9,9 +9,9 @@ import classes from './PostTile.scss'
 export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
   <Paper className={classes.container}>
     <div className={classes.top}>
-      <span className={classes.name} onClick={() => onSelect(post)}>
-        {post.name}
-      </span>
+      <p className={classes.name} onClick={() => onSelect(post)}>
+        {post.content}
+      </p>
       {showDelete && onDelete ? (
         <IconButton tooltip="delete" onClick={onDelete}>
           <DeleteIcon />
@@ -19,9 +19,9 @@ export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
       ) : null}
     </div>
     <span className={classes.owner}>
-      {isObject(post.createdBy)
-        ? post.createdBy.displayName
-        : post.createdBy || 'No Owner'}
+      {isObject(post.author)
+        ? post.author.displayName
+        : post.author || 'No Owner'}
     </span>
   </Paper>
 )

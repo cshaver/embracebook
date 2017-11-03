@@ -21,7 +21,10 @@ import { toggleNewPostModal } from '../actions'
 
 import classes from './PostsContainer.scss'
 
-const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
+const populates = [
+  { child: 'createdBy', root: 'users', keyProp: 'uid' },
+  { child: 'author', root: 'profiles', keyProp: 'uid' }
+]
 
 @UserIsAuthenticated
 @firebaseConnect([
@@ -45,10 +48,6 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 export default class Posts extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
-  }
-
-  state = {
-    newPostModal: false
   }
 
   newSubmit = newPost => {
@@ -85,7 +84,6 @@ export default class Posts extends Component {
 
   render() {
     const { posts, auth, newPostModal } = this.props
-    // const { newPostModal } = this.state
 
     if (!isLoaded(posts, auth)) {
       return <LoadingSpinner />
@@ -111,7 +109,7 @@ export default class Posts extends Component {
           {!isEmpty(posts) &&
             map(posts, (post, key) => (
               <PostTile
-                key={`${post.displayName}-Collab-${key}`}
+                key={`${post.createdBy}-Collab-${key}`}
                 post={post}
                 onCollabClick={this.collabClick}
                 onSelect={() => this.context.router.push(`${POST_LIST_PATH}/${key}`)}

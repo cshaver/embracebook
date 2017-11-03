@@ -13,7 +13,7 @@ export function newProfileFormReducer(state = null, action) {
     	}
       return state ? null : {...action.props}
     case '@@redux-form/CHANGE':
-    	if (action.meta.field !== 'displayName') {
+      if (action.meta.field !== 'displayName') {
     		return state
     	}
 

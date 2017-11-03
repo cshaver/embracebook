@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { map, get } from 'lodash'
 import { connect } from 'react-redux'
+import {
+  firebaseConnect,
+  isEmpty
+} from 'react-redux-firebase'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import { Field, reduxForm } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 import { required, validateSlug } from 'utils/form'
 import { NEW_POST_FORM_NAME } from 'constants'
@@ -13,15 +20,28 @@ import { NEW_POST_FORM_NAME } from 'constants'
 
 import classes from './NewPostDialog.scss'
 
+// const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
+
+@firebaseConnect([
+  { path: 'profiles' }
+])
+@connect(
+  // map state to props
+  ({ firebase, firebase: { data: { profiles } } }, { params }) => ( { profiles } )
+)
 // @VerboseLogging
 export class NewPostDialog extends Component {
+  state = {
+    value: 2
+  }
+
   render() {
     const {
       open,
       onRequestClose,
       submit,
       handleSubmit,
-      newPost
+      profiles
     } = this.props
 
     return (
@@ -36,27 +56,37 @@ export class NewPostDialog extends Component {
         ]}>
         <form onSubmit={handleSubmit} className={classes.inputs}>
           <Field
-            name="displayName"
-            component={TextField}
-            floatingLabelText="Display Name"
+            name="author"
+            component="select"
+            // component={() => (
+              // <DropDownMenu onChange={this.handleChange}>
+              //   <MenuItem value="" label="Choose..." primaryText="Choose..." />
+              //   <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning" />
+              //   <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon" />
+              //   <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening" />
+              //   <MenuItem value={4} label="9 pm - 5 am" primaryText="Night" />
+              // </DropDownMenu>
+            // )}
+            // floatingLabelText="Author"
             validate={[required]}
-          />
+          >
+            <option value="" disabled>Author</option>
+            {!isEmpty(profiles) &&
+              map(profiles, (profile, key) => (
+                <option key={key} value={key}>{profile.displayName}</option>
+              ))}
+          </Field>
           <Field
-            name="slug"
+            name="content"
             component={TextField}
-            validate={[required, validateSlug]}
-            floatingLabelText="Slug"
-          />
-          <Field
-            name="avatarUrl"
-            component={TextField}
-            floatingLabelText="Avatar Url"
+            floatingLabelText="Content"
             validate={[required]}
+            props={{
+              fullWidth: true,
+              multiLine: true,
+              rows: 1
+            }}
           />
-          {
-            newPost.values && newPost.values.avatarUrl &&
-            (<div><img src={newPost.values.avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
-          }
         </form>
       </Dialog>
     )
@@ -71,10 +101,6 @@ export class NewPostDialog extends Component {
   }
 }
 
-NewPostDialog = reduxForm({
+export default NewPostDialog = reduxForm({
   form: NEW_POST_FORM_NAME
 })(NewPostDialog)
-
-export default connect(
-  ({ form: { newPost, newPost: { initialValues, values } } }) => ({ initialValues, newPost })
-)(NewPostDialog)
