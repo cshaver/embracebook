@@ -1,6 +1,6 @@
 // paths
-export const PROJECT_LIST_PATH = '/projects'
-export const PROJECT_DETAIL_PATH = ':projectname'
+export const POST_LIST_PATH = '/posts'
+export const POST_DETAIL_PATH = ':postname'
 
 export const PROFILE_LIST_PATH = '/npcs'
 export const PROFILE_DETAIL_PATH = ':npcname'
@@ -10,7 +10,7 @@ export const LOGIN_PATH = '/login'
 export const TERMS_PATH = '/terms'
 
 // form names
-export const NEW_PROJECT_FORM_NAME = 'newProject'
+export const NEW_POST_FORM_NAME = 'newPost'
 export const NEW_TODO_FORM_NAME = 'newTodo'
 
 export const NEW_PROFILE_FORM_NAME = 'newProfile'

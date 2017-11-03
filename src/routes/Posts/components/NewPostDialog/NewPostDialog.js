@@ -5,18 +5,18 @@ import FlatButton from 'material-ui/FlatButton'
 import { Field, reduxForm } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
 import { required } from 'utils/form'
-import { NEW_PROJECT_FORM_NAME } from 'constants'
+import { NEW_POST_FORM_NAME } from 'constants'
 
-import classes from './NewProjectDialog.scss'
+import classes from './NewPostDialog.scss'
 
-export const NewProjectDialog = ({
+export const NewPostDialog = ({
   open,
   onRequestClose,
   submit,
   handleSubmit
 }) => (
   <Dialog
-    title="New Project"
+    title="New Post"
     open={open}
     onRequestClose={onRequestClose}
     contentClassName={classes.container}
@@ -28,14 +28,14 @@ export const NewProjectDialog = ({
       <Field
         name="name"
         component={TextField}
-        floatingLabelText="Project Name"
+        floatingLabelText="Post Name"
         validate={[required]}
       />
     </form>
   </Dialog>
 )
 
-NewProjectDialog.propTypes = {
+NewPostDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
@@ -44,5 +44,5 @@ NewProjectDialog.propTypes = {
 }
 
 export default reduxForm({
-  form: NEW_PROJECT_FORM_NAME
-})(NewProjectDialog)
+  form: NEW_POST_FORM_NAME
+})(NewPostDialog)

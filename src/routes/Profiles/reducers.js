@@ -23,7 +23,6 @@ export function newProfileFormReducer(state = null, action) {
   }
 }
 
-
 function updateDefaults(state, displayName) {
   const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true })
 

@@ -4,13 +4,13 @@ import Paper from 'material-ui/Paper'
 import { isObject } from 'lodash'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
-import classes from './ProjectTile.scss'
+import classes from './PostTile.scss'
 
-export const ProjectTile = ({ project, onSelect, onDelete, showDelete }) => (
+export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
   <Paper className={classes.container}>
     <div className={classes.top}>
-      <span className={classes.name} onClick={() => onSelect(project)}>
-        {project.name}
+      <span className={classes.name} onClick={() => onSelect(post)}>
+        {post.name}
       </span>
       {showDelete && onDelete ? (
         <IconButton tooltip="delete" onClick={onDelete}>
@@ -19,18 +19,18 @@ export const ProjectTile = ({ project, onSelect, onDelete, showDelete }) => (
       ) : null}
     </div>
     <span className={classes.owner}>
-      {isObject(project.createdBy)
-        ? project.createdBy.displayName
-        : project.createdBy || 'No Owner'}
+      {isObject(post.createdBy)
+        ? post.createdBy.displayName
+        : post.createdBy || 'No Owner'}
     </span>
   </Paper>
 )
 
-ProjectTile.propTypes = {
-  project: PropTypes.object.isRequired,
+PostTile.propTypes = {
+  post: PropTypes.object.isRequired,
   onSelect: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   showDelete: PropTypes.bool
 }
 
-export default ProjectTile
+export default PostTile
