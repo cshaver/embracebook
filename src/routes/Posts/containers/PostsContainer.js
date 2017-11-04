@@ -28,15 +28,16 @@ const populates = [
 
 @UserIsAuthenticated
 @firebaseConnect([
-  { path: 'posts', populates }
+  { path: 'posts', /* queryParams: ['orderByChild=timestamp'], */ populates }
 ])
 @connect(
   // map state to props
-  ({ firebase, firebase: { auth, data: { posts } }, form: { newPost } }, { params }) => (
+  ({ firebase, firebase: { auth, data: { users, profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
     {
       auth,
       newPostModal: newPost,
       posts: populate(firebase, 'posts', populates)
+      // posts: posts ? posts.map(({ key, value }) => ({ ...value, key, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
     }
   ),
   // map dispatch to props
@@ -52,6 +53,8 @@ export default class Posts extends Component {
 
   newSubmit = newPost => {
     newPost.createdBy = this.props.auth.uid
+    // unix seconds, instead of milliseconds
+    newPost.timestamp = (new Date()).getTime() / 1000
 
     return this.props.firebase
       .push('posts', newPost)
@@ -116,7 +119,7 @@ export default class Posts extends Component {
                 onDelete={() => this.deletePost(key)}
                 showDelete={this.getDeleteVisible(key)}
               />
-            ))}
+            )).reverse()}
         </div>
       </div>
     )
@@ -125,7 +128,10 @@ export default class Posts extends Component {
   static propTypes = {
     children: PropTypes.object,
     firebase: PropTypes.object.isRequired,
-    posts: PropTypes.object,
-    auth: PropTypes.object
+    auth: PropTypes.object,
+    posts: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ])
   }
 }

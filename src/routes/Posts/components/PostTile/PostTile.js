@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 import { isObject } from 'lodash'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import moment from 'moment'
 import classes from './PostTile.scss'
 
 export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
@@ -22,6 +23,12 @@ export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
       {isObject(post.author)
         ? post.author.displayName
         : post.author || 'No Owner'}
+    </span>
+    <span className={classes.owner}>
+      {post.timestamp
+        ? moment.unix(post.timestamp).fromNow()
+        : ''
+      }
     </span>
   </Paper>
 )
