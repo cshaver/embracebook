@@ -32,12 +32,13 @@ export default (initialState = {}) => {
   // ======================================================
 
   let composeReducers = compose
+  const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 
   // enable Redux dev tools
   if (__DEV__) {
-    composeReducers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      actionsBlacklist: ['@@reactReduxFirebase']
-    }) || compose
+    composeReducers = devTools ? devTools({
+      // actionsBlacklist: ['@@reactReduxFirebase']
+    }) : compose
   }
 
   const store = createStore(

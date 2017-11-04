@@ -4,7 +4,7 @@ import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { withRouter } from 'utils/components'
 import FirebaseUIAuth from '../FirebaseUIAuth'
-import { ACCOUNT_PATH, PROJECT_LIST_PATH, TERMS_PATH } from 'constants'
+import { ACCOUNT_PATH, POST_LIST_PATH, TERMS_PATH } from 'constants'
 
 import classes from './LoginPage.scss'
 
@@ -20,7 +20,7 @@ export default class LoginPage extends Component {
       <div className={classes.container}>
         <FirebaseUIAuth
           signInSuccess={this.signInSuccess}
-          signInSuccessUrl={PROJECT_LIST_PATH}
+          signInSuccessUrl={POST_LIST_PATH}
           tosUrl={TERMS_PATH}
           />
       </div>
@@ -44,7 +44,7 @@ export default class LoginPage extends Component {
             console.error('Error updating account', err) // eslint-disable-line no-console
           })
       } else {
-        router.push(PROJECT_LIST_PATH)
+        router.push(POST_LIST_PATH)
       }
     }
   }

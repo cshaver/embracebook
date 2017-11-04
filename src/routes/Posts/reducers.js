@@ -1,19 +1,19 @@
-import { TOGGLE_NEW_PROFILE_MODAL } from './actions'
+import { TOGGLE_NEW_POST_MODAL } from './actions'
 
 import slugify from 'slugify'
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function newProfileFormReducer(state = null, action) {
+export function newPostFormReducer(state = null, action) {
   switch (action.type) {
-    case TOGGLE_NEW_PROFILE_MODAL:
+    case TOGGLE_NEW_POST_MODAL:
     	if (typeof action.open !== 'undefined') {
     		return action.open ? state || {...action.props} : null
     	}
       return state ? null : {...action.props}
     case '@@redux-form/CHANGE':
-      if (action.meta.field !== 'displayName') {
+    	if (action.meta.field !== 'displayName') {
     		return state
     	}
 

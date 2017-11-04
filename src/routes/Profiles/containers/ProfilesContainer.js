@@ -47,10 +47,6 @@ export default class Profiles extends Component {
     router: PropTypes.object.isRequired
   }
 
-  state = {
-    newProfileModal: false
-  }
-
   newSubmit = newProfile => {
     newProfile.createdBy = this.props.auth.uid
 
@@ -85,7 +81,6 @@ export default class Profiles extends Component {
 
   render() {
     const { profiles, auth, newProfileModal } = this.props
-    // const { newProfileModal } = this.state
 
     if (!isLoaded(profiles, auth)) {
       return <LoadingSpinner />
