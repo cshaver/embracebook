@@ -22,13 +22,6 @@ import classes from './NewPostDialog.scss'
 
 // const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 
-@firebaseConnect([
-  { path: 'profiles' }
-])
-@connect(
-  // map state to props
-  ({ firebase, firebase: { data: { profiles } } }, { params }) => ( { profiles } )
-)
 // @VerboseLogging
 export class NewPostDialog extends Component {
   state = {
