@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
-import { Notifications } from 'modules/notification'
 
 // Themeing/Styling
 import Theme from 'theme'
@@ -30,10 +29,7 @@ export default class AppContainer extends Component {
     const { routes, store } = this.props
     return (
       <Provider store={store}>
-        <div>
-          <Router history={browserHistory}>{routes}</Router>
-          <Notifications />
-        </div>
+        <Router history={browserHistory}>{routes}</Router>
       </Provider>
     )
   }

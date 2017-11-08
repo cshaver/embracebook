@@ -1,14 +1,14 @@
 {
-  "name": "react-redux-firebase-material-example",
+  "name": "embracebook",
   "version": "0.0.1",
-  "description": "Complete react-redux-firebase Material-UI app.",
+  "description": "Embracebook",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
     "compile": "node build/scripts/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
     "build:prod": "echo \"build:prod is deprecated. Use npm run build.\" && npm run build",
-    "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t material -- node build/scripts/start",
+    "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t embracebook -- node build/scripts/start",
     "start:simple": "cross-env NODE_ENV=development node build/scripts/start",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/testuser/material.git"
+    "url": "git+https://github.com/cshaver/embracebook.git"
   },
   "author": "testuser (https://github.com/testuser)",
   "license": "MIT",
@@ -95,7 +95,7 @@
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
-    "webpack-dashboard": "^0.4.0",
+    "webpack-dashboard": "^1.0.1",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.13.2",
     "yargs": "^8.0.1"
