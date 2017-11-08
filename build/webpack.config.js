@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const loaderUtils = require('loader-utils')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
@@ -125,7 +126,18 @@ config.module.rules.push({
           sourceMap: project.sourcemaps,
           modules: true,
           importLoaders: 2,
-          localIdentName: '[name]__[local]___[hash:base64:5]',
+          localIdentName: '[path][name]__[local]___[hash:base64:5]',
+          getLocalIdent: (context, localIdentName, localName, options) => {
+            var hash = loaderUtils.interpolateName(context, `[hash:base64:5]`, {content: context.resourcePath})
+            var parsed = path.parse(context.resourcePath)
+            var name = parsed.name
+
+            if (name === 'index') {
+              name = path.basename(parsed.dir)
+            }
+
+            return `${name}-${localName}--${hash}`
+          },
           minimize: {
             autoprefixer: {
               add: true,
