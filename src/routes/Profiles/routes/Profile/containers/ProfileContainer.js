@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
-import LoadingSpinner from 'components/LoadingSpinner'
+import ProgressIndicator from 'components/ProgressIndicator'
 import classes from './ProfileContainer.scss'
 
 // Get profile path from firebase based on params prop (route params from react-router)
@@ -26,7 +26,7 @@ export default class Profile extends Component {
     }
 
     if (!isLoaded(profile)) {
-      return <LoadingSpinner />
+      return <ProgressIndicator />
     }
 
     return (

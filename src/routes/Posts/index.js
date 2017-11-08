@@ -20,15 +20,5 @@ export default store => ({
       },
       'Posts'
     )
-  },
-  getChildRoutes(partialNextState, cb) {
-    require.ensure([], require => {
-      /*  Webpack - use require callback to define
-          dependencies for bundling   */
-      const Post = require('./routes/Post').default
-
-      /*  Return getComponent   */
-      cb(null, [Post(store)])
-    })
   }
 })

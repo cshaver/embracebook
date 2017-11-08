@@ -1,7 +1,7 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper'
 import { browserHistory } from 'react-router'
 import { POST_LIST_PATH } from 'constants'
-import LoadingSpinner from 'components/LoadingSpinner'
+import ProgressIndicator from 'components/ProgressIndicator'
 
 const AUTHED_REDIRECT = 'AUTHED_REDIRECT'
 const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT'
@@ -15,7 +15,7 @@ const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT'
 export const UserIsAuthenticated = UserAuthWrapper({
   // eslint-disable-line new-cap
   wrapperDisplayName: 'UserIsAuthenticated',
-  LoadingComponent: LoadingSpinner,
+  LoadingComponent: ProgressIndicator,
   authSelector: ({ firebase: { auth } }) => auth,
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
@@ -41,7 +41,7 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   // eslint-disable-line new-cap
   wrapperDisplayName: 'UserIsNotAuthenticated',
   allowRedirectBack: false,
-  LoadingComponent: LoadingSpinner,
+  LoadingComponent: ProgressIndicator,
   failureRedirectPath: (state, props) =>
     // redirect to page user was on or to list path
     props.location.query.redirect || POST_LIST_PATH,

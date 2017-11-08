@@ -8,7 +8,7 @@ import {
   // populate
 } from 'react-redux-firebase'
 import { UserIsAuthenticated } from 'utils/router'
-import LoadingSpinner from 'components/LoadingSpinner'
+import ProgressIndicator from 'components/ProgressIndicator'
 import AccountForm from '../components/AccountForm/AccountForm'
 import classes from './AccountContainer.scss'
 
@@ -40,7 +40,7 @@ export default class Account extends Component {
     console.groupEnd()
 
     if (!isLoaded(profile)) {
-      return <LoadingSpinner />
+      return <ProgressIndicator />
     }
 
     return (

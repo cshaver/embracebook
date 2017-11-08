@@ -11,7 +11,7 @@ import {
 
 import { PROFILE_LIST_PATH } from 'constants'
 import { UserIsAuthenticated } from 'utils/router'
-import LoadingSpinner from 'components/LoadingSpinner'
+import ProgressIndicator from 'components/ProgressIndicator'
 import ProfileTile from '../components/ProfileTile'
 import NewProfileTile from '../components/NewProfileTile'
 import NewProfileDialog from '../components/NewProfileDialog'
@@ -83,7 +83,7 @@ export default class Profiles extends Component {
     const { profiles, auth, newProfileModal } = this.props
 
     if (!isLoaded(profiles, auth)) {
-      return <LoadingSpinner />
+      return <ProgressIndicator />
     }
 
     // Profile Route is being loaded

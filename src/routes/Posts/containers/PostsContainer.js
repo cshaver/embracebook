@@ -11,7 +11,7 @@ import {
 
 import { POST_LIST_PATH } from 'constants'
 import { UserIsAuthenticated } from 'utils/router'
-import LoadingSpinner from 'components/LoadingSpinner'
+import ProgressIndicator from 'components/ProgressIndicator'
 import PostTile from '../components/PostTile'
 import NewPostTile from '../components/NewPostTile'
 import NewPostDialog from '../components/NewPostDialog'
@@ -100,9 +100,9 @@ export default class Posts extends Component {
   render() {
     const { posts, auth, newPostModal, profiles } = this.props
 
-    if (!isLoaded(posts, auth)) {
-      return <LoadingSpinner />
-    }
+    // if (!isLoaded(posts, auth)) {
+      return <ProgressIndicator />
+    // }
 
     // Post Route is being loaded
     if (this.props.children) {
