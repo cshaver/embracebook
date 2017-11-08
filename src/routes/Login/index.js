@@ -1,5 +1,5 @@
 import { LOGIN_PATH as path } from 'constants'
-import component from './components/LoginPage'
+import component from './containers/LoginPage'
 
 export default {
   path,

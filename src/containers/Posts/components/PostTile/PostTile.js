@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper'
 import { isObject } from 'lodash'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
-import CommentsContainer from '../../containers/CommentsContainer'
+import CommentsContainer from 'containers/Comments'
 import moment from 'moment'
 import classes from './PostTile.scss'
 

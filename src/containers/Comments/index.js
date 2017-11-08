@@ -10,7 +10,7 @@ import {
 } from 'react-redux-firebase'
 
 // import { POST_LIST_PATH } from 'constants'
-import NewCommentForm from '../components/NewCommentForm'
+import NewCommentForm from './components/NewCommentForm'
 
 // import { VerboseLogging } from 'utils/logging'
 

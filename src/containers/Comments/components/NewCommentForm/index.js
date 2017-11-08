@@ -18,7 +18,7 @@ import { NEW_POST_FORM_NAME } from 'constants'
 
 // import { VerboseLogging } from 'utils/logging'
 
-import classes from './NewCommentForm.scss'
+import classes from './index.scss'
 
 // const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 

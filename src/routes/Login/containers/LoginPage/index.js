@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { withRouter } from 'utils/components'
-import FirebaseUIAuth from '../FirebaseUIAuth'
+import FirebaseUIAuth from 'containers/FirebaseUIAuth'
 import { ACCOUNT_PATH, POST_LIST_PATH, TERMS_PATH } from 'constants'
 
-import classes from './LoginPage.scss'
+import classes from './index.scss'
 
 @firebaseConnect()
 @connect(({ firebase: { auth, profile } }) => ({

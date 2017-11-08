@@ -12,14 +12,14 @@ import {
 import { POST_LIST_PATH } from 'constants'
 import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
-import PostTile from '../components/PostTile'
-import NewPostTile from '../components/NewPostTile'
-import NewPostDialog from '../components/NewPostDialog'
-import { toggleNewPostModal } from '../actions'
+import PostTile from './components/PostTile'
+import NewPostTile from './components/NewPostTile'
+import NewPostDialog from './components/NewPostDialog'
+import { toggleNewPostModal } from './actions'
 
 // import { VerboseLogging } from 'utils/logging'
 
-import classes from './PostsContainer.scss'
+import classes from './index.scss'
 
 const populates = [
   { child: 'createdBy', root: 'users', keyProp: 'uid' },
@@ -100,9 +100,9 @@ export default class Posts extends Component {
   render() {
     const { posts, auth, newPostModal, profiles } = this.props
 
-    // if (!isLoaded(posts, auth)) {
+    if (!isLoaded(posts, auth)) {
       return <ProgressIndicator />
-    // }
+    }
 
     // Post Route is being loaded
     if (this.props.children) {

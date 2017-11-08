@@ -1,7 +1,4 @@
 // paths
-export const POST_LIST_PATH = '/posts'
-export const POST_DETAIL_PATH = ':postname'
-
 export const PROFILE_LIST_PATH = '/npcs'
 export const PROFILE_DETAIL_PATH = ':npcname'
 
