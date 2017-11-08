@@ -9,8 +9,8 @@ import {
 } from 'react-redux-firebase'
 import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
-import AccountForm from '../components/AccountForm/AccountForm'
-import classes from './AccountContainer.scss'
+import AccountForm from './components/AccountForm'
+import classes from './index.scss'
 
 @UserIsAuthenticated
 @firebaseConnect()
@@ -34,10 +34,6 @@ export default class Account extends Component {
 
   render() {
     const { profile } = this.props
-
-    console.group('AccountContainer::render')
-    console.log(profile)
-    console.groupEnd()
 
     if (!isLoaded(profile)) {
       return <ProgressIndicator />

@@ -9,7 +9,7 @@ export default store => ({
       require => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Profile = require('./containers/ProfileContainer').default
+        const Profile = require('containers/Profile').default
 
         /*  Return getComponent   */
         cb(null, Profile)

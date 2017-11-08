@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import ProgressIndicator from 'components/ProgressIndicator'
-import classes from './ProfileContainer.scss'
+import classes from './index.scss'
 
 // Get profile path from firebase based on params prop (route params from react-router)
 @firebaseConnect(({ params: { profilename } }) => [`profiles/${profilename}`])
