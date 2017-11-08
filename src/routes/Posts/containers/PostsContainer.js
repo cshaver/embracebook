@@ -28,16 +28,28 @@ const populates = [
 
 @UserIsAuthenticated
 @firebaseConnect([
-  { path: 'posts', /* queryParams: ['orderByChild=timestamp'], */ populates }
+  { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates }
 ])
 @connect(
   // map state to props
   ({ firebase, firebase: { auth, data: { users, profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
     {
       auth,
+      profiles,
       newPostModal: newPost,
-      posts: populate(firebase, 'posts', populates)
-      // posts: posts ? posts.map(({ key, value }) => ({ ...value, key, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
+      // posts: populate(firebase, 'posts', populates)
+      posts: posts ? map(posts, (post, uid) => ({
+        ...post,
+        uid,
+        createdBy: users[post.createdBy],
+        author: profiles[post.author],
+        comments: map(post.comments, (comment, uid) => ({
+          ...comment,
+          uid,
+          author: profiles[comment.author]
+        }))
+      })) : []
+      // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
     }
   ),
   // map dispatch to props
@@ -86,7 +98,7 @@ export default class Posts extends Component {
   }
 
   render() {
-    const { posts, auth, newPostModal } = this.props
+    const { posts, auth, newPostModal, profiles } = this.props
 
     if (!isLoaded(posts, auth)) {
       return <LoadingSpinner />
@@ -102,6 +114,7 @@ export default class Posts extends Component {
       <div className={classes.container}>
         {newPostModal && (
           <NewPostDialog
+            profiles={profiles}
             open={!!newPostModal}
             onSubmit={this.newSubmit}
             onRequestClose={() => this.toggleModal(false)}
@@ -114,6 +127,8 @@ export default class Posts extends Component {
               <PostTile
                 key={`${post.createdBy}-Collab-${key}`}
                 post={post}
+                profiles={profiles}
+                user={auth.uid}
                 onCollabClick={this.collabClick}
                 onSelect={() => this.context.router.push(`${POST_LIST_PATH}/${key}`)}
                 onDelete={() => this.deletePost(key)}

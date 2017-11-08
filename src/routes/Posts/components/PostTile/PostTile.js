@@ -4,13 +4,14 @@ import Paper from 'material-ui/Paper'
 import { isObject } from 'lodash'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import CommentsContainer from '../../containers/CommentsContainer'
 import moment from 'moment'
 import classes from './PostTile.scss'
 
-export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
+export const PostTile = ({ post, onDelete, showDelete, profiles, user }) => (
   <Paper className={classes.container}>
     <div className={classes.top}>
-      <p className={classes.name} onClick={() => onSelect(post)}>
+      <p className={classes.name}>
         {post.content}
       </p>
       {showDelete && onDelete ? (
@@ -30,12 +31,12 @@ export const PostTile = ({ post, onSelect, onDelete, showDelete }) => (
         : ''
       }
     </span>
+    <CommentsContainer profiles={profiles} post={post} user={user} />
   </Paper>
 )
 
 PostTile.propTypes = {
   post: PropTypes.object.isRequired,
-  onSelect: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   showDelete: PropTypes.bool
 }
