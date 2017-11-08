@@ -11,7 +11,7 @@ export default store => ({
       require => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Profiles = require('./containers/ProfilesContainer').default
+        const Profiles = require('containers/Profiles').default
 
         /*  Return getComponent   */
         cb(null, Profiles)

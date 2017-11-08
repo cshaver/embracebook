@@ -12,14 +12,14 @@ import {
 import { PROFILE_LIST_PATH } from 'constants'
 import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
-import ProfileTile from '../components/ProfileTile'
-import NewProfileTile from '../components/NewProfileTile'
-import NewProfileDialog from '../components/NewProfileDialog'
-import { toggleNewProfileModal } from '../actions'
+import ProfileTile from './components/ProfileTile'
+import NewProfileTile from './components/NewProfileTile'
+import NewProfileDialog from './components/NewProfileDialog'
+import { toggleNewProfileModal } from './actions'
 
 // import { VerboseLogging } from 'utils/logging'
 
-import classes from './ProfilesContainer.scss'
+import classes from './index.scss'
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 
