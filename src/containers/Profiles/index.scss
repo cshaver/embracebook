@@ -10,8 +10,7 @@
 }
 
 .tiles {
-  @extend .flex-row-center;
-  -webkit-flex-flow: row wrap;
+  @extend .flex-row-center;LoginPage
   justify-content: center;
   flex-wrap: wrap;
 }

@@ -20,6 +20,7 @@
     justify-content: flex-end;
   }
 }
+
 .wrapper {
   @extend .flex-row;
   align-items: flex-start;
@@ -27,6 +28,7 @@
   flex-grow: 1;
   height: 64px;
 }
+
 .avatar {
   margin-right: 1rem;
   @extend .flex-row-center;

@@ -5,16 +5,19 @@
   align-items: center;
   padding-top: 4rem;
 }
+
 .pane {
   @extend .flex-column-center;
   justify-content: space-around;
   flex-basis: 60%;
 }
+
 .settings {
   @extend .flex-row-center;
   align-items: center;
   width: 100%;
 }
+
 .avatar {
   &Current {
     width: 100%;
@@ -23,6 +26,7 @@
     cursor: pointer;
   }
 }
+
 .meta {
   @extend .flex-column-center;
   justify-content: center;
