@@ -24,14 +24,6 @@ import classes from './NewCommentForm.scss'
 
 // @VerboseLogging
 export class NewCommentForm extends Component {
-  state = {
-    value: 2
-  }
-
-  onSubmitSuccess() {
-    console.log('success!')
-  }
-
   render() {
     const {
       handleSubmit,
@@ -56,11 +48,6 @@ export class NewCommentForm extends Component {
           component={TextField}
           floatingLabelText="Content"
           validate={[required]}
-          props={{
-            fullWidth: true,
-            multiLine: true,
-            rows: 1
-          }}
         />
         <FlatButton label="Submit" type="submit" primary />,
       </form>
