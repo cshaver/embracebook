@@ -31,8 +31,8 @@ export class NewProfileDialog extends Component {
         onRequestClose={onRequestClose}
         contentClassName={classes.container}
         actions={[
-          <FlatButton label="Cancel" secondary onTouchTap={onRequestClose} />,
-          <FlatButton label="Create" primary onTouchTap={submit} />
+          <FlatButton label="Cancel" secondary onClick={onRequestClose} />,
+          <FlatButton label="Create" primary onClick={submit} />
         ]}>
         <form onSubmit={handleSubmit} className={classes.inputs}>
           <Field
