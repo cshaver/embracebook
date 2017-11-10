@@ -7,7 +7,6 @@
     "clean": "rimraf dist",
     "compile": "node build/scripts/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "build:prod": "echo \"build:prod is deprecated. Use npm run build.\" && npm run build",
     "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t embracebook -- node build/scripts/start",
     "start:simple": "cross-env NODE_ENV=development node build/scripts/start",
     "lint": "eslint .",
@@ -18,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/cshaver/embracebook.git"
   },
-  "author": "testuser (https://github.com/testuser)",
+  "author": "Cristina Shaver (https://github.com/cshaver)",
   "license": "MIT",
   "dependencies": {
     "babel-preset-stage-0": "^6.24.1",
