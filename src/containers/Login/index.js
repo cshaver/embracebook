@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { withRouter } from 'utils/components'
+import { UserIsNotAuthenticated } from 'utils/router'
 import FirebaseUIAuth from 'containers/FirebaseUIAuth'
 import { ACCOUNT_PATH, POST_LIST_PATH, TERMS_PATH } from 'constants'
 
 import classes from './index.scss'
 
+@UserIsNotAuthenticated
 @firebaseConnect()
 @connect(({ firebase: { auth, profile } }) => ({
   profile,

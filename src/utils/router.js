@@ -44,7 +44,7 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   LoadingComponent: ProgressIndicator,
   failureRedirectPath: (state, props) =>
     // redirect to page user was on or to list path
-    props.location.query.redirect || POST_LIST_PATH,
+    (props.location.query && props.location.query.redirect) || POST_LIST_PATH,
   authSelector: ({ firebase: { auth } }) => auth,
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,

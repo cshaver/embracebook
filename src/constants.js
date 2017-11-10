@@ -2,6 +2,8 @@
 export const NPC_LIST_PATH = '/npcs'
 export const PROFILE_DETAIL_PATH = '/profile/:uid/:slug'
 
+export const POST_LIST_PATH = '/'
+
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
 export const TERMS_PATH = '/terms'

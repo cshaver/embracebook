@@ -132,6 +132,10 @@ config.module.rules.push({
             var parsed = path.parse(context.resourcePath)
             var name = parsed.name
 
+            if (path.basename(parsed.dir) === 'styles') {
+              return localName
+            }
+
             if (name === 'index') {
               name = path.basename(parsed.dir)
             }
