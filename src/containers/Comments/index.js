@@ -12,10 +12,7 @@ import {
 // import { POST_LIST_PATH } from 'constants'
 import NewCommentForm from './components/NewCommentForm'
 
-// import { VerboseLogging } from 'utils/logging'
-
 @firebaseConnect()
-// @VerboseLogging
 export default class Comments extends Component {
 
   newSubmit = newComment => {

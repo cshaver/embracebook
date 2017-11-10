@@ -7,7 +7,7 @@ import 'styles/core.scss'
 export const CoreLayout = ({ children }) => (
   <div className={classes.container}>
     <Navbar />
-    <div className={classes.children}>{children}</div>
+    <main className={classes.children}>{children}</main>
   </div>
 )
 

@@ -21,9 +21,10 @@ globals:
 
 rules:
   semi: [1, 'never']
-  no-console: false
-  jsx-quotes: ['error', 'prefer-double']
-  prettier/prettier: ['error', {
+  no-console: 0
+  no-unused-vars: 1
+  jsx-quotes: [1, 'prefer-double']
+  prettier/prettier: [1, {
     singleQuote: true,
     trailingComma: 'es6',
     semi: false,

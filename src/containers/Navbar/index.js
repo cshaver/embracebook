@@ -35,27 +35,28 @@ export default class Navbar extends Component {
 
     const rightMenu =
       dataLoaded && authExists ? (
-        <div>
-          <div>
-            <img width={40} src={profile.avatarUrl} />
-            <span>{profile.displayName}</span>
-          </div>
+        <span>
+          <img width={40} src={profile.avatarUrl || `https://api.adorable.io/avatars/default.png`} />
+          <span>{profile.displayName}</span>
           <button onClick={() => this.context.router.push(ACCOUNT_PATH)}>Account</button>
           <button onClick={this.logout}>Sign out</button>
-        </div>
+        </span>
       ) : (
-        <div>
+        <span>
           <Link to={LOGIN_PATH}>
             <button>Login</button>
           </Link>
-        </div>
+        </span>
       )
 
     return (
-      <div className={classes.nav}>
+      <nav className={classes.nav}>
         <Link to='/'>embracebook</Link>
+        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        <Link to='/npcs'>Manage NPCs</Link>
+        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
         {rightMenu}
-      </div>
+      </nav>
     )
   }
 }

@@ -108,7 +108,6 @@ export default class Profiles extends Component {
               <ProfileTile
                 key={`${profile.displayName}-Collab-${key}`}
                 profile={profile}
-                onCollabClick={this.collabClick}
                 onSelect={() => this.context.router.push(`${PROFILE_LIST_PATH}/${key}`)}
                 onDelete={() => this.deleteProfile(key)}
                 showDelete={this.getDeleteVisible(key)}
