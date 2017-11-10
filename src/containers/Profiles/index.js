@@ -17,8 +17,6 @@ import NewProfileTile from './components/NewProfileTile'
 import NewProfileDialog from './components/NewProfileDialog'
 import { toggleNewProfileModal } from './actions'
 
-// import { VerboseLogging } from 'utils/logging'
-
 import classes from './index.scss'
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
@@ -29,11 +27,18 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 ])
 @connect(
   // map state to props
-  ({ firebase, firebase: { auth, data: { profiles } }, form: { newProfile } }, { params }) => (
+  ({ firebase, firebase: { auth, data: { users, profiles } }, form: { newProfile } }, { params }) => (
     {
       auth,
       newProfileModal: newProfile,
-      profiles: populate(firebase, 'profiles', populates)
+      profiles: profiles ? map(profiles, (profile, uid) => ({
+        ...profile,
+        uid,
+        createdBy: {
+          ...users[profile.createdBy],
+          uid: profile.createdBy
+        }
+      })) : []
     }
   ),
   // map dispatch to props
@@ -41,7 +46,6 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
     toggleNewProfileModal: toggleNewProfileModal(dispatch)
   })
 )
-// @VerboseLogging
 export default class Profiles extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
@@ -108,7 +112,6 @@ export default class Profiles extends Component {
               <ProfileTile
                 key={`${profile.displayName}-Collab-${key}`}
                 profile={profile}
-                onSelect={() => this.context.router.push(`${PROFILE_LIST_PATH}/${key}`)}
                 onDelete={() => this.deleteProfile(key)}
                 showDelete={this.getDeleteVisible(key)}
               />

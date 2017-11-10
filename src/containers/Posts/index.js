@@ -19,7 +19,6 @@ import { toggleNewPostModal } from './actions'
 import classes from './index.scss'
 
 const populates = [
-  { child: 'createdBy', root: 'users', keyProp: 'uid' },
   { child: 'author', root: 'profiles', keyProp: 'uid' }
 ]
 
@@ -38,10 +37,6 @@ const populates = [
       posts: posts ? map(posts, (post, uid) => ({
         ...post,
         uid,
-        createdBy: {
-          ...users[post.createdBy],
-          uid: post.createdBy
-        },
         author: {
           ...profiles[post.author],
           uid: post.author
@@ -85,7 +80,7 @@ export default class Posts extends Component {
     return (
       !isEmpty(this.props.auth) &&
       post &&
-      post.createdBy.uid === auth.uid
+      post.createdBy === auth.uid
     )
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 import Paper from 'material-ui/Paper'
 import { isObject } from 'lodash'
 import IconButton from 'material-ui/IconButton'
@@ -9,9 +10,9 @@ import classes from './index.scss'
 export const ProfileTile = ({ profile, onSelect, onDelete, showDelete }) => (
   <Paper className={classes.container}>
     <div className={classes.top}>
-      <span className={classes.name} onClick={() => onSelect(profile)}>
+      <Link to={`/profile/${profile.uid}/${profile.slug}`}>
         {profile.displayName}
-      </span>
+      </Link>
       {showDelete && onDelete ? (
         <IconButton tooltip="delete" onClick={onDelete}>
           <DeleteIcon />
