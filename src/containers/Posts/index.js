@@ -12,12 +12,9 @@ import {
 import { POST_LIST_PATH } from 'constants'
 import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
-import PostTile from './components/PostTile'
-import NewPostTile from './components/NewPostTile'
-import NewPostDialog from './components/NewPostDialog'
+import Post from './components/Post'
+import NewPostForm from './components/NewPostForm'
 import { toggleNewPostModal } from './actions'
-
-// import { VerboseLogging } from 'utils/logging'
 
 import classes from './index.scss'
 
@@ -41,7 +38,10 @@ const populates = [
       posts: posts ? map(posts, (post, uid) => ({
         ...post,
         uid,
-        createdBy: users[post.createdBy],
+        createdBy: {
+          ...users[post.createdBy],
+          uid: post.createdBy
+        },
         author: profiles[post.author],
         comments: map(post.comments, (comment, uid) => ({
           ...comment,
@@ -57,7 +57,6 @@ const populates = [
     toggleNewPostModal: toggleNewPostModal(dispatch)
   })
 )
-// @VerboseLogging
 export default class Posts extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
@@ -70,7 +69,6 @@ export default class Posts extends Component {
 
     return this.props.firebase
       .push('posts', newPost)
-      .then(() => this.toggleModal(false))
       .catch(err => {
         // TODO: Show Snackbar
         console.error('error creating new post', err) // eslint-disable-line
@@ -79,21 +77,12 @@ export default class Posts extends Component {
 
   deletePost = key => this.props.firebase.remove(`posts/${key}`)
 
-  toggleModal = (open) => {
-    this.props.toggleNewPostModal({
-      open,
-      initialValues: {
-        avatarUrl: 'https://api.adorable.io/avatars/default.png'
-      }
-    })
-  }
-
-  getDeleteVisible = key => {
-    const { auth, posts } = this.props
+  getDeleteVisible = post => {
+    const { auth } = this.props
     return (
       !isEmpty(this.props.auth) &&
-      posts[key] &&
-      posts[key].createdBy.uid === auth.uid
+      post &&
+      post.createdBy.uid === auth.uid
     )
   }
 
@@ -112,27 +101,17 @@ export default class Posts extends Component {
 
     return (
       <div className={classes.container}>
-        {newPostModal && (
-          <NewPostDialog
-            profiles={profiles}
-            open={!!newPostModal}
-            onSubmit={this.newSubmit}
-            onRequestClose={() => this.toggleModal(false)}
-          />
-        )}
         <div className={classes.tiles}>
-          <NewPostTile onClick={() => this.toggleModal(true)} />
+          <NewPostForm onSubmit={this.newSubmit} profiles={profiles} />
           {!isEmpty(posts) &&
-            map(posts, (post, key) => (
-              <PostTile
-                key={`${post.createdBy}-Collab-${key}`}
+            posts.map((post) => (
+              <Post
+                key={`${post.createdBy}-Collab-${post.uid}`}
                 post={post}
                 profiles={profiles}
                 user={auth.uid}
-                onCollabClick={this.collabClick}
-                onSelect={() => this.context.router.push(`${POST_LIST_PATH}/${key}`)}
-                onDelete={() => this.deletePost(key)}
-                showDelete={this.getDeleteVisible(key)}
+                onDelete={() => this.deletePost(post.uid)}
+                showDelete={this.getDeleteVisible(post)}
               />
             )).reverse()}
         </div>
