@@ -33,8 +33,14 @@ export default class Navbar extends Component {
     const dataLoaded = isLoaded(auth, profile)
     const authExists = isLoaded(auth) && !isEmpty(auth)
 
+    if (!dataLoaded) {
+      return (
+        <nav className={classes.nav} />
+      )
+    }
+
     const rightMenu =
-      dataLoaded && authExists ? (
+      authExists ? (
         <span>
           <img width={40} src={profile.avatarUrl || `https://api.adorable.io/avatars/default.png`} />
           <span>{profile.displayName}</span>
@@ -49,12 +55,14 @@ export default class Navbar extends Component {
         </span>
       )
 
+    const spacer = ( <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span> )
+
     return (
       <nav className={classes.nav}>
         <Link to='/'>embracebook</Link>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        {spacer}
         <Link to='/npcs'>Manage NPCs</Link>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        {spacer}
         {rightMenu}
       </nav>
     )
