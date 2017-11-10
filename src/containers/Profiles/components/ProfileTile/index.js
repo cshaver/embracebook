@@ -1,35 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import Paper from 'material-ui/Paper'
 import { isObject } from 'lodash'
-import IconButton from 'material-ui/IconButton'
-import DeleteIcon from 'material-ui/svg-icons/action/delete'
+
+import DeleteButton from 'components/Form/DeleteButton'
+import ProfileLink from 'components/ProfileLink'
 import classes from './index.scss'
 
 export const ProfileTile = ({ profile, onSelect, onDelete, showDelete }) => (
-  <Paper className={classes.container}>
+  <li className={classes.container}>
+    <ProfileLink className={classes.avatar} profile={profile}>
+      <img src={profile.avatarUrl} height="50" />
+    </ProfileLink>
     <div className={classes.top}>
-      <Link to={`/profile/${profile.uid}/${profile.slug}`}>
-        {profile.displayName}
-      </Link>
-      {showDelete && onDelete ? (
-        <IconButton tooltip="delete" onClick={onDelete}>
-          <DeleteIcon />
-        </IconButton>
-      ) : null}
+      <ProfileLink profile={profile} />
+      <DeleteButton showDelete={showDelete} onDelete={onDelete} />
+      <br />
+      <i>{profile.createdBy ? `Created by ${profile.createdBy.displayName}` : ''}</i>
     </div>
-    <span className={classes.owner}>
-      {isObject(profile.createdBy)
-        ? profile.createdBy.displayName
-        : profile.createdBy || 'No Owner'}
-    </span>
-  </Paper>
+  </li>
 )
 
 ProfileTile.propTypes = {
   profile: PropTypes.object.isRequired,
-  onSelect: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   showDelete: PropTypes.bool
 }

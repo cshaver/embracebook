@@ -5,32 +5,19 @@ import { isObject } from 'lodash'
 import moment from 'moment'
 
 import CommentsContainer from 'containers/Comments'
+import DeleteButton from 'components/Form/DeleteButton'
+import ProfileLink from 'components/ProfileLink'
 
 import classes from './index.scss'
 
 export const Post = ({ post, onDelete, showDelete, profiles, user }) => (
   <blockquote className={classes.container}>
     <div className={classes.top}>
-      <Link to={`/profile/${post.author.uid}/${post.author.slug}`}>
-        <b className={classes.owner}>
-          {isObject(post.author)
-            ? post.author.displayName
-            : post.author || 'No Owner'}
-        </b>
-      </Link>
+      <ProfileLink profile={post.author} />
       &nbsp;
-      <i className={classes.owner}>
-        {post.timestamp
-          ? moment.unix(post.timestamp).fromNow()
-          : ''
-        }
-      </i>
-      <p className={classes.name}>
-        {post.content}
-      </p>
-      {showDelete && onDelete ? (
-        <button onClick={onDelete}>Delete</button>
-      ) : null}
+      <i>{post.timestamp ? moment.unix(post.timestamp).fromNow() : ''}</i>
+      <p>{post.content}</p>
+      <DeleteButton showDelete={showDelete} onDelete={onDelete} />
     </div>
     <CommentsContainer profiles={profiles} post={post} user={user} />
   </blockquote>

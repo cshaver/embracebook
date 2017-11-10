@@ -31,14 +31,14 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
     {
       auth,
       newProfileModal: newProfile,
-      profiles: profiles ? map(profiles, (profile, uid) => ({
+      profiles: (profiles ? map(profiles, (profile, uid) => ({
         ...profile,
         uid,
         createdBy: {
           ...users[profile.createdBy],
           uid: profile.createdBy
         }
-      })) : []
+      })) : []).reverse()
     }
   ),
   // map dispatch to props
@@ -105,7 +105,7 @@ export default class Profiles extends Component {
             onRequestClose={() => this.toggleModal(false)}
           />
         )}
-        <div className={classes.tiles}>
+        <ul className={classes.tiles}>
           <NewProfileTile onClick={() => this.toggleModal(true)} />
           {!isEmpty(profiles) &&
             map(profiles, (profile, key) => (
@@ -116,7 +116,7 @@ export default class Profiles extends Component {
                 showDelete={this.getDeleteVisible(key)}
               />
             ))}
-        </div>
+        </ul>
       </div>
     )
   }
@@ -124,7 +124,6 @@ export default class Profiles extends Component {
   static propTypes = {
     children: PropTypes.object,
     firebase: PropTypes.object.isRequired,
-    profiles: PropTypes.object,
     auth: PropTypes.object
   }
 }

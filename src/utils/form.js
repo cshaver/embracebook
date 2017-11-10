@@ -6,7 +6,7 @@ export const validateEmail = value =>
     : undefined
 
 export const validateSlug = value => {
-	console.log('validateSlug', value)
+	// console.log('validateSlug', value)
   return value && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(value)
     ? 'Invalid slug format'
     : undefined
