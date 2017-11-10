@@ -1,4 +1,4 @@
-import { PROFILE_LIST_PATH as path } from 'constants'
+import { NPC_LIST_PATH as path } from 'constants'
 
 export default store => ({
   path,
@@ -21,14 +21,14 @@ export default store => ({
       'Profiles'
     )
   },
-  getChildRoutes(partialNextState, cb) {
-    require.ensure([], require => {
-      /*  Webpack - use require callback to define
-          dependencies for bundling   */
-      const Profile = require('./routes/Profile').default
-
-      /*  Return getComponent   */
-      cb(null, [Profile(store)])
-    })
-  }
+  // getChildRoutes(partialNextState, cb) {
+  //   require.ensure([], require => {
+  //     /*  Webpack - use require callback to define
+  //         dependencies for bundling   */
+  //     const Profile = require('./routes/Profile').default
+  //
+  //     /*  Return getComponent   */
+  //     cb(null, [Profile(store)])
+  //   })
+  // }
 })

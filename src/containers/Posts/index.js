@@ -42,7 +42,10 @@ const populates = [
           ...users[post.createdBy],
           uid: post.createdBy
         },
-        author: profiles[post.author],
+        author: {
+          ...profiles[post.author],
+          uid: post.author
+        },
         comments: map(post.comments, (comment, uid) => ({
           ...comment,
           uid,

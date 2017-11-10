@@ -6,11 +6,11 @@ import ProgressIndicator from 'components/ProgressIndicator'
 import classes from './index.scss'
 
 // Get profile path from firebase based on params prop (route params from react-router)
-@firebaseConnect(({ params: { profilename } }) => [`profiles/${profilename}`])
+@firebaseConnect(({ params: { uid } }) => [`profiles/${uid}`])
 // Map state to props
-@connect(({ firebase: { data } }, { params: { profilename } }) => ({
-  profile: data.profiles && data.profiles[profilename]
-  // profile: get(data, `profiles.${profilename}`) // lodash's get can be used for convience
+@connect(({ firebase: { data } }, { params: { uid } }) => ({
+  profile: data.profiles && data.profiles[uid]
+  // profile: get(data, `profiles.${uid}`) // lodash's get can be used for convience
 }))
 export default class Profile extends Component {
   static propTypes = {
@@ -31,9 +31,8 @@ export default class Profile extends Component {
 
     return (
       <div className={classes.container}>
-        <h2>Profile Container</h2>
-        <pre>Profile Key: {params.profilename}</pre>
-        <pre>{JSON.stringify(profile, null, 2)}</pre>
+        <img src={profile.avatarUrl} />
+        <h2>{profile.displayName}’s profile</h2>
       </div>
     )
   }

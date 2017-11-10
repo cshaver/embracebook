@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 import { isObject } from 'lodash'
 import moment from 'moment'
 
@@ -10,11 +11,13 @@ import classes from './index.scss'
 export const Post = ({ post, onDelete, showDelete, profiles, user }) => (
   <blockquote className={classes.container}>
     <div className={classes.top}>
-      <b className={classes.owner}>
-        {isObject(post.author)
-          ? post.author.displayName
-          : post.author || 'No Owner'}
-      </b>
+      <Link to={`/profile/${post.author.uid}/${post.author.slug}`}>
+        <b className={classes.owner}>
+          {isObject(post.author)
+            ? post.author.displayName
+            : post.author || 'No Owner'}
+        </b>
+      </Link>
       &nbsp;
       <i className={classes.owner}>
         {post.timestamp
