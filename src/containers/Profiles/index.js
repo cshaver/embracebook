@@ -31,14 +31,14 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
     {
       auth,
       newProfileModal: newProfile,
-      profiles: (profiles ? map(profiles, (profile, uid) => ({
+      profiles: map((profiles || []), (profile, uid) => ({
         ...profile,
         uid,
-        createdBy: {
+        createdBy: !users ? uid : {
           ...users[profile.createdBy],
           uid: profile.createdBy
         }
-      })) : []).reverse()
+      })).reverse()
     }
   ),
   // map dispatch to props

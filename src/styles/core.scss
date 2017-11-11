@@ -11,14 +11,11 @@ body {
   padding: 0;
   height: 100%;
   font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
 
-  @include desktop {
-    font-size: 15px;
-  }
-
-  @include mobile {
-    font-size: 12px;
-  }
+  // @include mobile {
+  //   font-size: 12px;
+  // }
 }
 
 * {

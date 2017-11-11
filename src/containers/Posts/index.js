@@ -28,7 +28,7 @@ const populates = [
 ])
 @connect(
   // map state to props
-  ({ firebase, firebase: { auth, data: { users, profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
+  ({ firebase, firebase: { auth, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
     {
       auth,
       profiles,
