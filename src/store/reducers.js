@@ -6,6 +6,7 @@ import {
 } from 'react-redux-firebase'
 import locationReducer from './location'
 import formReducer from './form'
+import modalReducer from './modal'
 
 export const makeRootReducer = asyncReducers => {
   return combineReducers({
@@ -14,6 +15,7 @@ export const makeRootReducer = asyncReducers => {
     // firestore: firestoreReducer,
     form: formReducer,
     location: locationReducer,
+    modal: modalReducer,
     ...asyncReducers
   })
 }

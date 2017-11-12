@@ -6,17 +6,12 @@ import slugify from 'slugify'
 // Reducer
 // ------------------------------------
 export function newProfileFormReducer(state = null, action) {
-  switch (action.type) {
-    case TOGGLE_NEW_PROFILE_MODAL:
-      if (typeof action.open !== 'undefined') {
-        return action.open ? state || {...action.props} : null
-      }
-      return state ? null : {...action.props}
-    case '@@redux-form/CHANGE':
-      if (action.meta.form !== 'newProfile') {
-        return state
-      }
+  if (!action.meta || action.meta.form !== 'newProfile') {
+    return state
+  }
 
+  switch (action.type) {
+    case '@@redux-form/CHANGE':
       if (action.meta.field !== 'displayName') {
         return state
       }
@@ -27,17 +22,17 @@ export function newProfileFormReducer(state = null, action) {
   }
 }
 
-// export function newProfileModalReducer(state = null, action) {
-//   switch (action.type) {
-//     case TOGGLE_NEW_PROFILE_MODAL:
-//       if (typeof action.open !== 'undefined') {
-//         return !!action.open
-//       }
-//       return !!state
-//     default:
-//       return state
-//   }
-// }
+export function newProfileModalReducer(state = null, action) {
+  switch (action.type) {
+    case TOGGLE_NEW_PROFILE_MODAL:
+      if (typeof action.open !== 'undefined') {
+        return !!action.open
+      }
+      return !!state
+    default:
+      return state
+  }
+}
 
 function updateDefaults(state, displayName) {
   const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true })
