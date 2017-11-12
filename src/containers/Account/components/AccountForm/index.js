@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { TextInput } from 'components/Form/TextInput'
 import { ACCOUNT_FORM_NAME } from 'constants'
-import ProviderDataForm from '../ProviderDataForm'
 import classes from './index.scss'
 
 export const AccountForm = ({ account, handleSubmit, submitting }) => (
@@ -20,13 +19,6 @@ export const AccountForm = ({ account, handleSubmit, submitting }) => (
       component={TextInput}
       props={{ label: "Avatar Url" }}
     />
-    {!!account &&
-      !!account.providerData && (
-        <div>
-          <h4>Linked Accounts</h4>
-          <ProviderDataForm providerData={account.providerData} />
-        </div>
-      )}
     <button type="submit">Save</button>
   </form>
 )
