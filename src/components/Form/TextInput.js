@@ -3,7 +3,7 @@ import React from 'react'
 export const TextInput = ({
   label,
   placeholder,
-  input: { name, onBlur, onChange, onFocus, value },
+  input: { name, onBlur, onChange, onFocus, disabled, value },
   meta: { error, submitFailed }
 }) => {
   let labelElement
@@ -24,6 +24,7 @@ export const TextInput = ({
         onBlur={onBlur}
         onChange={onChange}
         onFocus={onFocus}
+        disabled={disabled ? 'disabled' : ''}
       />
       {error && submitFailed && (
         <div>{error}</div>
