@@ -1,7 +1,7 @@
 *.log
 .DS_Store
 dist
-./public
+/public
 node_modules
 coverage
 src/config.js
