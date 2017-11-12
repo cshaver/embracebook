@@ -1,6 +1,6 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper'
 import { browserHistory } from 'react-router'
-import { HOME_PATH, NO_ACCESS_PATH } from 'constants'
+import { HOME_PATH, LOGIN_PATH } from 'constants'
 import ProgressIndicator from 'components/ProgressIndicator'
 
 const AUTHED_REDIRECT = 'AUTHED_REDIRECT'
@@ -22,7 +22,7 @@ export const UserIsAuthenticated = UserAuthWrapper({
   predicate: auth => !auth.isEmpty,
   allowRedirectBack: false,
   redirectAction: newLoc => dispatch => {
-    newLoc.pathname = NO_ACCESS_PATH
+    newLoc.pathname = LOGIN_PATH
     browserHistory.replace(newLoc)
     dispatch({
       type: UNAUTHED_REDIRECT,
@@ -51,7 +51,7 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
   predicate: auth => auth.isEmpty,
-  redirectPath: '/'
+  redirectPath: HOME_PATH
 })
 
 export default {

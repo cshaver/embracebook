@@ -10,7 +10,6 @@ import {
 } from 'react-redux-firebase'
 
 import { FEED_PATH } from 'constants'
-import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
@@ -21,7 +20,6 @@ const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' }
 ]
 
-@UserIsAuthenticated
 @firebaseConnect([
   { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates }
 ])

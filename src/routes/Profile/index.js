@@ -1,4 +1,5 @@
 import { PROFILE_DETAIL_PATH as path } from 'constants'
+import { UserIsAuthenticated } from 'utils/router'
 
 export default store => ({
   path,
@@ -14,7 +15,7 @@ export default store => ({
         const Profile = require('containers/Profile').default
 
         /*  Return getComponent   */
-        cb(null, Profile)
+        cb(null, UserIsAuthenticated(Profile))
 
         /* Webpack named bundle   */
       },

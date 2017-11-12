@@ -11,7 +11,7 @@ import ProgressIndicator from 'components/ProgressIndicator'
 import AccountForm from './components/AccountForm'
 import classes from './index.scss'
 
-@UserIsAuthenticated
+// @UserIsAuthenticated
 @firebaseConnect()
 @connect(({ firebase: { profile, auth } }) => ({
   profile

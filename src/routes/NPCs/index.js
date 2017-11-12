@@ -1,4 +1,5 @@
 import { NPC_LIST_PATH as path } from 'constants'
+import { UserIsAuthenticated } from 'utils/router'
 
 export default store => ({
   path,
@@ -14,7 +15,7 @@ export default store => ({
         const Profiles = require('containers/Profiles').default
 
         /*  Return getComponent   */
-        cb(null, Profiles)
+        cb(null, UserIsAuthenticated(Profiles))
 
         /* Webpack named bundle   */
       },
