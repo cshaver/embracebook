@@ -9,7 +9,6 @@ import {
   isEmpty
 } from 'react-redux-firebase'
 
-// import { POST_LIST_PATH } from 'constants'
 import NewCommentForm from './components/NewCommentForm'
 
 @firebaseConnect()

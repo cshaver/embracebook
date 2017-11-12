@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
-import { POST_LIST_PATH, ACCOUNT_PATH, LOGIN_PATH } from 'constants'
+import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, LOGIN_PATH } from 'constants'
 
 import classes from './index.scss'
 
@@ -59,9 +59,9 @@ export default class Navbar extends Component {
 
     return (
       <nav className={classes.nav}>
-        <Link to='/'>embracebook</Link>
+        <Link to={HOME_PATH}>embracebook</Link>
         {spacer}
-        <Link to='/npcs'>Manage NPCs</Link>
+        <Link to={NPC_LIST_PATH}>Manage NPCs</Link>
         {spacer}
         {rightMenu}
       </nav>

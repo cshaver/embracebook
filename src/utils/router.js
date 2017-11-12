@@ -1,6 +1,6 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper'
 import { browserHistory } from 'react-router'
-import { POST_LIST_PATH } from 'constants'
+import { HOME_PATH, NO_ACCESS_PATH } from 'constants'
 import ProgressIndicator from 'components/ProgressIndicator'
 
 const AUTHED_REDIRECT = 'AUTHED_REDIRECT'
@@ -20,7 +20,9 @@ export const UserIsAuthenticated = UserAuthWrapper({
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
   predicate: auth => !auth.isEmpty,
+  allowRedirectBack: false,
   redirectAction: newLoc => dispatch => {
+    newLoc.pathname = NO_ACCESS_PATH
     browserHistory.replace(newLoc)
     dispatch({
       type: UNAUTHED_REDIRECT,
@@ -44,15 +46,12 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   LoadingComponent: ProgressIndicator,
   failureRedirectPath: (state, props) =>
     // redirect to page user was on or to list path
-    (props.location.query && props.location.query.redirect) || POST_LIST_PATH,
+    (props.location.query && props.location.query.redirect) || HOME_PATH,
   authSelector: ({ firebase: { auth } }) => auth,
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
   predicate: auth => auth.isEmpty,
-  redirectAction: newLoc => dispatch => {
-    browserHistory.replace(newLoc)
-    dispatch({ type: AUTHED_REDIRECT })
-  }
+  redirectPath: '/'
 })
 
 export default {

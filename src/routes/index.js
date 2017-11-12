@@ -6,6 +6,7 @@ import ProfilesRoute from './Profile'
 import NPCsRoute from './NPCs'
 import AccountRoute from './Account'
 import NotFoundRoute from './NotFound'
+import NoAccessRoute from './NoAccess'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -17,6 +18,7 @@ export const createRoutes = store => ({
   childRoutes: [
     AccountRoute,
     LoginRoute,
+    NoAccessRoute(store),
     // async route definitions recieve store
     NPCsRoute(store),
     ProfilesRoute(store),
