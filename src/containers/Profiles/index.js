@@ -63,7 +63,10 @@ export default class Profiles extends Component {
       })
   }
 
-  deleteProfile = key => this.props.firebase.remove(`profiles/${key}`)
+  deleteProfile = key => {
+    const { profiles, firebase } = this.props
+    this.props.firebase.remove(`profiles/${profiles[key].uid}`)
+  }
 
   toggleModal = (open) => {
     this.props.toggleNewProfileModal({
