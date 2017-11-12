@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { map, get } from 'lodash'
 import { connect } from 'react-redux'
-import { firebaseConnect, isEmpty } from 'react-redux-firebase'
 import { Field, reduxForm } from 'redux-form'
 
+import AuthorConfig from 'containers/AuthorConfig'
 import { Fieldset, Textarea } from 'components/Form'
 import { required, validateSlug } from 'utils/form'
 import { NEW_POST_FORM_NAME } from 'constants'
@@ -17,22 +17,11 @@ export class NewPostForm extends Component {
   }
 
   render() {
-    const { open, onRequestClose, submit, handleSubmit, profiles } = this.props
-
+    const { open, onRequestClose, submit, handleSubmit } = this.props
     return (
       <form onSubmit={handleSubmit} className={classes.inputs}>
         <Fieldset label="Post">
-          <Field name="author" component="select" validate={[required]}>
-            <option value="" disabled>
-              Author
-            </option>
-            {!isEmpty(profiles) &&
-              map(profiles, (profile, key) => (
-                <option key={key} value={key}>
-                  {profile.displayName}
-                </option>
-              ))}
-          </Field>
+          <AuthorConfig />
           <Field
             name="content"
             component={Textarea}

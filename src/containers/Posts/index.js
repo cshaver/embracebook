@@ -101,7 +101,6 @@ export default class Posts extends Component {
               <Post
                 key={`${post.createdBy}-Collab-${post.uid}`}
                 post={post}
-                profiles={profiles}
                 user={auth.uid}
                 onDelete={() => this.deletePost(post.uid)}
                 showDelete={this.getDeleteVisible(post)}
