@@ -4,7 +4,7 @@
   "description": "Embracebook",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf public",
     "compile": "node build/scripts/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
     "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t embracebook -- node build/scripts/start",

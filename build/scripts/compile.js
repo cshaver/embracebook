@@ -37,7 +37,7 @@ const compile = () =>
     .then(stats => {
       logger.info(`Copying static assets from ./public to ./${project.outDir}.`)
       fs.copySync(
-        path.resolve(project.basePath, 'public'),
+        path.resolve(project.basePath, 'src/public'),
         path.resolve(project.basePath, project.outDir)
       )
       return stats

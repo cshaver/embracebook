@@ -1,8 +1,7 @@
 *.log
-**/*.log
 .DS_Store
-**/.DS_Store
-**/dist
-**/node_modules
+dist
+./public
+node_modules
 coverage
 src/config.js
