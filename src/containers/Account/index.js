@@ -11,12 +11,9 @@ import ProgressIndicator from 'components/ProgressIndicator'
 import AccountForm from './components/AccountForm'
 import classes from './index.scss'
 
-// @UserIsAuthenticated
 @firebaseConnect()
-@connect(({ firebase: { profile, auth } }) => ({
+@connect(({ firebase: { profile } }) => ({
   profile
-  // authUid: auth.uid
-  // profile: populate(firebase, 'profile', rfConfig.profileParamsToPopulate) // if populating profile
 }))
 export default class Account extends Component {
   updateAccount = newData => {

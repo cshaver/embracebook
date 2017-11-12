@@ -7,6 +7,7 @@ export const FEED_PATH = HOME_PATH
 
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
+export const INVITE_PATH = '/invite'
 export const TERMS_PATH = '/terms'
 export const NO_ACCESS_PATH = '/no-access'
 

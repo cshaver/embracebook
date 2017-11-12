@@ -23,7 +23,7 @@ export default class FirebaseUIAuth extends Component {
         }
       ],
       callbacks: {
-        signInSuccess: this.props.signInSuccess || (() => true)
+        signInSuccess: this.props.signInSuccess || this.props.signInSuccessUrl ? (() => true) : (() => false)
       },
       signInSuccessUrl: this.props.signInSuccessUrl,
       tosUrl: this.props.tosUrl

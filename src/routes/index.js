@@ -2,6 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
 import LoginRoute from './Login'
+import InviteRoute from './Invite'
 import ProfilesRoute from './Profile'
 import NPCsRoute from './NPCs'
 import AccountRoute from './Account'
@@ -18,6 +19,7 @@ export const createRoutes = store => ({
   childRoutes: [
     AccountRoute,
     LoginRoute,
+    InviteRoute,
     NoAccessRoute(store),
     // async route definitions recieve store
     NPCsRoute(store),
