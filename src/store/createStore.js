@@ -37,7 +37,7 @@ export default (initialState = {}) => {
   // enable Redux dev tools
   if (__DEV__) {
     composeReducers = devTools ? devTools({
-      // actionsBlacklist: ['@@reactReduxFirebase']
+      actionsBlacklist: ['@@reactReduxFirebase']
     }) : compose
   }
 

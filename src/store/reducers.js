@@ -1,37 +1,18 @@
 import { combineReducers } from 'redux'
 import reduceReducers from 'reduce-reducers';
-import { reducer as reduxFormReducer } from 'redux-form'
 import {
-  firebaseStateReducer /*,
+  firebaseStateReducer as firebase /*,
   firestoreReducer */
 } from 'react-redux-firebase'
 import locationReducer from './location'
-import { profileReducer } from './profile'
-import { formReducer } from './form'
-
-const firebase = reduceReducers(
-  firebaseStateReducer,
-  (state, action) => {
-    let profile = profileReducer(state.profile, action)
-    if (profile) {
-      state.profile = profile
-    }
-    return state
-  }
-)
-
-const form = reduceReducers(
-  reduxFormReducer,
-  formReducer
-)
+import formReducer from './form'
 
 export const makeRootReducer = asyncReducers => {
-
   return combineReducers({
     // Add sync reducers here
     firebase,
     // firestore: firestoreReducer,
-    form,
+    form: formReducer,
     location: locationReducer,
     ...asyncReducers
   })

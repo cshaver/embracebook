@@ -8,27 +8,43 @@ import slugify from 'slugify'
 export function newProfileFormReducer(state = null, action) {
   switch (action.type) {
     case TOGGLE_NEW_PROFILE_MODAL:
-    	if (typeof action.open !== 'undefined') {
-    		return action.open ? state || {...action.props} : null
-    	}
+      if (typeof action.open !== 'undefined') {
+        return action.open ? state || {...action.props} : null
+      }
       return state ? null : {...action.props}
     case '@@redux-form/CHANGE':
-      if (action.meta.field !== 'displayName') {
-    		return state
-    	}
+      if (action.meta.form !== 'newProfile') {
+        return state
+      }
 
-    	return updateDefaults(state, action.payload)
+      if (action.meta.field !== 'displayName') {
+        return state
+      }
+
+      return updateDefaults(state, action.payload)
     default:
-    	return state
+      return state
   }
 }
+
+// export function newProfileModalReducer(state = null, action) {
+//   switch (action.type) {
+//     case TOGGLE_NEW_PROFILE_MODAL:
+//       if (typeof action.open !== 'undefined') {
+//         return !!action.open
+//       }
+//       return !!state
+//     default:
+//       return state
+//   }
+// }
 
 function updateDefaults(state, displayName) {
   const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true })
 
   const defaults = {
-	  slug,
-	  avatarUrl: `https://api.adorable.io/avatars/${slug || 'default'}.png`
+    slug,
+    avatarUrl: `https://api.adorable.io/avatars/${slug || 'default'}.png`
   }
 
   const { values, initial } = state
