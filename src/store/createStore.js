@@ -7,7 +7,7 @@ import firebase from 'firebase'
 // import 'firebase/firestore' // make sure you add this for firestore
 import * as config from '../../project.config'
 import { version } from '../../package.json'
-import { updateLocation } from './location'
+import { updateLocation } from './reducers/location'
 
 export default (initialState = {}) => {
   // ======================================================
@@ -37,7 +37,7 @@ export default (initialState = {}) => {
   // enable Redux dev tools
   if (__DEV__) {
     composeReducers = devTools ? devTools({
-      // actionsBlacklist: ['@@reactReduxFirebase']
+      actionsBlacklist: ['@@reactReduxFirebase']
     }) : compose
   }
 

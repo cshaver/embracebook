@@ -27,18 +27,18 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 ])
 @connect(
   // map state to props
-  ({ firebase, firebase: { auth, data: { users, profiles } }, form: { newProfile } }, { params }) => (
+  ({ firebase, firebase: { auth, data: { users, profiles } }, form: { newProfile }, modal }, { params }) => (
     {
       auth,
-      newProfileModal: newProfile,
-      profiles: (profiles ? map(profiles, (profile, uid) => ({
+      newProfileModal: modal.newProfile,
+      profiles: map((profiles || []), (profile, uid) => ({
         ...profile,
         uid,
-        createdBy: {
+        createdBy: !users ? uid : {
           ...users[profile.createdBy],
           uid: profile.createdBy
         }
-      })) : []).reverse()
+      })).reverse()
     }
   ),
   // map dispatch to props
@@ -63,14 +63,14 @@ export default class Profiles extends Component {
       })
   }
 
-  deleteProfile = key => this.props.firebase.remove(`profiles/${key}`)
+  deleteProfile = key => {
+    const { profiles, firebase } = this.props
+    this.props.firebase.remove(`profiles/${profiles[key].uid}`)
+  }
 
   toggleModal = (open) => {
     this.props.toggleNewProfileModal({
-      open,
-      initialValues: {
-        avatarUrl: 'https://api.adorable.io/avatars/default.png'
-      }
+      open
     })
   }
 
@@ -100,9 +100,12 @@ export default class Profiles extends Component {
       <div className={classes.container}>
         {newProfileModal && (
           <NewProfileDialog
-            open={!!newProfileModal}
+            open={newProfileModal}
             onSubmit={this.newSubmit}
             onRequestClose={() => this.toggleModal(false)}
+            initialValues={{
+              avatarUrl: 'https://api.adorable.io/avatars/default.png'
+            }}
           />
         )}
         <ul className={classes.tiles}>

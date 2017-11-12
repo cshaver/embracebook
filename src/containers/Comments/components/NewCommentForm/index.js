@@ -38,8 +38,8 @@ export class NewCommentForm extends Component {
           <Field
             name="content"
             component={TextInput}
-            floatingLabelText="Content"
             validate={[required]}
+            props={{ label: "Comment" }}
           />
           <button type="submit">Submit</button>
         </Fieldset>

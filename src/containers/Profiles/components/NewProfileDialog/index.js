@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
-import { Field, reduxForm } from 'redux-form'
-import { TextField } from 'redux-form-material-ui'
+import { Field, formValueSelector, reduxForm } from 'redux-form'
+import Dialog from 'components/Dialog'
+import TextInput from 'components/Form/TextInput'
 
 import { required, validateSlug } from 'utils/form'
 import { NEW_PROFILE_FORM_NAME } from 'constants'
 
-// import { VerboseLogging } from 'utils/logging'
-
 import classes from './index.scss'
 
-// @VerboseLogging
+@connect(
+  state => ({
+  avatarUrl: formValueSelector('newProfile')(state, 'avatarUrl')
+})
+)
 export class NewProfileDialog extends Component {
   render() {
     const {
       open,
       onRequestClose,
-      submit,
       handleSubmit,
-      newProfile
+      avatarUrl
     } = this.props
 
     return (
@@ -29,34 +29,38 @@ export class NewProfileDialog extends Component {
         title="New Profile"
         open={open}
         onRequestClose={onRequestClose}
-        contentClassName={classes.container}
-        actions={[
-          <FlatButton label="Cancel" secondary onClick={onRequestClose} />,
-          <FlatButton label="Create" primary onClick={submit} />
-        ]}>
-        <form onSubmit={handleSubmit} className={classes.inputs}>
+        >
+        <form action="dialog" onSubmit={handleSubmit}>
           <Field
             name="displayName"
-            component={TextField}
-            floatingLabelText="Display Name"
+            component={TextInput}
             validate={[required]}
+            props={{
+              label: "Display Name"
+            }}
           />
           <Field
             name="slug"
-            component={TextField}
+            component={TextInput}
             validate={[required, validateSlug]}
-            floatingLabelText="Slug"
+            props={{
+              label: "Slug"
+            }}
           />
           <Field
             name="avatarUrl"
-            component={TextField}
-            floatingLabelText="Avatar Url"
+            component={TextInput}
             validate={[required]}
+            props={{
+              label: "Avatar Url"
+            }}
           />
           {
-            newProfile.values && newProfile.values.avatarUrl &&
-            (<div><img src={newProfile.values.avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
+            avatarUrl &&
+            (<div><img src={avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
           }
+          <button type="button" onClick={onRequestClose}>Cancel</button>
+          <button type="submit">Create</button>
         </form>
       </Dialog>
     )
@@ -71,10 +75,6 @@ export class NewProfileDialog extends Component {
   }
 }
 
-NewProfileDialog = reduxForm({
-  form: NEW_PROFILE_FORM_NAME
+export default NewProfileDialog = reduxForm({
+  form: NEW_PROFILE_FORM_NAME,
 })(NewProfileDialog)
-
-export default connect(
-  ({ form: { newProfile, newProfile: { initialValues, values } } }) => ({ initialValues, newProfile })
-)(NewProfileDialog)

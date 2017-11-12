@@ -14,7 +14,6 @@ import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
-import { toggleNewPostModal } from './actions'
 
 import classes from './index.scss'
 
@@ -28,7 +27,7 @@ const populates = [
 ])
 @connect(
   // map state to props
-  ({ firebase, firebase: { auth, data: { users, profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
+  ({ firebase, firebase: { auth, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
     {
       auth,
       profiles,
@@ -49,11 +48,7 @@ const populates = [
       })) : []
       // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
     }
-  ),
-  // map dispatch to props
-  dispatch => ({
-    toggleNewPostModal: toggleNewPostModal(dispatch)
-  })
+  )
 )
 export default class Posts extends Component {
   static contextTypes = {

@@ -271,7 +271,7 @@ if (__PROD__) {
     new FaviconsWebpackPlugin({
       logo: 'static/logo.svg',
       inject: true,
-      title: 'material-example',
+      title: 'embracebook',
       persistentCache: true,
       icons: {
         favicons: true,

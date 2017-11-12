@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Paper from 'material-ui/Paper'
 import { connect } from 'react-redux'
 import {
   firebaseConnect,
@@ -41,24 +40,20 @@ export default class Account extends Component {
 
     return (
       <div className={classes.container}>
-        <Paper className={classes.pane}>
-          <div className={classes.settings}>
-            <div className={classes.avatar}>
-              <img
-                className={classes.avatarCurrent}
-                src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars//${profile && profile.email}`}
-                onClick={this.toggleModal}
-              />
-            </div>
-            <div className={classes.meta}>
-              <AccountForm
-                initialValues={profile}
-                account={profile}
-                onSubmit={this.updateAccount}
-              />
-            </div>
-          </div>
-        </Paper>
+        <div className={classes.avatar}>
+          <img
+            className={classes.avatarCurrent}
+            src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars//${profile && profile.email}`}
+            onClick={this.toggleModal}
+          />
+        </div>
+        <div className={classes.meta}>
+          <AccountForm
+            initialValues={profile}
+            account={profile}
+            onSubmit={this.updateAccount}
+          />
+        </div>
       </div>
     )
   }

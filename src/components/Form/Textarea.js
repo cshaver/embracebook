@@ -3,7 +3,8 @@ import React from 'react'
 export const Textarea = ({
   label,
   placeholder,
-  input: { name, onBlur, onChange, onFocus, value }
+  input: { name, onBlur, onChange, onFocus, value },
+  meta: { error, dirty }
 }) => {
   let labelElement
 
@@ -23,6 +24,9 @@ export const Textarea = ({
         onFocus={onFocus}
         defaultValue={value}
       />
+      {error && dirty && (
+        <div>{error}</div>
+      )}
     </div>
   )
 }
