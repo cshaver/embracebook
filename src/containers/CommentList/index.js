@@ -12,7 +12,7 @@ import {
 import NewCommentForm from './components/NewCommentForm'
 
 @firebaseConnect()
-export default class Comments extends Component {
+export default class CommentList extends Component {
 
   newSubmit = newComment => {
     // newComment.createdBy = this.props.auth.uid

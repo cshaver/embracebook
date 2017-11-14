@@ -12,14 +12,14 @@ export default store => ({
       require => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Profiles = require('containers/Profiles').default
+        const ProfileList = require('containers/ProfileList').default
 
         /*  Return getComponent   */
-        cb(null, UserIsAuthenticated(Profiles))
+        cb(null, UserIsAuthenticated(ProfileList))
 
         /* Webpack named bundle   */
       },
-      'Profiles'
+      'ProfileList'
     )
   },
   // getChildRoutes(partialNextState, cb) {

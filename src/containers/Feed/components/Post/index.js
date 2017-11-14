@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
-import { isObject } from 'lodash'
 import moment from 'moment'
 
-import CommentsContainer from 'containers/Comments'
+import CommentList from 'containers/CommentList'
 import DeleteButton from 'components/Form/DeleteButton'
 import ProfileLink from 'components/ProfileLink'
 
@@ -19,7 +17,7 @@ export const Post = ({ post, onDelete, showDelete, profiles, user }) => (
       <p>{post.content}</p>
       <DeleteButton showDelete={showDelete} onDelete={onDelete} />
     </div>
-    <CommentsContainer profiles={profiles} post={post} user={user} />
+    <CommentList profiles={profiles} post={post} user={user} />
   </blockquote>
 )
 

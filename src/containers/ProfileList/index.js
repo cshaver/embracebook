@@ -44,7 +44,7 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
     toggleNewProfileModal: toggleNewProfileModal(dispatch)
   })
 )
-export default class Profiles extends Component {
+export default class ProfileList extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
