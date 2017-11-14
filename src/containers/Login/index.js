@@ -56,7 +56,7 @@ export default class LoginPage extends Component {
       // initialize profile
 
       firebase
-        .updateProfile({
+        .uniqueSet(`profiles/${auth.uid}`, {
           type: PLAYER_TYPE
         })
         .then(() => {
