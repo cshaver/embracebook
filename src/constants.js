@@ -1,5 +1,6 @@
 // paths
 export const NPC_LIST_PATH = '/npcs'
+export const PLAYER_LIST_PATH = '/players'
 export const PROFILE_DETAIL_PATH = '/profile/:uid/:slug'
 
 export const HOME_PATH = '/'

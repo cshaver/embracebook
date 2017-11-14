@@ -4,12 +4,11 @@ import { map, get } from 'lodash'
 import { connect } from 'react-redux'
 import {
   firebaseConnect,
-  populate,
+  // populate,
   isLoaded,
   isEmpty
 } from 'react-redux-firebase'
 
-import { PROFILE_LIST_PATH } from 'constants'
 import ProgressIndicator from 'components/ProgressIndicator'
 import ProfileTile from './components/ProfileTile'
 import NewProfileTile from './components/NewProfileTile'
@@ -20,25 +19,30 @@ import classes from './index.scss'
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 
-@firebaseConnect([
-  { path: 'profiles', populates }
-])
+@firebaseConnect([{ path: 'profiles', populates }])
 @connect(
-  // map state to props
-  ({ firebase, firebase: { auth, data: { users, profiles } }, form: { newProfile }, modal }, { params }) => (
+  (
     {
-      auth,
-      newProfileModal: modal.newProfile,
-      profiles: map((profiles || []), (profile, uid) => ({
-        ...profile,
-        uid,
-        createdBy: !users ? uid : {
-          ...users[profile.createdBy],
-          uid: profile.createdBy
-        }
-      })).reverse()
-    }
-  ),
+      firebase,
+      firebase: { auth, data: { users, profiles } },
+      form: { newProfile },
+      modal
+    },
+    { params }
+  ) => ({
+    auth,
+    newProfileModal: modal.newProfile,
+    profiles: map(profiles || [], (profile, uid) => ({
+      ...profile,
+      uid,
+      createdBy: !users
+        ? uid
+        : {
+            ...users[profile.createdBy],
+            uid: profile.createdBy
+          }
+    })).reverse()
+  }),
   // map dispatch to props
   dispatch => ({
     toggleNewProfileModal: toggleNewProfileModal(dispatch)
@@ -46,7 +50,9 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 )
 export default class ProfileList extends Component {
   static contextTypes = {
-    router: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+    firebase: PropTypes.object,
+    toggleNewProfileModal: PropTypes.func
   }
 
   newSubmit = newProfile => {
@@ -66,7 +72,7 @@ export default class ProfileList extends Component {
     this.props.firebase.remove(`profiles/${profiles[key].uid}`)
   }
 
-  toggleModal = (open) => {
+  toggleModal = open => {
     this.props.toggleNewProfileModal({
       open
     })

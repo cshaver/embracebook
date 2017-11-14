@@ -19,6 +19,8 @@ globals:
   __COVERAGE__: false
   __TEST__: false
 
+experimentalDecorators: 0
+
 rules:
   semi: [1, 'never']
   no-console: 0

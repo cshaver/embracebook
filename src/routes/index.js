@@ -5,6 +5,7 @@ import LoginRoute from './Login'
 import InviteRoute from './Invite'
 import ProfileListRoute from './Profile'
 import NPCsRoute from './NPCs'
+import PlayersRoute from './Players'
 import AccountRoute from './Account'
 import NotFoundRoute from './NotFound'
 import NoAccessRoute from './NoAccess'
@@ -23,6 +24,7 @@ export const createRoutes = store => ({
     NoAccessRoute(store),
     // async route definitions recieve store
     NPCsRoute(store),
+    PlayersRoute(store),
     ProfileListRoute(store),
     // Place all Routes above here so NotFoundRoute can act as a 404 page
     NotFoundRoute(store)
