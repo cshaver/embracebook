@@ -13,7 +13,9 @@ import ProgressIndicator from 'components/ProgressIndicator'
 import ProfileTile from './components/ProfileTile'
 import NewProfileTile from './components/NewProfileTile'
 import NewProfileDialog from './components/NewProfileDialog'
+import NoAccess from 'components/NoAccess'
 import { toggleNewProfileModal } from './actions'
+import { NPC_TYPE, PLAYER_TYPE } from 'constants'
 
 import classes from './index.scss'
 
@@ -24,13 +26,14 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
   (
     {
       firebase,
-      firebase: { auth, data: { users, profiles } },
+      firebase: { auth, profile, data: { users, profiles } },
       form: { newProfile },
       modal
     },
     { params }
   ) => ({
     auth,
+    profile,
     newProfileModal: modal.newProfile,
     profiles: map(profiles || [], (profile, uid) => ({
       ...profile,
@@ -57,6 +60,7 @@ export default class ProfileList extends Component {
 
   newSubmit = newProfile => {
     newProfile.createdBy = this.props.auth.uid
+    newProfile.type = NPC_TYPE
 
     return this.props.firebase
       .push('profiles', newProfile)
@@ -88,7 +92,7 @@ export default class ProfileList extends Component {
   }
 
   render() {
-    const { profiles, auth, newProfileModal } = this.props
+    const { profiles, auth, profile, newProfileModal } = this.props
 
     if (!isLoaded(profiles, auth)) {
       return <ProgressIndicator />
@@ -98,6 +102,10 @@ export default class ProfileList extends Component {
     if (this.props.children) {
       // pass all props to children routes
       return cloneElement(this.props.children, this.props)
+    }
+
+    if (profile.type === PLAYER_TYPE) {
+      return (<NoAccess />)
     }
 
     return (
@@ -116,7 +124,7 @@ export default class ProfileList extends Component {
           <NewProfileTile onClick={() => this.toggleModal(true)} />
           {!isEmpty(profiles) &&
             map(profiles, (profile, key) => (
-              <ProfileTile
+              profile.type !== NPC_TYPE ? null : <ProfileTile
                 key={`${profile.displayName}-Collab-${key}`}
                 profile={profile}
                 onDelete={() => this.deleteProfile(key)}

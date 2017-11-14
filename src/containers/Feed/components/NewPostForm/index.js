@@ -17,11 +17,11 @@ export class NewPostForm extends Component {
   }
 
   render() {
-    const { open, onRequestClose, submit, handleSubmit } = this.props
+    const { open, onRequestClose, submit, handleSubmit, hasAuthorConfig } = this.props
     return (
       <form onSubmit={handleSubmit} className={classes.inputs}>
         <Fieldset label="Post">
-          <AuthorConfig />
+          {hasAuthorConfig ? <AuthorConfig /> : null}
           <Field
             name="content"
             component={Textarea}

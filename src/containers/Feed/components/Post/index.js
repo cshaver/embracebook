@@ -8,7 +8,7 @@ import ProfileLink from 'components/ProfileLink'
 
 import classes from './index.scss'
 
-export const Post = ({ post, onDelete, showDelete, profiles, user }) => (
+export const Post = ({ post, onDelete, showDelete, profiles, user, hasAuthorConfig }) => (
   <blockquote className={classes.container}>
     <div className={classes.top}>
       <ProfileLink profile={post.author} />
@@ -17,7 +17,7 @@ export const Post = ({ post, onDelete, showDelete, profiles, user }) => (
       <p>{post.content}</p>
       <DeleteButton showDelete={showDelete} onDelete={onDelete} />
     </div>
-    <CommentList profiles={profiles} post={post} user={user} />
+    <CommentList hasAuthorConfig={hasAuthorConfig} profiles={profiles} post={post} user={user} />
   </blockquote>
 )
 

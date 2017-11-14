@@ -9,7 +9,7 @@ import {
   isEmpty
 } from 'react-redux-firebase'
 
-import { FEED_PATH } from 'constants'
+import { FEED_PATH, PLAYER_TYPE } from 'constants'
 import ProgressIndicator from 'components/ProgressIndicator'
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
@@ -25,9 +25,10 @@ const populates = [
 ])
 @connect(
   // map state to props
-  ({ firebase, firebase: { auth, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
+  ({ firebase, firebase: { auth, profile, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
     {
       auth,
+      profile,
       profiles,
       newPostModal: newPost,
       // posts: populate(firebase, 'posts', populates)
@@ -54,6 +55,9 @@ export default class Feed extends Component {
   }
 
   newSubmit = newPost => {
+    // set author for players
+    newPost.author = newPost.author || this.props.auth.uid
+    // always set createdBy
     newPost.createdBy = this.props.auth.uid
     // unix seconds, instead of milliseconds
     newPost.timestamp = (new Date()).getTime() / 1000
@@ -77,6 +81,10 @@ export default class Feed extends Component {
     )
   }
 
+  hasAuthorConfig = () => {
+    return this.props.profile.type !== PLAYER_TYPE
+  }
+
   render() {
     const { posts, auth, newPostModal, profiles } = this.props
 
@@ -93,13 +101,14 @@ export default class Feed extends Component {
     return (
       <div className={classes.container}>
         <div className={classes.tiles}>
-          <NewPostForm onSubmit={this.newSubmit} profiles={profiles} />
+          <NewPostForm onSubmit={this.newSubmit} hasAuthorConfig={this.hasAuthorConfig()} />
           {!isEmpty(posts) &&
             posts.map((post) => (
               <Post
                 key={`${post.createdBy}-Collab-${post.uid}`}
                 post={post}
                 user={auth.uid}
+                hasAuthorConfig={this.hasAuthorConfig()}
                 onDelete={() => this.deletePost(post.uid)}
                 showDelete={this.getDeleteVisible(post)}
               />

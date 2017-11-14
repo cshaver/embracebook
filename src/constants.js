@@ -20,3 +20,8 @@ export const NEW_PROFILE_FORM_NAME = 'newProfile'
 
 export const ACCOUNT_FORM_NAME = 'account'
 export const LOGIN_FORM_NAME = 'login'
+
+// account and profile types
+export const STORYTELLER_TYPE = 'STORYTELLER'
+export const PLAYER_TYPE = 'PLAYER'
+export const NPC_TYPE = 'NPC'

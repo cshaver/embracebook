@@ -4,8 +4,14 @@ import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { withRouter } from 'utils/components'
 import FirebaseUIAuth from 'containers/FirebaseUIAuth'
-import NoAccess from '../../routes/NoAccess/NoAccess'
-import { ACCOUNT_PATH, HOME_PATH, TERMS_PATH, INVITE_PATH } from 'constants'
+import NoAccess from 'components/NoAccess'
+import {
+  ACCOUNT_PATH,
+  HOME_PATH,
+  TERMS_PATH,
+  INVITE_PATH,
+  PLAYER_TYPE
+} from 'constants'
 
 import classes from './index.scss'
 
@@ -48,13 +54,25 @@ export default class LoginPage extends Component {
 
     if (isLoaded(profile)) {
       // initialize profile
-      console.log('init')
+
       firebase
         .updateProfile({
-          type: 'PLAYER'
+          type: PLAYER_TYPE
         })
         .then(() => {
-          router.push(ACCOUNT_PATH)
+          let newProfile = {
+            type: PLAYER_TYPE,
+            createdBy: auth.uid
+          }
+          this.props.firebase
+            .uniqueSet(`profiles/${auth.uid}`, newProfile)
+            .then(() => {
+              router.push(ACCOUNT_PATH)
+            })
+            .catch(err => {
+              // TODO: Show Snackbar
+              console.error('error creating new profile', err) // eslint-disable-line
+            })
         })
         .catch(err => {
           console.error('Error updating account', err) // eslint-disable-line no-console

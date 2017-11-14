@@ -4,15 +4,18 @@ import { map, get, filter } from 'lodash'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
+import { PLAYER_TYPE } from 'constants'
 import ProgressIndicator from 'components/ProgressIndicator'
 import PlayerTile from './components/PlayerTile'
+import NoAccess from 'components/NoAccess'
 
 import classes from './index.scss'
 
 @firebaseConnect([{ path: 'users' }])
 // Map state to props
-@connect(({ firebase, firebase: { auth, data: { users } } }, { params: { uid } }) => ({
+@connect(({ firebase, firebase: { auth, profile, data: { users } } }, { params: { uid } }) => ({
   auth,
+  profile,
   players: users
 }))
 export default class PlayerList extends Component {
@@ -22,7 +25,7 @@ export default class PlayerList extends Component {
   }
 
   render() {
-    const { users, players, auth } = this.props
+    const { users, players, auth, profile } = this.props
 
     if (!isLoaded(players, auth)) {
       return <ProgressIndicator />
@@ -34,12 +37,16 @@ export default class PlayerList extends Component {
       return cloneElement(this.props.children, this.props)
     }
 
+    if (profile.type === PLAYER_TYPE) {
+      return (<NoAccess />)
+    }
+
     return (
       <div className={classes.container}>
         <ul className={classes.tiles}>
           {!isEmpty(players) &&
             map(players, (profile, key) => (
-              profile.type !== 'PLAYER' ? null : <PlayerTile
+              profile.type !== PLAYER_TYPE ? null : <PlayerTile
                 key={`${profile.displayName}-Collab-${key}`}
                 profile={profile}
               />
