@@ -1,7 +1,7 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const TOGGLE_NEW_PROFILE_MODAL = 'Profiles/TOGGLE_NEW_PROFILE_MODAL'
+export const TOGGLE_NEW_PROFILE_MODAL = 'ProfileList/TOGGLE_NEW_PROFILE_MODAL'
 
 // ------------------------------------
 // Actions

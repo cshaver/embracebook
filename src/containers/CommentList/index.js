@@ -12,7 +12,7 @@ import {
 import NewCommentForm from './components/NewCommentForm'
 
 @firebaseConnect()
-export default class Comments extends Component {
+export default class CommentList extends Component {
 
   newSubmit = newComment => {
     // newComment.createdBy = this.props.auth.uid
@@ -33,7 +33,7 @@ export default class Comments extends Component {
   }
 
   render() {
-    const { profiles, post, post: { comments } } = this.props
+    const { profiles, post, post: { comments }, hasAuthorConfig } = this.props
 
     return (
       <div>
@@ -47,6 +47,7 @@ export default class Comments extends Component {
         <NewCommentForm
           profiles={profiles}
           form={`newComment-${post.uid}`}
+          hasAuthorConfig={hasAuthorConfig}
           onSubmit={this.newSubmit}
           onSubmitSuccess={this.resetForm}
         />

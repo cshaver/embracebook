@@ -4,55 +4,63 @@ import { map, get } from 'lodash'
 import { connect } from 'react-redux'
 import {
   firebaseConnect,
-  populate,
+  // populate,
   isLoaded,
   isEmpty
 } from 'react-redux-firebase'
 
-import { PROFILE_LIST_PATH } from 'constants'
-import { UserIsAuthenticated } from 'utils/router'
 import ProgressIndicator from 'components/ProgressIndicator'
 import ProfileTile from './components/ProfileTile'
 import NewProfileTile from './components/NewProfileTile'
 import NewProfileDialog from './components/NewProfileDialog'
+import NoAccess from 'components/NoAccess'
 import { toggleNewProfileModal } from './actions'
+import { NPC_TYPE, PLAYER_TYPE } from 'constants'
 
 import classes from './index.scss'
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 
-@UserIsAuthenticated
-@firebaseConnect([
-  { path: 'profiles', populates }
-])
+@firebaseConnect([{ path: 'profiles', populates }])
 @connect(
-  // map state to props
-  ({ firebase, firebase: { auth, data: { users, profiles } }, form: { newProfile }, modal }, { params }) => (
+  (
     {
-      auth,
-      newProfileModal: modal.newProfile,
-      profiles: map((profiles || []), (profile, uid) => ({
-        ...profile,
-        uid,
-        createdBy: !users ? uid : {
-          ...users[profile.createdBy],
-          uid: profile.createdBy
-        }
-      })).reverse()
-    }
-  ),
+      firebase,
+      firebase: { auth, profile, data: { users, profiles } },
+      form: { newProfile },
+      modal
+    },
+    { params }
+  ) => ({
+    auth,
+    profile,
+    newProfileModal: modal.newProfile,
+    profiles: map(profiles || [], (profile, uid) => ({
+      ...profile,
+      uid,
+      createdBy: !users
+        ? uid
+        : {
+            ...users[profile.createdBy],
+            uid: profile.createdBy
+          }
+    })).reverse()
+  }),
   // map dispatch to props
   dispatch => ({
     toggleNewProfileModal: toggleNewProfileModal(dispatch)
   })
 )
-export default class Profiles extends Component {
+export default class ProfileList extends Component {
   static contextTypes = {
-    router: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+    firebase: PropTypes.object,
+    toggleNewProfileModal: PropTypes.func
   }
 
   newSubmit = newProfile => {
     newProfile.createdBy = this.props.auth.uid
+    newProfile.type = NPC_TYPE
 
     return this.props.firebase
       .push('profiles', newProfile)
@@ -68,7 +76,7 @@ export default class Profiles extends Component {
     this.props.firebase.remove(`profiles/${profiles[key].uid}`)
   }
 
-  toggleModal = (open) => {
+  toggleModal = open => {
     this.props.toggleNewProfileModal({
       open
     })
@@ -84,7 +92,7 @@ export default class Profiles extends Component {
   }
 
   render() {
-    const { profiles, auth, newProfileModal } = this.props
+    const { profiles, auth, profile, newProfileModal } = this.props
 
     if (!isLoaded(profiles, auth)) {
       return <ProgressIndicator />
@@ -94,6 +102,10 @@ export default class Profiles extends Component {
     if (this.props.children) {
       // pass all props to children routes
       return cloneElement(this.props.children, this.props)
+    }
+
+    if (profile.type === PLAYER_TYPE) {
+      return (<NoAccess />)
     }
 
     return (
@@ -112,7 +124,7 @@ export default class Profiles extends Component {
           <NewProfileTile onClick={() => this.toggleModal(true)} />
           {!isEmpty(profiles) &&
             map(profiles, (profile, key) => (
-              <ProfileTile
+              profile.type !== NPC_TYPE ? null : <ProfileTile
                 key={`${profile.displayName}-Collab-${key}`}
                 profile={profile}
                 onDelete={() => this.deleteProfile(key)}

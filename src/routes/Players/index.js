@@ -1,4 +1,4 @@
-import { PROFILE_DETAIL_PATH as path } from 'constants'
+import { PLAYER_LIST_PATH as path } from 'constants'
 import { UserIsAuthenticated } from 'utils/router'
 
 export default store => ({
@@ -12,14 +12,24 @@ export default store => ({
       require => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Profile = require('containers/Profile').default
+        const PlayerList = require('containers/PlayerList').default
 
         /*  Return getComponent   */
-        cb(null, UserIsAuthenticated(Profile))
+        cb(null, UserIsAuthenticated(PlayerList))
 
         /* Webpack named bundle   */
       },
-      'Profile'
+      'PlayerList'
     )
-  }
+  },
+  // getChildRoutes(partialNextState, cb) {
+  //   require.ensure([], require => {
+  //     /*  Webpack - use require callback to define
+  //         dependencies for bundling   */
+  //     const Profile = require('./routes/Profile').default
+  //
+  //     /*  Return getComponent   */
+  //     cb(null, [Profile(store)])
+  //   })
+  // }
 })

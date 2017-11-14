@@ -5,6 +5,8 @@ import { required, validateSlug } from 'utils/form'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { map } from 'lodash'
 
+import { NPC_TYPE } from 'constants'
+
 @firebaseConnect([
   { path: 'profiles' }
 ])
@@ -32,6 +34,7 @@ export default class AuthorConfig extends Component {
           <option value="" disabled>Author</option>
           {!isEmpty(profiles) &&
             map(profiles, (profile) => (
+              profile.type !== NPC_TYPE ? null :
               <option key={profile.uid} value={profile.uid}>{profile.displayName}</option>
             ))}
         </Field>

@@ -17,11 +17,11 @@ import classes from './index.scss'
 }))
 export class NewCommentForm extends Component {
   render() {
-    const { handleSubmit } = this.props
+    const { handleSubmit, hasAuthorConfig } = this.props
 
     return (
       <form onSubmit={handleSubmit} className={classes.inputs}>
-        <AuthorConfig />
+        {hasAuthorConfig ? <AuthorConfig /> : null}
         <Field
           name="content"
           component={TextInput}
