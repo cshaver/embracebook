@@ -1,4 +1,5 @@
 import React, { Component, cloneElement } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { map, get } from 'lodash'
 import { connect } from 'react-redux'
@@ -11,9 +12,7 @@ import {
 
 import NewCommentForm from './components/NewCommentForm'
 
-@firebaseConnect()
-export default class CommentList extends Component {
-
+class CommentList extends Component {
   newSubmit(newComment) {
     // newComment.createdBy = this.props.auth.uid
     // unix seconds, instead of milliseconds
@@ -65,3 +64,7 @@ CommentList.propTypes = {
     PropTypes.array
   ])
 }
+
+export default compose(
+  firebaseConnect()
+)(CommentList)

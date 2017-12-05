@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
@@ -7,12 +8,7 @@ import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } 
 
 import classes from './index.scss'
 
-@firebaseConnect()
-@connect(({ firebase: { auth, profile } }) => ({
-  auth,
-  profile
-}))
-export default class Navbar extends Component {
+class Navbar extends Component {
   logout() {
     this.props.firebase.logout()
     this.context.router.push('/')
@@ -70,3 +66,11 @@ Navbar.propTypes = {
   auth: PropTypes.object,
   firebase: PropTypes.object.isRequired
 }
+
+export default compose(
+  firebaseConnect(),
+  connect(({ firebase: { auth, profile } }) => ({
+    auth,
+    profile
+  }))
+)(Navbar)

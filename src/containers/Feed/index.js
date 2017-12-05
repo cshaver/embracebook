@@ -1,4 +1,5 @@
 import React, { Component, cloneElement } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { map, get } from 'lodash'
 import { connect } from 'react-redux'
@@ -20,36 +21,7 @@ const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' }
 ]
 
-@firebaseConnect([
-  { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates }
-])
-@connect(
-  // map state to props
-  ({ firebase, firebase: { auth, profile, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
-    {
-      auth,
-      profile,
-      profiles,
-      newPostModal: newPost,
-      // posts: populate(firebase, 'posts', populates)
-      posts: posts ? map(posts, (post, uid) => ({
-        ...post,
-        uid,
-        author: {
-          ...profiles[post.author],
-          uid: post.author
-        },
-        comments: map(post.comments, (comment, uid) => ({
-          ...comment,
-          uid,
-          author: profiles[comment.author]
-        }))
-      })) : []
-      // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
-    }
-  )
-)
-export default class Feed extends Component {
+class Feed extends Component {
   newSubmit(newPost) {
     // set author for players
     newPost.author = newPost.author || this.props.auth.uid
@@ -130,3 +102,35 @@ Feed.propTypes = {
     PropTypes.array
   ])
 }
+
+export default compose(
+  firebaseConnect([
+  { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates }
+  ]),
+  connect(
+    // map state to props
+    ({ firebase, firebase: { auth, profile, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
+      {
+        auth,
+        profile,
+        profiles,
+        newPostModal: newPost,
+        // posts: populate(firebase, 'posts', populates)
+        posts: posts ? map(posts, (post, uid) => ({
+          ...post,
+          uid,
+          author: {
+            ...profiles[post.author],
+            uid: post.author
+          },
+          comments: map(post.comments, (comment, uid) => ({
+            ...comment,
+            uid,
+            author: profiles[comment.author]
+          }))
+        })) : []
+        // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
+      }
+    )
+  )
+)(Feed)

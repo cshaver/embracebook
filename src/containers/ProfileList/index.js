@@ -1,4 +1,5 @@
 import React, { Component, cloneElement } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { map, get } from 'lodash'
 import { connect } from 'react-redux'
@@ -21,37 +22,7 @@ import classes from './index.scss'
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
 
-@firebaseConnect([{ path: 'profiles', populates }])
-@connect(
-  (
-    {
-      firebase,
-      firebase: { auth, profile, data: { users, profiles } },
-      form: { newProfile },
-      modal
-    },
-    { params }
-  ) => ({
-    auth,
-    profile,
-    newProfileModal: modal.newProfile,
-    profiles: map(profiles || [], (profile, uid) => ({
-      ...profile,
-      uid,
-      createdBy: !users
-        ? uid
-        : {
-            ...users[profile.createdBy],
-            uid: profile.createdBy
-          }
-    })).reverse()
-  }),
-  // map dispatch to props
-  dispatch => ({
-    toggleNewProfileModal: toggleNewProfileModal(dispatch)
-  })
-)
-export default class ProfileList extends Component {
+class ProfileList extends Component {
   newSubmit(newProfile) {
     newProfile.createdBy = this.props.auth.uid
     newProfile.type = NPC_TYPE
@@ -142,3 +113,36 @@ ProfileList.propTypes = {
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object
 }
+
+export default compose(
+  firebaseConnect([{ path: 'profiles', populates }]),
+  connect(
+    (
+      {
+        firebase,
+        firebase: { auth, profile, data: { users, profiles } },
+        form: { newProfile },
+        modal
+      },
+      { params }
+    ) => ({
+      auth,
+      profile,
+      newProfileModal: modal.newProfile,
+      profiles: map(profiles || [], (profile, uid) => ({
+        ...profile,
+        uid,
+        createdBy: !users
+          ? uid
+          : {
+              ...users[profile.createdBy],
+              uid: profile.createdBy
+            }
+      })).reverse()
+    }),
+    // map dispatch to props
+    dispatch => ({
+      toggleNewProfileModal: toggleNewProfileModal(dispatch)
+    })
+  )
+)(ProfileList)

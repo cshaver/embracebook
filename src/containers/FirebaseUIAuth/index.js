@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { firebaseConnect } from 'react-redux-firebase'
 import * as firebaseui from 'firebaseui'
 
 var authUI
 
-@firebaseConnect()
-export default class FirebaseUIAuth extends Component {
+class FirebaseUIAuth extends Component {
   componentDidMount() {
     let firebase = this.props.firebase
 
@@ -55,3 +55,7 @@ FirebaseUIAuth.propTypes = {
   firebase: PropTypes.object.isRequired,
   signInSuccess: PropTypes.func
 }
+
+export default compose(
+  firebaseConnect()
+)(FirebaseUIAuth)

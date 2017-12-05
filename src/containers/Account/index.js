@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
@@ -11,11 +12,7 @@ import ProgressIndicator from 'components/ProgressIndicator'
 import AccountForm from './components/AccountForm'
 import classes from './index.scss'
 
-@firebaseConnect()
-@connect(({ firebase: { profile } }) => ({
-  profile
-}))
-export default class Account extends Component {
+class Account extends Component {
   updateAccount(newData) {
     delete newData.isLoaded
     delete newData.isEmpty
@@ -63,3 +60,10 @@ Account.propTypes = {
     logout: PropTypes.func.isRequired
   })
 }
+
+export default compose(
+  firebaseConnect(),
+  connect(({ firebase: { profile } }) => ({
+    profile
+  })),
+)(Account)

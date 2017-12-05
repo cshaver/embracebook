@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { required, validateSlug } from 'utils/form'
@@ -7,21 +8,7 @@ import { map } from 'lodash'
 
 import { NPC_TYPE } from 'constants'
 
-@firebaseConnect([
-  { path: 'profiles' }
-])
-@connect(
-  // map state to props
-  ({ firebase, firebase: { data: { profiles } } }, { params }) => (
-    {
-      profiles: map((profiles || []), (profile, uid) => ({
-        ...profile,
-        uid
-        })).reverse()
-    }
-  )
-)
-export default class AuthorConfig extends Component {
+class AuthorConfig extends Component {
   render() {
     const { profiles } = this.props
     return (
@@ -42,3 +29,20 @@ export default class AuthorConfig extends Component {
     )
   }
 }
+
+export default compose(
+  firebaseConnect([
+    { path: 'profiles' }
+  ]),
+  connect(
+    // map state to props
+    ({ firebase, firebase: { data: { profiles } } }, { params }) => (
+      {
+        profiles: map((profiles || []), (profile, uid) => ({
+          ...profile,
+          uid
+          })).reverse()
+      }
+    )
+  )
+)(AuthorConfig)

@@ -1,18 +1,12 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import ProgressIndicator from 'components/ProgressIndicator'
 import classes from './index.scss'
 
-// Get profile path from firebase based on params prop (route params from react-router)
-@firebaseConnect(({ params: { uid } }) => [`profiles/${uid}`])
-// Map state to props
-@connect(({ firebase: { data } }, { params: { uid } }) => ({
-  profile: data.profiles && data.profiles[uid]
-  // profile: get(data, `profiles.${uid}`) // lodash's get can be used for convience
-}))
-export default class Profile extends Component {
+class Profile extends Component {
   render() {
     const { profile, params } = this.props
 
@@ -37,3 +31,13 @@ Profile.propTypes = {
   profile: PropTypes.object,
   params: PropTypes.object.isRequired
 }
+
+export default compose(
+  // Get profile path from firebase based on params prop (route params from react-router)
+  firebaseConnect(({ params: { uid } }) => [`profiles/${uid}`]),
+  // Map state to props
+  connect(({ firebase: { data } }, { params: { uid } }) => ({
+    profile: data.profiles && data.profiles[uid]
+    // profile: get(data, `profiles.${uid}`) // lodash's get can be used for convience
+  }))
+)(Profile)

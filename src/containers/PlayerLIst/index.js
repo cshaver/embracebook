@@ -1,4 +1,5 @@
 import React, { Component, cloneElement } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { map, get, filter } from 'lodash'
 import { connect } from 'react-redux'
@@ -11,14 +12,7 @@ import NoAccess from 'components/NoAccess'
 
 import classes from './index.scss'
 
-@firebaseConnect([{ path: 'users' }])
-// Map state to props
-@connect(({ firebase, firebase: { auth, profile, data: { users } } }, { params: { uid } }) => ({
-  auth,
-  profile,
-  players: users
-}))
-export default class PlayerList extends Component {
+class PlayerList extends Component {
   render() {
     const { users, players, auth, profile } = this.props
 
@@ -62,3 +56,13 @@ PlayerList.propTypes = {
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object
 }
+
+export default compose(
+  firebaseConnect([{ path: 'users' }]),
+  // Map state to props
+  connect(({ firebase, firebase: { auth, profile, data: { users } } }, { params: { uid } }) => ({
+    auth,
+    profile,
+    players: users
+  }))
+)(PlayerList)

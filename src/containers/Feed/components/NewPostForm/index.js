@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { map, get } from 'lodash'
 import { connect } from 'react-redux'
@@ -11,7 +12,7 @@ import { NEW_POST_FORM_NAME } from 'constants'
 
 import classes from './index.scss'
 
-export class NewPostForm extends Component {
+class NewPostForm extends Component {
   resetForm(result, dispatch, formProps) {
     formProps.reset()
   }

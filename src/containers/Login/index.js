@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { connect } from 'react-redux'
@@ -15,13 +16,7 @@ import {
 
 import classes from './index.scss'
 
-@firebaseConnect()
-@connect(({ firebase: { auth, profile } }) => ({
-  profile,
-  auth
-}))
-@withRouter
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   render() {
     const { pathname, query } = this.props.router.location
     if (pathname === INVITE_PATH && !query.code) {
@@ -88,3 +83,12 @@ LoginPage.propTypes = {
   }),
   profile: PropTypes.object
 }
+
+export default compose(
+  firebaseConnect(),
+  connect(({ firebase: { auth, profile } }) => ({
+    profile,
+    auth
+  })),
+  withRouter,
+)(LoginPage)
