@@ -2,8 +2,8 @@ root: true
 
 parser: babel-eslint
 
-extends: [standard, standard-react, prettier, prettier/react]
-plugins: [babel, react, prettier]
+extends: [airbnb]
+plugins: [react, react-with-styles, import, airbnb]
 
 env:
   browser: true
@@ -14,25 +14,4 @@ ecmaFeatures:
   jsx: true
   modules: true
 
-globals:
-  __DEV__: false
-  __COVERAGE__: false
-  __TEST__: false
-
 experimentalDecorators: 0
-
-rules:
-  semi: [1, 'never']
-  no-console: 0
-  no-unused-vars: 1
-  jsx-quotes: [1, 'prefer-double']
-  prettier/prettier: [1, {
-    singleQuote: true,
-    trailingComma: 'es6',
-    semi: false,
-    bracketSpacing: true,
-    jsxBracketSameLine: true,
-    printWidth: 80,
-    tabWidth: 2,
-    useTabs: false
-  }]
