@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import { version } from '../package.json'
-import { env } from '../project.config'
+import { env } from '../webpack/config/project.config'
 import './styles/core.scss'
 
 // Window Variables

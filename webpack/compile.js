@@ -2,9 +2,9 @@ const fs = require('fs-extra')
 const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
-const logger = require('../lib/logger')
-const webpackConfig = require('../webpack.config')
-const project = require('../../project.config')
+const logger = require('./utils/logger')
+const webpackConfig = require('./config/webpack.config')
+const project = require('./config/project.config')
 
 const runWebpackCompiler = webpackConfig =>
   new Promise((resolve, reject) => {

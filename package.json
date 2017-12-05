@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf public",
-    "compile": "node build/scripts/compile",
+    "compile": "node webpack/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t embracebook -- node build/scripts/start",
-    "start:simple": "cross-env NODE_ENV=development node build/scripts/start",
+    "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t embracebook -- node webpack/devServer",
+    "start:simple": "cross-env NODE_ENV=development node webpack/start",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --single-quote --no-semi --trailing-comma none --write \"src/**/*.js\""
