@@ -13,11 +13,6 @@ import classes from './index.scss'
   // profile: get(data, `profiles.${uid}`) // lodash's get can be used for convience
 }))
 export default class Profile extends Component {
-  static propTypes = {
-    profile: PropTypes.object,
-    params: PropTypes.object.isRequired
-  }
-
   render() {
     const { profile, params } = this.props
 
@@ -36,4 +31,9 @@ export default class Profile extends Component {
       </div>
     )
   }
+}
+
+Profile.propTypes = {
+  profile: PropTypes.object,
+  params: PropTypes.object.isRequired
 }

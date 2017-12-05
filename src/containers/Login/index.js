@@ -79,12 +79,12 @@ export default class LoginPage extends Component {
         })
     }
   }
+}
 
-  static propTypes = {
-    firebase: PropTypes.shape({ // eslint-disable-line
-      updateProfile: PropTypes.func.isRequired,
-      login: PropTypes.func.isRequired
-    }),
-    profile: PropTypes.object
-  }
+LoginPage.propTypes = {
+  firebase: PropTypes.shape({ // eslint-disable-line
+    updateProfile: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired
+  }),
+  profile: PropTypes.object
 }

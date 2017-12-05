@@ -14,7 +14,7 @@ import NewCommentForm from './components/NewCommentForm'
 @firebaseConnect()
 export default class CommentList extends Component {
 
-  newSubmit = newComment => {
+  newSubmit(newComment) {
     // newComment.createdBy = this.props.auth.uid
     // unix seconds, instead of milliseconds
     newComment.timestamp = (new Date()).getTime() / 1000
@@ -28,7 +28,7 @@ export default class CommentList extends Component {
       })
   }
 
-  resetForm = (result, dispatch, formProps) => {
+  resetForm(result, dispatch, formProps) {
     formProps.reset()
   }
 
@@ -54,14 +54,14 @@ export default class CommentList extends Component {
       </div>
     )
   }
+}
 
-  static propTypes = {
-    children: PropTypes.object,
-    firebase: PropTypes.object.isRequired,
-    auth: PropTypes.object,
-    posts: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array
-    ])
-  }
+CommentList.propTypes = {
+  children: PropTypes.object,
+  firebase: PropTypes.object.isRequired,
+  auth: PropTypes.object,
+  posts: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ])
 }

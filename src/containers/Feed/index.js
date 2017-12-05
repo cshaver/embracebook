@@ -50,11 +50,7 @@ const populates = [
   )
 )
 export default class Feed extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  }
-
-  newSubmit = newPost => {
+  newSubmit(newPost) {
     // set author for players
     newPost.author = newPost.author || this.props.auth.uid
     // always set createdBy
@@ -70,9 +66,11 @@ export default class Feed extends Component {
       })
   }
 
-  deletePost = key => this.props.firebase.remove(`posts/${key}`)
+  deletePost(key) {
+    return this.props.firebase.remove(`posts/${key}`)
+  }
 
-  getDeleteVisible = post => {
+  getDeleteVisible(post) {
     const { auth } = this.props
     return (
       !isEmpty(this.props.auth) &&
@@ -81,7 +79,7 @@ export default class Feed extends Component {
     )
   }
 
-  hasAuthorConfig = () => {
+  hasAuthorConfig() {
     return this.props.profile.type !== PLAYER_TYPE
   }
 
@@ -117,14 +115,18 @@ export default class Feed extends Component {
       </div>
     )
   }
+}
 
-  static propTypes = {
-    children: PropTypes.object,
-    firebase: PropTypes.object.isRequired,
-    auth: PropTypes.object,
-    posts: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array
-    ])
-  }
+Feed.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
+Feed.propTypes = {
+  children: PropTypes.object,
+  firebase: PropTypes.object.isRequired,
+  auth: PropTypes.object,
+  posts: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ])
 }

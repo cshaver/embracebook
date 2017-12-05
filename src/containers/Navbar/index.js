@@ -13,17 +13,7 @@ import classes from './index.scss'
   profile
 }))
 export default class Navbar extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  }
-
-  static propTypes = {
-    profile: PropTypes.object,
-    auth: PropTypes.object,
-    firebase: PropTypes.object.isRequired
-  }
-
-  logout = () => {
+  logout() {
     this.props.firebase.logout()
     this.context.router.push('/')
   }
@@ -69,4 +59,14 @@ export default class Navbar extends Component {
       </nav>
     )
   }
+}
+
+Navbar.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
+Navbar.propTypes = {
+  profile: PropTypes.object,
+  auth: PropTypes.object,
+  firebase: PropTypes.object.isRequired
 }

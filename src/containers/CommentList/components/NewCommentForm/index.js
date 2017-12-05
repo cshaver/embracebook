@@ -32,10 +32,10 @@ export class NewCommentForm extends Component {
       </form>
     )
   }
+}
 
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  }
+NewCommentForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
 }
 
 export default NewCommentForm = reduxForm({})(NewCommentForm)

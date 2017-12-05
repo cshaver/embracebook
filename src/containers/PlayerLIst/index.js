@@ -19,11 +19,6 @@ import classes from './index.scss'
   players: users
 }))
 export default class PlayerList extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-    firebase: PropTypes.object
-  }
-
   render() {
     const { users, players, auth, profile } = this.props
 
@@ -55,10 +50,15 @@ export default class PlayerList extends Component {
       </div>
     )
   }
+}
 
-  static propTypes = {
-    children: PropTypes.object,
-    firebase: PropTypes.object.isRequired,
-    auth: PropTypes.object
-  }
+PlayerList.contextTypes = {
+  router: PropTypes.object.isRequired,
+  firebase: PropTypes.object
+}
+
+PlayerList.propTypes = {
+  children: PropTypes.object,
+  firebase: PropTypes.object.isRequired,
+  auth: PropTypes.object
 }

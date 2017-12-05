@@ -12,7 +12,7 @@ import { NEW_POST_FORM_NAME } from 'constants'
 import classes from './index.scss'
 
 export class NewPostForm extends Component {
-  resetForm = (result, dispatch, formProps) => {
+  resetForm(result, dispatch, formProps) {
     formProps.reset()
   }
 
@@ -33,12 +33,12 @@ export class NewPostForm extends Component {
       </form>
     )
   }
+}
 
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-    handleSubmit: PropTypes.func.isRequired, // added by redux-form
-    submit: PropTypes.func.isRequired // added by redux-form
-  }
+NewPostForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  handleSubmit: PropTypes.func.isRequired, // added by redux-form
+  submit: PropTypes.func.isRequired // added by redux-form
 }
 
 export default (NewPostForm = reduxForm({

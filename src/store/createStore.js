@@ -24,7 +24,10 @@ export default (initialState = {}) => {
   ]
 
   // Initialize Firebase instance and Firestore (optional)
+  console.log(config);
   firebase.initializeApp(config.firebase)
+  console.log(firebase);
+  console.log(config.reduxFirebase);
   // firebase.firestore()
 
   // ======================================================
@@ -43,6 +46,8 @@ export default (initialState = {}) => {
       ]
     }) : compose
   }
+
+  console.log(initialState);
 
   const store = createStore(
     makeRootReducer(),

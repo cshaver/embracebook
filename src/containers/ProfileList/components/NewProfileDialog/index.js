@@ -65,14 +65,14 @@ export class NewProfileDialog extends Component {
       </Dialog>
     )
   }
+}
 
-  static propTypes = {
-    open: PropTypes.bool.isRequired,
-    onRequestClose: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-    handleSubmit: PropTypes.func.isRequired, // added by redux-form
-    submit: PropTypes.func.isRequired // added by redux-form
-  }
+NewProfileDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired
 }
 
 export default NewProfileDialog = reduxForm({

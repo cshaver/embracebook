@@ -16,7 +16,7 @@ import classes from './index.scss'
   profile
 }))
 export default class Account extends Component {
-  updateAccount = newData => {
+  updateAccount(newData) {
     delete newData.isLoaded
     delete newData.isEmpty
 
@@ -54,12 +54,12 @@ export default class Account extends Component {
       </div>
     )
   }
+}
 
-  static propTypes = {
-    profile: PropTypes.object,
-    firebase: PropTypes.shape({
-      updateProfile: PropTypes.func.isRequired,
-      logout: PropTypes.func.isRequired
-    })
-  }
+Account.propTypes = {
+  profile: PropTypes.object,
+  firebase: PropTypes.shape({
+    updateProfile: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
+  })
 }

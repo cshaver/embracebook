@@ -49,9 +49,9 @@ export default class FirebaseUIAuth extends Component {
       />
     )
   }
+}
 
-  static propTypes = {
-    firebase: PropTypes.object.isRequired,
-    signInSuccess: PropTypes.func
-  }
+FirebaseUIAuth.propTypes = {
+  firebase: PropTypes.object.isRequired,
+  signInSuccess: PropTypes.func
 }

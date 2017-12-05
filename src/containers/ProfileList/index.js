@@ -52,13 +52,7 @@ const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }]
   })
 )
 export default class ProfileList extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-    firebase: PropTypes.object,
-    toggleNewProfileModal: PropTypes.func
-  }
-
-  newSubmit = newProfile => {
+  newSubmit(newProfile) {
     newProfile.createdBy = this.props.auth.uid
     newProfile.type = NPC_TYPE
 
@@ -71,18 +65,18 @@ export default class ProfileList extends Component {
       })
   }
 
-  deleteProfile = key => {
+  deleteProfile(key) {
     const { profiles, firebase } = this.props
     this.props.firebase.remove(`profiles/${profiles[key].uid}`)
   }
 
-  toggleModal = open => {
+  toggleModal(open) {
     this.props.toggleNewProfileModal({
       open
     })
   }
 
-  getDeleteVisible = key => {
+  getDeleteVisible(key) {
     const { auth, profiles } = this.props
     return (
       !isEmpty(this.props.auth) &&
@@ -135,10 +129,16 @@ export default class ProfileList extends Component {
       </div>
     )
   }
+}
 
-  static propTypes = {
-    children: PropTypes.object,
-    firebase: PropTypes.object.isRequired,
-    auth: PropTypes.object
-  }
+ProfileList.contextTypes = {
+  router: PropTypes.object.isRequired,
+  firebase: PropTypes.object,
+  toggleNewProfileModal: PropTypes.func
+}
+
+ProfileList.propTypes = {
+  children: PropTypes.object,
+  firebase: PropTypes.object.isRequired,
+  auth: PropTypes.object
 }

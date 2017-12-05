@@ -4,17 +4,18 @@ import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 
 export default class AppContainer extends Component {
-  static propTypes = {
-    routes: PropTypes.object.isRequired,
-    store: PropTypes.object.isRequired
-  }
-
   render() {
     const { routes, store } = this.props
+    console.log(routes, store);
     return (
       <Provider store={store}>
         <Router history={browserHistory}>{routes}</Router>
       </Provider>
     )
   }
+}
+
+AppContainer.propTypes = {
+  routes: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 }
