@@ -7,11 +7,10 @@
     "clean": "rimraf public",
     "compile": "node webpack/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "start": "cross-env NODE_ENV=development webpack-dashboard -p 1234 -c cyan -m -t embracebook -- node webpack/devServer",
-    "start:simple": "cross-env NODE_ENV=development node webpack/start",
+    "start": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- node webpack/devServer",
+    "start:simple": "cross-env NODE_ENV=development node webpack/devServer",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --single-quote --no-semi --trailing-comma none --write \"src/**/*.js\""
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",

@@ -4,6 +4,7 @@ const loaderUtils = require('loader-utils')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const project = require('./project.config')
 
 const inProject = path.resolve.bind(path, project.basePath)
@@ -226,7 +227,7 @@ if (__DEV__) {
   )
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
   )
 }
 
@@ -282,6 +283,10 @@ if (__PROD__) {
       }
     })
   )
+} else {
+  config.plugins.push(
+    new DashboardPlugin(),
+  );
 }
 
 module.exports = config

@@ -39,7 +39,7 @@ class CommentList extends Component {
         <ul>
           {comments.map(comment => (
             <li key={comment.uid}>
-              <b>{comment.author.displayName}:</b> {comment.content}
+              <b>{comment.author ? comment.author.displayName : ''}:</b> {comment.content}
             </li>
           ))}
         </ul>
