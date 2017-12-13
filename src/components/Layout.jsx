@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from 'containers/Navbar';
+import Navbar from '../containers/Navbar';
 
-export const Layout = ({ children }) => (
+const Layout = ({ children }) => (
   <div>
     <Navbar />
     <main>{children}</main>

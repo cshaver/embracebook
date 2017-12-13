@@ -5,7 +5,7 @@ import { TextInput } from 'components/form/TextInput';
 import { ACCOUNT_FORM_NAME } from 'constants';
 import classes from './index.scss';
 
-export const AccountForm = ({ account, handleSubmit, submitting }) => (
+const AccountForm = ({ account, handleSubmit, submitting }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <h4>Account</h4>
     <Field
@@ -32,3 +32,4 @@ AccountForm.propTypes = {
 export default reduxForm({
   form: ACCOUNT_FORM_NAME,
 })(AccountForm);
+

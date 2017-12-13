@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
+// import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { map, get } from 'lodash';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import AuthorConfig from 'containers/AuthorConfig';
-import { Fieldset, Textarea } from 'components/Form';
-import { required, validateSlug } from 'utils/form';
-import { NEW_POST_FORM_NAME } from 'constants';
+import AuthorConfig from '../../../../containers/AuthorConfig';
+import { Fieldset, Textarea } from '../../../../components/form';
+import { required } from '../../../../utils/form';
+import { NEW_POST_FORM_NAME } from '../../../../constants';
 
 import classes from './index.scss';
 

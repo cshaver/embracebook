@@ -16,7 +16,11 @@ export function locationChange(location = '/') {
 // ------------------------------------
 // Specialized Action Creator
 // ------------------------------------
-export const updateLocation = ({ dispatch }) => nextLocation => dispatch(locationChange(nextLocation));
+export const updateLocation = ({ dispatch }) => (
+  nextLocation => (
+    dispatch(locationChange(nextLocation))
+  )
+);
 
 // ------------------------------------
 // Reducer
@@ -26,6 +30,6 @@ export default function locationReducer(state = null, action) {
     case LOCATION_CHANGE:
       return action.payload;
     default:
-    	return state;
+      return state;
   }
 }

@@ -11,7 +11,7 @@ export default () => ({
       (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const NoAccess = require('components/NoAccess').default;
+        const NoAccess = require('../../components/NoAccess').default;
 
         /*  Return getComponent   */
         cb(null, NoAccess);

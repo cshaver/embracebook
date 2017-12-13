@@ -1,7 +1,7 @@
 import { PROFILE_DETAIL_PATH as path } from 'constants';
-import { UserIsAuthenticated } from 'utils/router';
+import { UserIsAuthenticated } from '../../utils/router';
 
-export default store => ({
+export default () => ({
   path,
   /*  Async getComponent is only invoked when route matches   */
   getComponent(nextState, cb) {
@@ -12,7 +12,7 @@ export default store => ({
       (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Profile = require('containers/Profile').default;
+        const Profile = require('../../containers/Profile').default;
 
         /*  Return getComponent   */
         cb(null, UserIsAuthenticated(Profile));

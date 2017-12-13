@@ -1,6 +1,26 @@
+import slugify from 'slugify';
+
 import { TOGGLE_NEW_PROFILE_MODAL } from './actions';
 
-import slugify from 'slugify';
+
+function updateDefaults(state, displayName) {
+  const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true });
+
+  const defaults = {
+    slug,
+    avatarUrl: `https://api.adorable.io/avatars/${slug || 'default'}.png`,
+  };
+
+  const { values, initial } = state;
+
+  // update if still default
+  values.slug = values.slug === initial.slug ? defaults.slug : values.slug;
+  values.avatarUrl = values.avatarUrl === initial.avatarUrl ? defaults.avatarUrl : values.avatarUrl;
+
+  state.initial = { ...initial, ...defaults };
+
+  return state;
+}
 
 // ------------------------------------
 // Reducer
@@ -32,23 +52,4 @@ export function newProfileModalReducer(state = null, action) {
     default:
       return state;
   }
-}
-
-function updateDefaults(state, displayName) {
-  const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true });
-
-  const defaults = {
-    slug,
-    avatarUrl: `https://api.adorable.io/avatars/${slug || 'default'}.png`,
-  };
-
-  const { values, initial } = state;
-
-  // update if still default
-  values.slug = values.slug === initial.slug ? defaults.slug : values.slug;
-  values.avatarUrl = values.avatarUrl === initial.avatarUrl ? defaults.avatarUrl : values.avatarUrl;
-
-  state.initial = { ...initial, ...defaults };
-
-  return state;
 }

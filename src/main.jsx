@@ -1,3 +1,7 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable global-require */
+/* eslint-disable no-undef */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from './store/createStore';
@@ -30,7 +34,7 @@ let render = () => {
 
 // Development Tools
 // ------------------------------------
-if (__DEV__) {
+if (DEV) {
   if (module.hot) {
     const renderApp = render;
     const renderError = (error) => {
@@ -59,4 +63,4 @@ if (__DEV__) {
 
 // Let's Go!
 // ------------------------------------
-if (!__TEST__) render();
+if (!TEST) render();

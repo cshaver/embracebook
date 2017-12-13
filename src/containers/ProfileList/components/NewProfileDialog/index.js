@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, formValueSelector, reduxForm } from 'redux-form'
-import Dialog from 'components/Dialog'
-import TextInput from 'components/form/TextInput'
+import Dialog from '../../../components/Dialog'
+import TextInput from '../../../components/form/TextInput'
 
-import { required, validateSlug } from 'utils/form'
-import { NEW_PROFILE_FORM_NAME } from 'constants'
+import { required, validateSlug } from '../../../utils/form'
+import { NEW_PROFILE_FORM_NAME } from '../../../constants'
 
 import classes from './index.scss'
 

@@ -8,7 +8,7 @@ let authUI;
 
 class FirebaseUIAuth extends Component {
   componentDidMount() {
-    const firebase = this.props.firebase;
+    const { firebase } = this.props;
 
     this.uiConfig = this.uiConfig || {
       credentialHelper: firebaseui.auth.CredentialHelper.NONE,
@@ -23,14 +23,16 @@ class FirebaseUIAuth extends Component {
         },
       ],
       callbacks: {
-        signInSuccess: this.props.signInSuccess || this.props.signInSuccessUrl ? (() => true) : (() => false),
+        signInSuccess:
+          this.props.signInSuccess ||
+          this.props.signInSuccessUrl ? (() => true) : (() => false),
       },
       signInSuccessUrl: this.props.signInSuccessUrl,
       tosUrl: this.props.tosUrl,
     };
 
     // Initialize the FirebaseUI auth widget
-    this.ui = authUI = authUI || new firebaseui.auth.AuthUI(firebase.auth());
+    this.ui = authUI || new firebaseui.auth.AuthUI(firebase.auth());
     this.ui.start(this.container, this.uiConfig);
   }
 
@@ -53,7 +55,9 @@ class FirebaseUIAuth extends Component {
 
 FirebaseUIAuth.propTypes = {
   firebase: PropTypes.object.isRequired,
+  tosUrl: PropTypes.string.isRequired,
   signInSuccess: PropTypes.func,
+  signInSuccessUrl: PropTypes.string,
 };
 
 export default compose(firebaseConnect())(FirebaseUIAuth);

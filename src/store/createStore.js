@@ -2,9 +2,10 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { browserHistory } from 'react-router';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
-import makeRootReducer from './reducers';
 import firebase from 'firebase';
 // import 'firebase/firestore' // make sure you add this for firestore
+
+import makeRootReducer from './reducers';
 import * as config from '../../webpack/config/project.config';
 import { version } from '../../package.json';
 import { updateLocation } from './reducers/location';
@@ -24,10 +25,7 @@ export default (initialState = {}) => {
   ];
 
   // Initialize Firebase instance and Firestore (optional)
-  console.log(config);
   firebase.initializeApp(config.firebase);
-  console.log(firebase);
-  console.log(config.reduxFirebase);
   // firebase.firestore()
 
   // ======================================================
@@ -35,10 +33,12 @@ export default (initialState = {}) => {
   // ======================================================
 
   let composeReducers = compose;
+  /* eslint-disable no-underscore-dangle */
   const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
   // enable Redux dev tools
-  if (__DEV__) {
+  /* eslint-disable no-undef */
+  if (DEV) {
     composeReducers = devTools ? devTools({
       actionsBlacklist: [
         '@@reactReduxFirebase',
@@ -46,8 +46,6 @@ export default (initialState = {}) => {
       ],
     }) : compose;
   }
-
-  console.log(initialState);
 
   const store = createStore(
     makeRootReducer(),
@@ -70,6 +68,7 @@ export default (initialState = {}) => {
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
+      /* eslint-disable global-require */
       const reducers = require('./reducers').default;
       store.replaceReducer(reducers(store.asyncReducers));
     });

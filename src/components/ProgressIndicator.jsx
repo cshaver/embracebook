@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ProgressIndicator = ({ size }) => (
+const ProgressIndicator = () => (
   <div>
     Loading...
   </div>

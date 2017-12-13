@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import reduceReducers from 'reduce-reducers';
 import {
   firebaseStateReducer as firebase, /* ,
   firestoreReducer */
@@ -8,7 +7,7 @@ import locationReducer from './location';
 import formReducer from './form';
 import modalReducer from './modal';
 
-export const makeRootReducer = asyncReducers => combineReducers({
+const makeRootReducer = asyncReducers => combineReducers({
   // Add sync reducers here
   firebase,
   // firestore: firestoreReducer,
@@ -17,10 +16,5 @@ export const makeRootReducer = asyncReducers => combineReducers({
   modal: modalReducer,
   ...asyncReducers,
 });
-
-export const injectReducer = (store, { key, reducer }) => {
-  store.asyncReducers[key] = reducer;
-  store.replaceReducer(makeRootReducer(store.asyncReducers));
-};
 
 export default makeRootReducer;

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
@@ -8,9 +10,9 @@ const logger = require('./utils/logger');
 const webpackConfig = require('./config/webpack.config');
 const project = require('./config/project.config');
 
-const runWebpackCompiler = webpackConfig =>
+const runWebpackCompiler = config => (
   new Promise((resolve, reject) => {
-    webpack(webpackConfig).run((err, stats) => {
+    webpack(config).run((err, stats) => {
       if (err) {
         logger.error('Webpack compiler encountered a fatal error.', err);
         return reject(err);
@@ -25,9 +27,10 @@ const runWebpackCompiler = webpackConfig =>
         logger.warn('Webpack compiler encountered warnings.');
         logger.log(jsonStats.warnings.join('\n'));
       }
-      resolve(stats);
+      return resolve(stats);
     });
-  });
+  })
+);
 
 const compile = () =>
   Promise.resolve()

@@ -3,9 +3,9 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { connect } from 'react-redux';
-import { withRouter } from 'utils/components';
-import FirebaseUIAuth from 'containers/FirebaseUIAuth';
-import NoAccess from 'components/NoAccess';
+import { withRouter } from '../../utils/components';
+import FirebaseUIAuth from '../FirebaseUIAuth';
+import NoAccess from '../../components/NoAccess';
 import {
   ACCOUNT_PATH,
   HOME_PATH,

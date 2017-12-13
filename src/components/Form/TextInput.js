@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const TextInput = ({
+const TextInput = ({
   label,
   placeholder,
   input: {

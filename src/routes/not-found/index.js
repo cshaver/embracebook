@@ -9,7 +9,7 @@ export default () => ({
       (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const NotFound = require('./NotFound').default;
+        const NotFound = require('../../components/NotFound').default;
 
         /*  Return getComponent   */
         cb(null, NotFound);

@@ -1,5 +1,5 @@
-import Feed from 'containers/Feed';
-import { UserIsAuthenticated } from 'utils/router';
+import Feed from '../../containers/Feed';
+import { UserIsAuthenticated } from '../../utils/router';
 
 // Sync route definition
 export default {

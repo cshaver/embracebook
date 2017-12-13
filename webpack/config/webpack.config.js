@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 const path = require('path');
 const webpack = require('webpack');
 const loaderUtils = require('loader-utils');
@@ -10,9 +12,9 @@ const project = require('./project.config');
 const inProject = path.resolve.bind(path, project.basePath);
 const inProjectSrc = file => inProject(project.srcDir, file);
 
-const __DEV__ = project.env === 'development';
-const __TEST__ = project.env === 'test';
-const __PROD__ = project.env === 'production';
+const DEV = project.env === 'development';
+const TEST = project.env === 'test';
+const PROD = project.env === 'production';
 
 const config = {
   entry: {
@@ -22,7 +24,7 @@ const config = {
   devtool: project.sourcemaps ? 'source-map' : false,
   output: {
     path: inProject(project.outDir),
-    filename: __DEV__ ? '[name].js' : '[name].[chunkhash].js',
+    filename: DEV ? '[name].js' : '[name].[chunkhash].js',
     publicPath: project.publicPath,
   },
   resolve: {
@@ -41,9 +43,9 @@ const config = {
     new webpack.DefinePlugin(Object.assign(
       {
         'process.env': { NODE_ENV: JSON.stringify(project.env) },
-        __DEV__,
-        __TEST__,
-        __PROD__,
+        DEV,
+        TEST,
+        PROD,
       },
       project.globals,
     )),
@@ -111,7 +113,7 @@ config.module.rules.push({
 const extractStyles = new ExtractTextPlugin({
   filename: 'styles/[name].[contenthash].css',
   allChunks: true,
-  disable: __DEV__,
+  disable: DEV,
 });
 
 config.module.rules.push({
@@ -126,10 +128,10 @@ config.module.rules.push({
           modules: true,
           importLoaders: 2,
           localIdentName: '[path][name]__[local]___[hash:base64:5]',
-          getLocalIdent: (context, localIdentName, localName, options) => {
+          getLocalIdent: (context, localIdentName, localName) => {
             const hash = loaderUtils.interpolateName(context, '[hash:base64:5]', { content: context.resourcePath });
             const parsed = path.parse(context.resourcePath);
-            let name = parsed.name;
+            let { name } = parsed;
 
             if (path.basename(parsed.dir) === 'styles') {
               return localName;
@@ -178,11 +180,11 @@ config.module.rules.push({
   options: {
     limit: 8192,
   },
-})
+});
 
 // Fonts
 // ------------------------------------
-;[
+[
   ['woff', 'application/font-woff'],
   ['woff2', 'application/font-woff2'],
   ['otf', 'font/opentype'],
@@ -216,7 +218,7 @@ config.plugins.push(new HtmlWebpackPlugin({
 
 // Development Tools
 // ------------------------------------
-if (__DEV__) {
+if (DEV) {
   config.entry.main.push(`webpack-hot-middleware/client.js?path=${config.output
     .publicPath}__webpack_hmr`);
   config.plugins.push(
@@ -227,7 +229,7 @@ if (__DEV__) {
 
 // Bundle Splitting
 // ------------------------------------
-if (!__TEST__) {
+if (!TEST) {
   const bundles = ['normalize', 'manifest'];
 
   if (project.vendors && project.vendors.length) {
@@ -239,7 +241,7 @@ if (!__TEST__) {
 
 // Production Optimizations
 // ------------------------------------
-if (__PROD__) {
+if (PROD) {
   config.plugins.push(
     new webpack.LoaderOptionsPlugin({
       minimize: true,

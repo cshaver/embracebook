@@ -1,9 +1,9 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { browserHistory } from 'react-router';
 import { HOME_PATH, LOGIN_PATH } from 'constants';
-import ProgressIndicator from 'components/ProgressIndicator';
+import ProgressIndicator from '../components/ProgressIndicator';
 
-const AUTHED_REDIRECT = 'AUTHED_REDIRECT';
+// const AUTHED_REDIRECT = 'AUTHED_REDIRECT';
 const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
 
 /**

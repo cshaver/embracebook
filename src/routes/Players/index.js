@@ -1,7 +1,9 @@
-import { PLAYER_LIST_PATH as path } from 'constants';
-import { UserIsAuthenticated } from 'utils/router';
+/* eslint-disable global-require */
 
-export default store => ({
+import { PLAYER_LIST_PATH as path } from 'constants';
+import { UserIsAuthenticated } from '../../utils/router';
+
+export default () => ({
   path,
   /*  Async getComponent is only invoked when route matches   */
   getComponent(nextState, cb) {
@@ -12,7 +14,7 @@ export default store => ({
       (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const PlayerList = require('containers/PlayerList').default;
+        const PlayerList = require('../../containers/PlayerList').default;
 
         /*  Return getComponent   */
         cb(null, UserIsAuthenticated(PlayerList));

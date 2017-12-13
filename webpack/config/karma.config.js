@@ -1,4 +1,6 @@
-const argv = require('yargs').argv;
+/* eslint-disable import/no-extraneous-dependencies */
+
+const { argv } = require('yargs');
 const webpackConfig = require('./webpack.config');
 
 const TEST_BUNDLER = './tests/test-bundler.js';

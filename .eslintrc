@@ -2,4 +2,11 @@
   "extends": [
     "airbnb",
   ],
+  "env": {
+    "browser": true,
+  },
+  "rules": {
+    "no-param-reassign": 0,
+    "no-plusplus": 0,
+  },
 }

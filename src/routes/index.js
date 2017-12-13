@@ -1,5 +1,5 @@
 // We only need to import the modules necessary for initial render
-import Layout from 'components/Layout';
+import Layout from '../components/Layout';
 import Feed from './feed';
 import LoginRoute from './login';
 import ProfileRoute from './profile';
