@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 import CommentList from 'containers/CommentList'
-import DeleteButton from 'components/Form/DeleteButton'
+import DeleteButton from 'components/form/DeleteButton'
 import ProfileLink from 'components/ProfileLink'
 
 import classes from './index.scss'

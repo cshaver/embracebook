@@ -10,13 +10,16 @@ const project = require('./project.config')
 const inProject = path.resolve.bind(path, project.basePath)
 const inProjectSrc = file => inProject(project.srcDir, file)
 
+console.log(inProjectSrc('normalize'));
+console.log(inProjectSrc('utils/normalize'));
+
 const __DEV__ = project.env === 'development'
 const __TEST__ = project.env === 'test'
 const __PROD__ = project.env === 'production'
 
 const config = {
   entry: {
-    normalize: [inProjectSrc('normalize')],
+    normalize: [inProjectSrc('utils/normalize')],
     main: [inProjectSrc(project.main)]
   },
   devtool: project.sourcemaps ? 'source-map' : false,

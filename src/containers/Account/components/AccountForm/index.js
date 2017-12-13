@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import { TextInput } from 'components/Form/TextInput'
+import { TextInput } from 'components/form/TextInput'
 import { ACCOUNT_FORM_NAME } from 'constants'
 import classes from './index.scss'
 

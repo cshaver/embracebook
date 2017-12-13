@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, formValueSelector, reduxForm } from 'redux-form'
 import Dialog from 'components/Dialog'
-import TextInput from 'components/Form/TextInput'
+import TextInput from 'components/form/TextInput'
 
 import { required, validateSlug } from 'utils/form'
 import { NEW_PROFILE_FORM_NAME } from 'constants'
