@@ -12,9 +12,7 @@ import {
   TERMS_PATH,
   INVITE_PATH,
   PLAYER_TYPE,
-} from 'constants';
-
-import classes from './index.scss';
+} from '../../constants';
 
 class LoginPage extends Component {
   render() {
@@ -25,7 +23,7 @@ class LoginPage extends Component {
       );
     }
     return (
-      <div className={classes.container}>
+      <div>
         <FirebaseUIAuth tosUrl={TERMS_PATH} />
       </div>
     );

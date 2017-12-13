@@ -12,10 +12,7 @@ import { NEW_POST_FORM_NAME } from '../../../../constants'
 
 import classes from './index.scss'
 
-@connect((state) => ({
-  author: formValueSelector('authorConfig')(state, 'author')
-}))
-export class NewCommentForm extends Component {
+class NewCommentForm extends Component {
   render() {
     const { handleSubmit, hasAuthorConfig } = this.props
 
@@ -38,4 +35,9 @@ NewCommentForm.propTypes = {
   onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
 }
 
-export default NewCommentForm = reduxForm({})(NewCommentForm)
+export default connect(
+  (state) => ({
+    author: formValueSelector('authorConfig')(state, 'author'),
+  })
+)(reduxForm({})(NewCommentForm));
+

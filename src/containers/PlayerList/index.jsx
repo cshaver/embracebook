@@ -1,14 +1,14 @@
 import React, { Component, cloneElement } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { map, get, filter } from 'lodash';
+import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
-import { PLAYER_TYPE } from 'constants';
-import ProgressIndicator from 'components/ProgressIndicator';
+import { PLAYER_TYPE } from '../../constants';
+import ProgressIndicator from '../../components/ProgressIndicator';
 import PlayerTile from './components/PlayerTile';
-import NoAccess from 'components/NoAccess';
+import NoAccess from '../../components/NoAccess';
 
 import classes from './index.scss';
 

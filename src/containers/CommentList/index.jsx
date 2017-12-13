@@ -1,13 +1,8 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { map, get } from 'lodash';
-import { connect } from 'react-redux';
 import {
   firebaseConnect,
-  populate,
-  isLoaded,
-  isEmpty,
 } from 'react-redux-firebase';
 
 import NewCommentForm from './components/NewCommentForm';

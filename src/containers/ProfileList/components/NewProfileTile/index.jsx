@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classes from './index.scss';
 
 export const NewProfileTile = ({ onClick }) => (
   <button onClick={onClick}>
@@ -9,7 +8,7 @@ export const NewProfileTile = ({ onClick }) => (
 );
 
 NewProfileTile.propTypes = {
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default NewProfileTile;

@@ -1,7 +1,7 @@
 import React, { Component, cloneElement } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { map, get } from 'lodash';
+import { map } from 'lodash';
 import { connect } from 'react-redux';
 import {
   firebaseConnect,
@@ -10,32 +10,19 @@ import {
   isEmpty,
 } from 'react-redux-firebase';
 
-import ProgressIndicator from 'components/ProgressIndicator';
+import ProgressIndicator from '../../components/ProgressIndicator';
 import ProfileTile from './components/ProfileTile';
 import NewProfileTile from './components/NewProfileTile';
 import NewProfileDialog from './components/NewProfileDialog';
-import NoAccess from 'components/NoAccess';
+import NoAccess from '../../components/NoAccess';
 import { toggleNewProfileModal } from './actions';
-import { NPC_TYPE, PLAYER_TYPE } from 'constants';
+import { NPC_TYPE, PLAYER_TYPE } from '../../constants';
 
 import classes from './index.scss';
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 
 class ProfileList extends Component {
-  newSubmit(newProfile) {
-    newProfile.createdBy = this.props.auth.uid;
-    newProfile.type = NPC_TYPE;
-
-    return this.props.firebase
-      .push('profiles', newProfile)
-      .then(() => this.toggleModal(false))
-      .catch((err) => {
-        // TODO: Show Snackbar
-        console.error('error creating new profile', err) // eslint-disable-line
-      });
-  }
-
   deleteProfile(key) {
     const { profiles, firebase } = this.props;
     this.props.firebase.remove(`profiles/${profiles[key].uid}`);
@@ -54,6 +41,19 @@ class ProfileList extends Component {
       profiles[key] &&
       profiles[key].createdBy.uid === auth.uid
     );
+  }
+
+  newSubmit(newProfile) {
+    newProfile.createdBy = this.props.auth.uid;
+    newProfile.type = NPC_TYPE;
+
+    return this.props.firebase
+      .push('profiles', newProfile)
+      .then(() => this.toggleModal(false))
+      .catch((err) => {
+        // TODO: Show Snackbar
+        console.error('error creating new profile', err) // eslint-disable-line
+      });
   }
 
   render() {
@@ -90,10 +90,10 @@ class ProfileList extends Component {
         <ul className={classes.tiles}>
           <NewProfileTile onClick={() => this.toggleModal(true)} />
           {!isEmpty(profiles) &&
-            map(profiles, (profile, key) => (
-              profile.type !== NPC_TYPE ? null : <ProfileTile
-                key={`${profile.displayName}-Collab-${key}`}
-                profile={profile}
+            map(profiles, (userProfile, key) => (
+              userProfile.type !== NPC_TYPE ? null : <ProfileTile
+                key={`${userProfile.displayName}-Collab-${key}`}
+                profile={userProfile}
                 onDelete={() => this.deleteProfile(key)}
                 showDelete={this.getDeleteVisible(key)}
               />
@@ -119,26 +119,21 @@ ProfileList.propTypes = {
 export default compose(
   firebaseConnect([{ path: 'profiles', populates }]),
   connect(
-    (
-      {
-        firebase,
-        firebase: { auth, profile, data: { users, profiles } },
-        form: { newProfile },
-        modal,
-      },
-      { params },
-    ) => ({
+    ({
+      firebase: { auth, profile, data: { users, profiles } },
+      modal,
+    }) => ({
       auth,
       profile,
       newProfileModal: modal.newProfile,
-      profiles: map(profiles || [], (profile, uid) => ({
-        ...profile,
+      profiles: map(profiles || [], (profileItem, uid) => ({
+        ...profileItem,
         uid,
         createdBy: !users
           ? uid
           : {
-            ...users[profile.createdBy],
-            uid: profile.createdBy,
+            ...users[profileItem.createdBy],
+            uid: profileItem.createdBy,
           },
       })).reverse(),
     }),

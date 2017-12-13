@@ -28,7 +28,7 @@ class Navbar extends Component {
     const rightMenu =
       authExists ? (
         <span>
-          <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} />
+          <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} alt="" />
           <span>{profile.displayName}</span>
           <button onClick={() => this.context.router.push(ACCOUNT_PATH)}>Account</button>
           <button onClick={this.logout}>Sign out</button>
