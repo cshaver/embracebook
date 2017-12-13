@@ -1,31 +1,31 @@
-import { applyMiddleware, compose, createStore } from 'redux'
-import thunk from 'redux-thunk'
-import { browserHistory } from 'react-router'
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
-import makeRootReducer from './reducers'
-import firebase from 'firebase'
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { browserHistory } from 'react-router';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import makeRootReducer from './reducers';
+import firebase from 'firebase';
 // import 'firebase/firestore' // make sure you add this for firestore
-import * as config from '../../webpack/config/project.config'
-import { version } from '../../package.json'
-import { updateLocation } from './reducers/location'
+import * as config from '../../webpack/config/project.config';
+import { version } from '../../package.json';
+import { updateLocation } from './reducers/location';
 
 export default (initialState = {}) => {
   // ======================================================
   // Window Vars Config
   // ======================================================
-  window.version = version
+  window.version = version;
 
   // ======================================================
   // Middleware Configuration
   // ======================================================
   const middleware = [
-    thunk.withExtraArgument(getFirebase)
+    thunk.withExtraArgument(getFirebase),
     // This is where you add other middleware like redux-observable
-  ]
+  ];
 
   // Initialize Firebase instance and Firestore (optional)
   console.log(config);
-  firebase.initializeApp(config.firebase)
+  firebase.initializeApp(config.firebase);
   console.log(firebase);
   console.log(config.reduxFirebase);
   // firebase.firestore()
@@ -34,17 +34,17 @@ export default (initialState = {}) => {
   // Store Instantiation and HMR Setup
   // ======================================================
 
-  let composeReducers = compose
-  const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  let composeReducers = compose;
+  const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
   // enable Redux dev tools
   if (__DEV__) {
     composeReducers = devTools ? devTools({
       actionsBlacklist: [
         '@@reactReduxFirebase',
-        '@@redux-form'
-      ]
-    }) : compose
+        '@@redux-form',
+      ],
+    }) : compose;
   }
 
   console.log(initialState);
@@ -55,10 +55,10 @@ export default (initialState = {}) => {
     composeReducers(
       // pass firebase or app instance and config
       reactReduxFirebase(firebase, config.reduxFirebase),
-      applyMiddleware(...middleware)
-    )
-  )
-  store.asyncReducers = {}
+      applyMiddleware(...middleware),
+    ),
+  );
+  store.asyncReducers = {};
 
   // optional way to listen for auth ready (requires attachAuthIsReady: true)
   // store.firebaseAuthIsReady.then(() => {
@@ -66,14 +66,14 @@ export default (initialState = {}) => {
   // })
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-  store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
+  store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').default
-      store.replaceReducer(reducers(store.asyncReducers))
-    })
+      const reducers = require('./reducers').default;
+      store.replaceReducer(reducers(store.asyncReducers));
+    });
   }
 
-  return store
-}
+  return store;
+};

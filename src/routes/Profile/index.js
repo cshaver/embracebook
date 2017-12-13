@@ -1,5 +1,5 @@
-import { PROFILE_DETAIL_PATH as path } from 'constants'
-import { UserIsAuthenticated } from 'utils/router'
+import { PROFILE_DETAIL_PATH as path } from 'constants';
+import { UserIsAuthenticated } from 'utils/router';
 
 export default store => ({
   path,
@@ -9,17 +9,17 @@ export default store => ({
         and embed an async module loader (jsonp) when bundling   */
     require.ensure(
       [],
-      require => {
+      (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const Profile = require('containers/Profile').default
+        const Profile = require('containers/Profile').default;
 
         /*  Return getComponent   */
-        cb(null, UserIsAuthenticated(Profile))
+        cb(null, UserIsAuthenticated(Profile));
 
         /* Webpack named bundle   */
       },
-      'Profile'
-    )
-  }
-})
+      'Profile',
+    );
+  },
+});

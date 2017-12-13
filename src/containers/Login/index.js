@@ -1,50 +1,52 @@
-import React, { Component } from 'react'
-import { compose } from 'redux'
-import PropTypes from 'prop-types'
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
-import { connect } from 'react-redux'
-import { withRouter } from 'utils/components'
-import FirebaseUIAuth from 'containers/FirebaseUIAuth'
-import NoAccess from 'components/NoAccess'
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import { withRouter } from 'utils/components';
+import FirebaseUIAuth from 'containers/FirebaseUIAuth';
+import NoAccess from 'components/NoAccess';
 import {
   ACCOUNT_PATH,
   HOME_PATH,
   TERMS_PATH,
   INVITE_PATH,
-  PLAYER_TYPE
-} from 'constants'
+  PLAYER_TYPE,
+} from 'constants';
 
-import classes from './index.scss'
+import classes from './index.scss';
 
 class LoginPage extends Component {
   render() {
-    const { pathname, query } = this.props.router.location
+    const { pathname, query } = this.props.router.location;
     if (pathname === INVITE_PATH && !query.code) {
       return (
         <NoAccess />
-      )
+      );
     }
     return (
       <div className={classes.container}>
         <FirebaseUIAuth tosUrl={TERMS_PATH} />
       </div>
-    )
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    const { profile, auth, firebase, router } = nextProps
+    const {
+      profile, auth, firebase, router,
+    } = nextProps;
 
     // already logged in
     if (!isEmpty(profile) || profile.type) {
-      router.push(HOME_PATH)
-      return
+      router.push(HOME_PATH);
+      return;
     }
 
-    const { pathname, query } = router.location
+    const { pathname, query } = router.location;
 
     // wait for login
     if (isEmpty(auth)) {
-      return
+      return;
     }
 
     if (isLoaded(profile)) {
@@ -52,26 +54,26 @@ class LoginPage extends Component {
 
       firebase
         .uniqueSet(`profiles/${auth.uid}`, {
-          type: PLAYER_TYPE
+          type: PLAYER_TYPE,
         })
         .then(() => {
-          let newProfile = {
+          const newProfile = {
             type: PLAYER_TYPE,
-            createdBy: auth.uid
-          }
+            createdBy: auth.uid,
+          };
           this.props.firebase
             .uniqueSet(`profiles/${auth.uid}`, newProfile)
             .then(() => {
-              router.push(ACCOUNT_PATH)
+              router.push(ACCOUNT_PATH);
             })
-            .catch(err => {
+            .catch((err) => {
               // TODO: Show Snackbar
               console.error('error creating new profile', err) // eslint-disable-line
-            })
+            });
         })
-        .catch(err => {
-          console.error('Error updating account', err) // eslint-disable-line no-console
-        })
+        .catch((err) => {
+          console.error('Error updating account', err); // eslint-disable-line no-console
+        });
     }
   }
 }
@@ -79,16 +81,16 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
   firebase: PropTypes.shape({ // eslint-disable-line
     updateProfile: PropTypes.func.isRequired,
-    login: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired,
   }),
-  profile: PropTypes.object
-}
+  profile: PropTypes.object,
+};
 
 export default compose(
   firebaseConnect(),
   connect(({ firebase: { auth, profile } }) => ({
     profile,
-    auth
+    auth,
   })),
   withRouter,
-)(LoginPage)
+)(LoginPage);

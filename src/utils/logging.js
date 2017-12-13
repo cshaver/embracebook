@@ -1,10 +1,10 @@
-const INFO = 'ℹ️ '
+const INFO = 'ℹ️ ';
 
 export function VerboseLogging(component) {
   // console.dir(component)
 
-  properties('render', 'props')
-  group('render')
+  properties('render', 'props');
+  group('render');
 
   // args('componentWillReceiveProps')
   // group('componentWillReceiveProps')
@@ -17,125 +17,124 @@ export function VerboseLogging(component) {
   // 'shouldComponentUpdate'
 
   function properties(name, ...props) {
-    let fn = component.prototype[name]
-    let text = `${component.name}::${name}`
+    const fn = component.prototype[name];
+    let text = `${component.name}::${name}`;
     if (!fn) {
-      console.warn(`${text} is undefined`)
-      text = text + ' (empty)'
+      console.warn(`${text} is undefined`);
+      text += ' (empty)';
     }
     component.prototype[name] = wrap(
-      function() {
-        for (var i = props.length - 1; i >= 0; i--) {
+      function () {
+        for (let i = props.length - 1; i >= 0; i--) {
           // console.log(props[i])
-          console.dir(this[props[i]])
+          console.dir(this[props[i]]);
         }
       },
-      fn
-    )
+      fn,
+    );
   }
 
   function args(...names) {
-    for (var i = names.length - 1; i >= 0; i--) {
-      let name = names[i]
-      let fn = component.prototype[name]
-      let text = `${component.name}::${name}`
+    for (let i = names.length - 1; i >= 0; i--) {
+      const name = names[i];
+      const fn = component.prototype[name];
+      let text = `${component.name}::${name}`;
       if (!fn) {
-        console.warn(`${text} is undefined`)
-        text = text + ' (empty)'
+        console.warn(`${text} is undefined`);
+        text += ' (empty)';
       }
       component.prototype[name] = wrap(
-        function() {
-          console.dir(arguments)
+        function () {
+          console.dir(arguments);
         },
-        fn
-      )
+        fn,
+      );
     }
   }
 
   function log(...names) {
-    for (var i = names.length - 1; i >= 0; i--) {
-      let name = names[i]
-      let fn = component.prototype[name]
-      let text = `${component.name}::${name}`
+    for (let i = names.length - 1; i >= 0; i--) {
+      const name = names[i];
+      const fn = component.prototype[name];
+      let text = `${component.name}::${name}`;
       if (!fn) {
-        console.warn(`${text} is undefined`)
-        text = text + ' (empty)'
+        console.warn(`${text} is undefined`);
+        text += ' (empty)';
       }
       component.prototype[name] = wrap(
         () => console.log(text),
-        fn
-      )
+        fn,
+      );
     }
   }
 
   function group(...names) {
-    for (var i = names.length - 1; i >= 0; i--) {
-      let name = names[i]
-      let fn = component.prototype[name]
-      let text = `${component.name}::${name}`
+    for (let i = names.length - 1; i >= 0; i--) {
+      const name = names[i];
+      const fn = component.prototype[name];
+      let text = `${component.name}::${name}`;
       if (!fn) {
-        console.warn(`${text} is undefined`)
-        text = text + ' (empty)'
+        console.warn(`${text} is undefined`);
+        text += ' (empty)';
       }
       component.prototype[name] = wrap(
-        () => fn ? console.group(text) : console.groupCollapsed(text),
+        () => (fn ? console.group(text) : console.groupCollapsed(text)),
         fn,
-        console.groupEnd
-      )
+        console.groupEnd,
+      );
     }
   }
 
   function groupBegin(...names) {
-    for (var i = names.length - 1; i >= 0; i--) {
-      let name = names[i]
-      let fn = component.prototype[name]
-      let text = `${component.name}::${name}`
+    for (let i = names.length - 1; i >= 0; i--) {
+      const name = names[i];
+      const fn = component.prototype[name];
+      let text = `${component.name}::${name}`;
       if (!fn) {
-        console.warn(`${text} is undefined`)
-        text = text + ' (empty)'
+        console.warn(`${text} is undefined`);
+        text += ' (empty)';
       }
       component.prototype[name] = wrap(
         () => console.group(text),
-        fn
-      )
+        fn,
+      );
     }
   }
 
   function groupEnd(...names) {
-    for (var i = names.length - 1; i >= 0; i--) {
-      let name = names[i]
-      let fn = component.prototype[name]
-      let text = `${component.name}::${name}`
+    for (let i = names.length - 1; i >= 0; i--) {
+      const name = names[i];
+      const fn = component.prototype[name];
+      let text = `${component.name}::${name}`;
       if (!fn) {
-        console.warn(`${text} is undefined`)
-        text = text + ' (empty)'
+        console.warn(`${text} is undefined`);
+        text += ' (empty)';
       }
       component.prototype[name] = wrap(
         () => {
-          console.log(text)
-          console.groupEnd()
+          console.log(text);
+          console.groupEnd();
         },
-        fn
-      )
+        fn,
+      );
     }
   }
 
   // wrap function with additional function calls
   function wrap(pre, fn, post) {
     // console.assert(fn)
-    return function() {
+    return function () {
       if (pre) {
-        pre.apply(this, arguments)
+        pre.apply(this, arguments);
       }
 
-      const result = fn ? fn.apply(this, arguments) : null
+      const result = fn ? fn.apply(this, arguments) : null;
 
       if (post) {
-        post.apply(this, arguments)
+        post.apply(this, arguments);
       }
 
-      return result
-    }
+      return result;
+    };
   }
-
 }

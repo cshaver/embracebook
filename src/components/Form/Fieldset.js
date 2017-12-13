@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 export const Fieldset = ({
   label,
-  children
+  children,
 }) => {
-  let labelElement
+  let labelElement;
 
   if (label) {
-    labelElement = <legend>{label}</legend>
+    labelElement = <legend>{label}</legend>;
   }
 
   return (
@@ -15,7 +15,7 @@ export const Fieldset = ({
       {labelElement}
       {children}
     </fieldset>
-  )
-}
+  );
+};
 
-export default Fieldset
+export default Fieldset;

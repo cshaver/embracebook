@@ -1,10 +1,10 @@
-import { UserAuthWrapper } from 'redux-auth-wrapper'
-import { browserHistory } from 'react-router'
-import { HOME_PATH, LOGIN_PATH } from 'constants'
-import ProgressIndicator from 'components/ProgressIndicator'
+import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { browserHistory } from 'react-router';
+import { HOME_PATH, LOGIN_PATH } from 'constants';
+import ProgressIndicator from 'components/ProgressIndicator';
 
-const AUTHED_REDIRECT = 'AUTHED_REDIRECT'
-const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT'
+const AUTHED_REDIRECT = 'AUTHED_REDIRECT';
+const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
 
 /**
  * @description Higher Order Component that redirects to `/login` instead
@@ -21,15 +21,15 @@ export const UserIsAuthenticated = UserAuthWrapper({
     !auth.isLoaded || isInitializing,
   predicate: auth => !auth.isEmpty,
   allowRedirectBack: false,
-  redirectAction: newLoc => dispatch => {
-    newLoc.pathname = LOGIN_PATH
-    browserHistory.replace(newLoc)
+  redirectAction: newLoc => (dispatch) => {
+    newLoc.pathname = LOGIN_PATH;
+    browserHistory.replace(newLoc);
     dispatch({
       type: UNAUTHED_REDIRECT,
-      payload: { message: 'User is not authenticated.' }
-    })
-  }
-})
+      payload: { message: 'User is not authenticated.' },
+    });
+  },
+});
 
 /**
  * @description Higher Order Component that redirects to listings page or most
@@ -51,10 +51,10 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
   predicate: auth => auth.isEmpty,
-  redirectPath: HOME_PATH
-})
+  redirectPath: HOME_PATH,
+});
 
 export default {
   UserIsAuthenticated,
-  UserIsNotAuthenticated
-}
+  UserIsNotAuthenticated,
+};

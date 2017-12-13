@@ -1,15 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 export const Textarea = ({
   label,
   placeholder,
-  input: { name, onBlur, onChange, onFocus, disabled, value },
-  meta: { error, dirty }
+  input: {
+    name, onBlur, onChange, onFocus, disabled, value,
+  },
+  meta: { error, dirty },
 }) => {
-  let labelElement
+  let labelElement;
 
   if (label) {
-    labelElement = <label htmlFor={name}>{label}</label>
+    labelElement = <label htmlFor={name}>{label}</label>;
   }
 
   return (
@@ -29,7 +31,7 @@ export const Textarea = ({
         <div>{error}</div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Textarea
+export default Textarea;

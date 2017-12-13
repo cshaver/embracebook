@@ -1,38 +1,40 @@
-import React, { Component, cloneElement } from 'react'
-import { compose } from 'redux'
-import PropTypes from 'prop-types'
-import { map, get } from 'lodash'
-import { connect } from 'react-redux'
+import React, { Component, cloneElement } from 'react';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { map, get } from 'lodash';
+import { connect } from 'react-redux';
 import {
   firebaseConnect,
   populate,
   isLoaded,
-  isEmpty
-} from 'react-redux-firebase'
+  isEmpty,
+} from 'react-redux-firebase';
 
-import NewCommentForm from './components/NewCommentForm'
+import NewCommentForm from './components/NewCommentForm';
 
 class CommentList extends Component {
   newSubmit(newComment) {
     // newComment.createdBy = this.props.auth.uid
     // unix seconds, instead of milliseconds
-    newComment.timestamp = (new Date()).getTime() / 1000
-    newComment.author = newComment.author || this.props.user
+    newComment.timestamp = (new Date()).getTime() / 1000;
+    newComment.author = newComment.author || this.props.user;
 
     return this.props.firebase
       .push(`posts/${this.props.post.uid}/comments`, newComment)
-      .catch(err => {
+      .catch((err) => {
         // TODO: Show Snackbar
         console.error('error creating new post', err) // eslint-disable-line
-      })
+      });
   }
 
   resetForm(result, dispatch, formProps) {
-    formProps.reset()
+    formProps.reset();
   }
 
   render() {
-    const { profiles, post, post: { comments }, hasAuthorConfig } = this.props
+    const {
+      profiles, post, post: { comments }, hasAuthorConfig,
+    } = this.props;
 
     return (
       <div>
@@ -51,7 +53,7 @@ class CommentList extends Component {
           onSubmitSuccess={this.resetForm}
         />
       </div>
-    )
+    );
   }
 }
 
@@ -61,10 +63,8 @@ CommentList.propTypes = {
   auth: PropTypes.object,
   posts: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.array
-  ])
-}
+    PropTypes.array,
+  ]),
+};
 
-export default compose(
-  firebaseConnect()
-)(CommentList)
+export default compose(firebaseConnect())(CommentList);

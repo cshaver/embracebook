@@ -1,5 +1,5 @@
-import { PLAYER_LIST_PATH as path } from 'constants'
-import { UserIsAuthenticated } from 'utils/router'
+import { PLAYER_LIST_PATH as path } from 'constants';
+import { UserIsAuthenticated } from 'utils/router';
 
 export default store => ({
   path,
@@ -9,18 +9,18 @@ export default store => ({
         and embed an async module loader (jsonp) when bundling   */
     require.ensure(
       [],
-      require => {
+      (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const PlayerList = require('containers/PlayerList').default
+        const PlayerList = require('containers/PlayerList').default;
 
         /*  Return getComponent   */
-        cb(null, UserIsAuthenticated(PlayerList))
+        cb(null, UserIsAuthenticated(PlayerList));
 
         /* Webpack named bundle   */
       },
-      'PlayerList'
-    )
+      'PlayerList',
+    );
   },
   // getChildRoutes(partialNextState, cb) {
   //   require.ensure([], require => {
@@ -32,4 +32,4 @@ export default store => ({
   //     cb(null, [Profile(store)])
   //   })
   // }
-})
+});

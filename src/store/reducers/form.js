@@ -1,9 +1,9 @@
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'redux-form';
 
-import { newProfileFormReducer as newProfile } from 'containers/ProfileList/reducers'
+import { newProfileFormReducer as newProfile } from 'containers/ProfileList/reducers';
 
 const reducer = formReducer.plugin({
-  newProfile
-})
+  newProfile,
+});
 
-export default reducer
+export default reducer;

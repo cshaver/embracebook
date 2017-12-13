@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
-import { required, validateSlug } from 'utils/form'
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
-import { map } from 'lodash'
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { required, validateSlug } from 'utils/form';
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { map } from 'lodash';
 
-import { NPC_TYPE } from 'constants'
+import { NPC_TYPE } from 'constants';
 
 class AuthorConfig extends Component {
   render() {
-    const { profiles } = this.props
+    const { profiles } = this.props;
     return (
       <div>
         <Field
@@ -20,19 +20,19 @@ class AuthorConfig extends Component {
         >
           <option value="" disabled>Author</option>
           {!isEmpty(profiles) &&
-            map(profiles, (profile) => (
+            map(profiles, profile => (
               profile.type !== NPC_TYPE ? null :
               <option key={profile.uid} value={profile.uid}>{profile.displayName}</option>
             ))}
         </Field>
       </div>
-    )
+    );
   }
 }
 
 export default compose(
   firebaseConnect([
-    { path: 'profiles' }
+    { path: 'profiles' },
   ]),
   connect(
     // map state to props
@@ -40,9 +40,8 @@ export default compose(
       {
         profiles: map((profiles || []), (profile, uid) => ({
           ...profile,
-          uid
-          })).reverse()
+          uid,
+        })).reverse(),
       }
-    )
-  )
-)(AuthorConfig)
+    )),
+)(AuthorConfig);

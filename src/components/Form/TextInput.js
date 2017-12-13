@@ -1,15 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 export const TextInput = ({
   label,
   placeholder,
-  input: { name, onBlur, onChange, onFocus, disabled, value },
-  meta: { error, submitFailed }
+  input: {
+    name, onBlur, onChange, onFocus, disabled, value,
+  },
+  meta: { error, submitFailed },
 }) => {
-  let labelElement
+  let labelElement;
 
   if (label) {
-    labelElement = <label htmlFor={name}>{label}</label>
+    labelElement = <label htmlFor={name}>{label}</label>;
   }
 
   return (
@@ -30,7 +32,7 @@ export const TextInput = ({
         <div>{error}</div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;

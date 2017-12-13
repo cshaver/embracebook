@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import { newProfileModalReducer as newProfile } from 'containers/ProfileList/reducers'
+import { newProfileModalReducer as newProfile } from 'containers/ProfileList/reducers';
 
 const reducer = combineReducers({
-  newProfile
-})
+  newProfile,
+});
 
-export default reducer
+export default reducer;

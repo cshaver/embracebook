@@ -1,35 +1,35 @@
-import React, { Component } from 'react'
-import { compose } from 'redux'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   firebaseConnect,
-  isLoaded
+  isLoaded,
   // populate
-} from 'react-redux-firebase'
-import { UserIsAuthenticated } from 'utils/router'
-import ProgressIndicator from 'components/ProgressIndicator'
-import AccountForm from './components/AccountForm'
-import classes from './index.scss'
+} from 'react-redux-firebase';
+import { UserIsAuthenticated } from 'utils/router';
+import ProgressIndicator from 'components/ProgressIndicator';
+import AccountForm from './components/AccountForm';
+import classes from './index.scss';
 
 class Account extends Component {
   updateAccount(newData) {
-    delete newData.isLoaded
-    delete newData.isEmpty
+    delete newData.isLoaded;
+    delete newData.isEmpty;
 
     return this.props.firebase
       .updateProfile(newData)
-      .catch(err => {
-        console.error('Error updating account', err) // eslint-disable-line no-console
+      .catch((err) => {
+        console.error('Error updating account', err); // eslint-disable-line no-console
       })
-      .then(() => console.groupEnd())
+      .then(() => console.groupEnd());
   }
 
   render() {
-    const { profile } = this.props
+    const { profile } = this.props;
 
     if (!isLoaded(profile)) {
-      return <ProgressIndicator />
+      return <ProgressIndicator />;
     }
 
     return (
@@ -49,7 +49,7 @@ class Account extends Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -57,13 +57,13 @@ Account.propTypes = {
   profile: PropTypes.object,
   firebase: PropTypes.shape({
     updateProfile: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired
-  })
-}
+    logout: PropTypes.func.isRequired,
+  }),
+};
 
 export default compose(
   firebaseConnect(),
   connect(({ firebase: { profile } }) => ({
-    profile
+    profile,
   })),
-)(Account)
+)(Account);

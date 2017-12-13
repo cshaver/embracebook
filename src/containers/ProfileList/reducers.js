@@ -1,24 +1,24 @@
-import { TOGGLE_NEW_PROFILE_MODAL } from './actions'
+import { TOGGLE_NEW_PROFILE_MODAL } from './actions';
 
-import slugify from 'slugify'
+import slugify from 'slugify';
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export function newProfileFormReducer(state = null, action) {
   if (!action.meta || action.meta.form !== 'newProfile') {
-    return state
+    return state;
   }
 
   switch (action.type) {
     case '@@redux-form/CHANGE':
       if (action.meta.field !== 'displayName') {
-        return state
+        return state;
       }
 
-      return updateDefaults(state, action.payload)
+      return updateDefaults(state, action.payload);
     default:
-      return state
+      return state;
   }
 }
 
@@ -26,29 +26,29 @@ export function newProfileModalReducer(state = null, action) {
   switch (action.type) {
     case TOGGLE_NEW_PROFILE_MODAL:
       if (typeof action.open !== 'undefined') {
-        return !!action.open
+        return !!action.open;
       }
-      return !!state
+      return !!state;
     default:
-      return state
+      return state;
   }
 }
 
 function updateDefaults(state, displayName) {
-  const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true })
+  const slug = slugify(displayName, { remove: /[^a-z\s]/i, lower: true });
 
   const defaults = {
     slug,
-    avatarUrl: `https://api.adorable.io/avatars/${slug || 'default'}.png`
-  }
+    avatarUrl: `https://api.adorable.io/avatars/${slug || 'default'}.png`,
+  };
 
-  const { values, initial } = state
+  const { values, initial } = state;
 
   // update if still default
-  values.slug = values.slug === initial.slug ? defaults.slug : values.slug
-  values.avatarUrl = values.avatarUrl === initial.avatarUrl ? defaults.avatarUrl : values.avatarUrl
+  values.slug = values.slug === initial.slug ? defaults.slug : values.slug;
+  values.avatarUrl = values.avatarUrl === initial.avatarUrl ? defaults.avatarUrl : values.avatarUrl;
 
-  state.initial = { ...initial, ...defaults }
+  state.initial = { ...initial, ...defaults };
 
-  return state
+  return state;
 }

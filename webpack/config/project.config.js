@@ -1,6 +1,7 @@
-const ip = require('ip')
-const path = require('path')
-const NODE_ENV = process.env.NODE_ENV || 'development'
+const ip = require('ip');
+const path = require('path');
+
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
   // The environment to use when building the project
@@ -32,7 +33,7 @@ module.exports = {
     'redux-thunk',
     'react-router',
     'react-redux-firebase',
-    'firebaseui'
+    'firebaseui',
   ],
   /**
    * Settings used to create src/config.js using firebase-ci
@@ -42,7 +43,7 @@ module.exports = {
     apiKey: 'AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus',
     authDomain: 'embracebook-e403d.firebaseapp.com',
     databaseURL: 'https://embracebook-e403d.firebaseio.com',
-    storageBucket: 'embracebook-e403d.appspot.com'
+    storageBucket: 'embracebook-e403d.appspot.com',
   },
   reduxFirebase: {
     // root that user profiles are written to
@@ -50,6 +51,6 @@ module.exports = {
     // enable/disable Firebase Database Logging
     enableLogging: false,
     // enable/disable updating of profile on login
-    updateProfileOnLogin: false
-  }
-}
+    updateProfileOnLogin: false,
+  },
+};

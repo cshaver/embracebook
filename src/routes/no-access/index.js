@@ -1,4 +1,4 @@
-import { NO_ACCESS_PATH } from 'constants'
+import { NO_ACCESS_PATH } from 'constants';
 
 export default () => ({
   path: NO_ACCESS_PATH,
@@ -8,17 +8,17 @@ export default () => ({
         and embed an async module loader (jsonp) when bundling   */
     require.ensure(
       [],
-      require => {
+      (require) => {
         /*  Webpack - use require callback to define
           dependencies for bundling   */
-        const NoAccess = require('components/NoAccess').default
+        const NoAccess = require('components/NoAccess').default;
 
         /*  Return getComponent   */
-        cb(null, NoAccess)
+        cb(null, NoAccess);
 
         /* Webpack named bundle   */
       },
-      'NoAccess'
-    )
-  }
-})
+      'NoAccess',
+    );
+  },
+});

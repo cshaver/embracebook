@@ -1,71 +1,73 @@
-import React, { Component, cloneElement } from 'react'
-import { compose } from 'redux'
-import PropTypes from 'prop-types'
-import { map, get } from 'lodash'
-import { connect } from 'react-redux'
+import React, { Component, cloneElement } from 'react';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { map, get } from 'lodash';
+import { connect } from 'react-redux';
 import {
   firebaseConnect,
   populate,
   isLoaded,
-  isEmpty
-} from 'react-redux-firebase'
+  isEmpty,
+} from 'react-redux-firebase';
 
-import { FEED_PATH, PLAYER_TYPE } from 'constants'
-import ProgressIndicator from 'components/ProgressIndicator'
-import Post from './components/Post'
-import NewPostForm from './components/NewPostForm'
+import { FEED_PATH, PLAYER_TYPE } from 'constants';
+import ProgressIndicator from 'components/ProgressIndicator';
+import Post from './components/Post';
+import NewPostForm from './components/NewPostForm';
 
-import classes from './index.scss'
+import classes from './index.scss';
 
 const populates = [
-  { child: 'author', root: 'profiles', keyProp: 'uid' }
-]
+  { child: 'author', root: 'profiles', keyProp: 'uid' },
+];
 
 class Feed extends Component {
   newSubmit(newPost) {
     // set author for players
-    newPost.author = newPost.author || this.props.auth.uid
+    newPost.author = newPost.author || this.props.auth.uid;
     // always set createdBy
-    newPost.createdBy = this.props.auth.uid
+    newPost.createdBy = this.props.auth.uid;
     // unix seconds, instead of milliseconds
-    newPost.timestamp = (new Date()).getTime() / 1000
+    newPost.timestamp = (new Date()).getTime() / 1000;
 
     return this.props.firebase
       .push('posts', newPost)
-      .catch(err => {
+      .catch((err) => {
         // TODO: Show Snackbar
         console.error('error creating new post', err) // eslint-disable-line
-      })
+      });
   }
 
   deletePost(key) {
-    return this.props.firebase.remove(`posts/${key}`)
+    return this.props.firebase.remove(`posts/${key}`);
   }
 
   getDeleteVisible(post) {
-    const { auth } = this.props
+    const { auth } = this.props;
     return (
       !isEmpty(this.props.auth) &&
       post &&
       post.createdBy === auth.uid
-    )
+    );
   }
 
   hasAuthorConfig() {
-    return this.props.profile.type !== PLAYER_TYPE
+    return this.props.profile.type !== PLAYER_TYPE;
   }
 
   render() {
-    const { posts, auth, newPostModal, profiles } = this.props
+    const {
+      posts, auth, newPostModal, profiles,
+    } = this.props;
 
     if (!isLoaded(posts, auth)) {
-      return <ProgressIndicator />
+      return <ProgressIndicator />;
     }
 
     // Post Route is being loaded
     if (this.props.children) {
       // pass all props to children routes
-      return cloneElement(this.props.children, this.props)
+      return cloneElement(this.props.children, this.props);
     }
 
     return (
@@ -73,7 +75,7 @@ class Feed extends Component {
         <div className={classes.tiles}>
           <NewPostForm onSubmit={this.newSubmit} hasAuthorConfig={this.hasAuthorConfig()} />
           {!isEmpty(posts) &&
-            posts.map((post) => (
+            posts.map(post => (
               <Post
                 key={`${post.createdBy}-Collab-${post.uid}`}
                 post={post}
@@ -85,13 +87,13 @@ class Feed extends Component {
             )).reverse()}
         </div>
       </div>
-    )
+    );
   }
 }
 
 Feed.contextTypes = {
-  router: PropTypes.object.isRequired
-}
+  router: PropTypes.object.isRequired,
+};
 
 Feed.propTypes = {
   children: PropTypes.object,
@@ -99,17 +101,17 @@ Feed.propTypes = {
   auth: PropTypes.object,
   posts: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.array
-  ])
-}
+    PropTypes.array,
+  ]),
+};
 
 export default compose(
   firebaseConnect([
-  { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates }
+    { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates },
   ]),
   connect(
     // map state to props
-    ({ firebase, firebase: { auth, profile, data: { /* users, */ profiles, posts } /*, ordered: { posts } */ }, form: { newPost } }, { params }) => (
+    ({ firebase, firebase: { auth, profile, data: { /* users, */ profiles, posts } /* , ordered: { posts } */ }, form: { newPost } }, { params }) => (
       {
         auth,
         profile,
@@ -121,16 +123,15 @@ export default compose(
           uid,
           author: {
             ...profiles[post.author],
-            uid: post.author
+            uid: post.author,
           },
           comments: map(post.comments, (comment, uid) => ({
             ...comment,
             uid,
-            author: profiles[comment.author]
-          }))
-        })) : []
+            author: profiles[comment.author],
+          })),
+        })) : [],
         // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
       }
-    )
-  )
-)(Feed)
+    )),
+)(Feed);

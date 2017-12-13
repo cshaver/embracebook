@@ -1,14 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
-import CommentList from 'containers/CommentList'
-import DeleteButton from 'components/form/DeleteButton'
-import ProfileLink from 'components/ProfileLink'
+import CommentList from 'containers/CommentList';
+import DeleteButton from 'components/form/DeleteButton';
+import ProfileLink from 'components/ProfileLink';
 
-import classes from './index.scss'
+import classes from './index.scss';
 
-export const Post = ({ post, onDelete, showDelete, profiles, user, hasAuthorConfig }) => (
+export const Post = ({
+  post, onDelete, showDelete, profiles, user, hasAuthorConfig,
+}) => (
   <blockquote className={classes.container}>
     <div className={classes.top}>
       <ProfileLink profile={post.author} />
@@ -19,12 +21,12 @@ export const Post = ({ post, onDelete, showDelete, profiles, user, hasAuthorConf
     </div>
     <CommentList hasAuthorConfig={hasAuthorConfig} profiles={profiles} post={post} user={user} />
   </blockquote>
-)
+);
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   onDelete: PropTypes.func,
-  showDelete: PropTypes.bool
-}
+  showDelete: PropTypes.bool,
+};
 
-export default Post
+export default Post;

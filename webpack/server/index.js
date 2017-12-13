@@ -1,62 +1,58 @@
-const express = require('express')
-const path = require('path')
-const compress = require('compression')
-const webpack = require('webpack')
+const express = require('express');
+const path = require('path');
+const compress = require('compression');
+const webpack = require('webpack');
 
-const logger = require('../utils/logger')
-const webpackConfig = require('../config/webpack.config')
-const projectConfig = require('../config/project.config')
+const logger = require('../utils/logger');
+const webpackConfig = require('../config/webpack.config');
+const projectConfig = require('../config/project.config');
 
-const app = express()
-app.use(compress())
+const app = express();
+app.use(compress());
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
 if (projectConfig.env === 'development') {
-  const compiler = webpack(webpackConfig)
+  const compiler = webpack(webpackConfig);
 
-  logger.info('Enabling webpack development and HMR middleware')
-  app.use(
-    require('webpack-dev-middleware')(compiler, {
-      publicPath: webpackConfig.output.publicPath,
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      },
-      contentBase: path.resolve(projectConfig.basePath, projectConfig.srcDir),
-      hot: true,
-      quiet: false,
-      noInfo: false,
-      lazy: false,
-      stats: 'normal'
-    })
-  )
-  app.use(
-    require('webpack-hot-middleware')(compiler, {
-      path: '/__webpack_hmr'
-    })
-  )
+  logger.info('Enabling webpack development and HMR middleware');
+  app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    contentBase: path.resolve(projectConfig.basePath, projectConfig.srcDir),
+    hot: true,
+    quiet: false,
+    noInfo: false,
+    lazy: false,
+    stats: 'normal',
+  }));
+  app.use(require('webpack-hot-middleware')(compiler, {
+    path: '/__webpack_hmr',
+  }));
 
   // Serve static assets from public/ since Webpack is unaware of
   // these files. This middleware doesn't need to be enabled outside
   // of development since this directory will be copied into dist/
   // when the application is compiled.
-  app.use(express.static(path.resolve(projectConfig.basePath, 'public')))
+  app.use(express.static(path.resolve(projectConfig.basePath, 'public')));
 
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
   // rendering, you'll want to remove this middleware.
-  app.use('*', function(req, res, next) {
-    const filename = path.join(compiler.outputPath, 'index.html')
+  app.use('*', (req, res, next) => {
+    const filename = path.join(compiler.outputPath, 'index.html');
     compiler.outputFileSystem.readFile(filename, (err, result) => {
       if (err) {
-        return next(err)
+        return next(err);
       }
-      res.set('content-type', 'text/html')
-      res.send(result)
-      res.end()
-    })
-  })
+      res.set('content-type', 'text/html');
+      res.send(result);
+      res.end();
+    });
+  });
 } else {
   logger.warn(`
     Server is being run outside of live development mode, meaning it will
@@ -64,12 +60,12 @@ if (projectConfig.env === 'development') {
     do not need an application server for this and can instead use a web
     server such as nginx to serve your static files. See the "deployment"
     section in the README for more information on deployment strategies.
-  `)
+  `);
   // NOTE: If you are using this, you should make express and compress dependencies instead of dev dependencies
   // Serving dist/ by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the
   // server in production.
-  app.use(express.static(path.resolve(projectConfig.basePath, projectConfig.outDir)))
+  app.use(express.static(path.resolve(projectConfig.basePath, projectConfig.outDir)));
 }
 
-module.exports = app
+module.exports = app;

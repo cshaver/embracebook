@@ -1,14 +1,16 @@
-import React from 'react'
+import React from 'react';
 
 export const Dropdown = ({
   label,
   placeholder,
-  input: { name, onBlur, onChange, onFocus, value }
+  input: {
+    name, onBlur, onChange, onFocus, value,
+  },
 }) => {
-  let labelElement
+  let labelElement;
 
   if (label) {
-    labelElement = <label htmlFor={name}>{label}</label>
+    labelElement = <label htmlFor={name}>{label}</label>;
   }
 
   return (
@@ -25,7 +27,7 @@ export const Dropdown = ({
         onFocus={onFocus}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Dropdown
+export default Dropdown;
