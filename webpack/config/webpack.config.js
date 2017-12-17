@@ -230,7 +230,7 @@ if (DEV) {
 // Bundle Splitting
 // ------------------------------------
 if (!TEST) {
-  const bundles = ['normalize', 'manifest'];
+  const bundles = [/* 'normalize', */'manifest'];
 
   if (project.vendors && project.vendors.length) {
     bundles.unshift('vendor');

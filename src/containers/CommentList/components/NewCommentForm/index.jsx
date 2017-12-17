@@ -6,7 +6,7 @@ import { firebaseConnect, isEmpty } from 'react-redux-firebase'
 import { Field, formValueSelector, reduxForm } from 'redux-form'
 
 import AuthorConfig from '../../../../containers/AuthorConfig'
-import { Fieldset, TextInput } from '../../../../components/Form'
+import { Fieldset, TextInput } from '../../../../components/form'
 import { required, validateSlug } from '../../../../utils/form'
 import { NEW_POST_FORM_NAME } from '../../../../constants'
 

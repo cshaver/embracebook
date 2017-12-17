@@ -8,7 +8,7 @@ import {
   // populate
 } from 'react-redux-firebase';
 // import { UserIsAuthenticated } from '../utils/router';
-import ProgressIndicator from '../components/ProgressIndicator';
+import ProgressIndicator from '../../components/ProgressIndicator';
 import AccountForm from './components/AccountForm';
 import classes from './index.scss';
 
