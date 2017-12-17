@@ -28,7 +28,7 @@ class NewPostForm extends Component {
             name="content"
             component={Textarea}
             validate={[required]}
-            props={{ placeholder: 'Say something...' }}
+            props={{ placeholder: 'Say something...', label: 'Post' }}
           />
           <button type="submit">Post</button>
         </Fieldset>

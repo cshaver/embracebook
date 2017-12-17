@@ -53,13 +53,20 @@ class CommentList extends Component {
 }
 
 CommentList.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
   posts: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
   ]),
+};
+
+CommentList.defaultProps = {
+  children: null,
 };
 
 export default compose(firebaseConnect())(CommentList);

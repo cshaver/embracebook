@@ -11,7 +11,10 @@ const Dialog = ({ title, open, children }) => (
 Dialog.propTypes = {
   title: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default Dialog;

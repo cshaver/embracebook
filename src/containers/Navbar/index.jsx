@@ -9,6 +9,12 @@ import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } 
 import classes from './index.scss';
 
 class Navbar extends Component {
+  constructor() {
+    super();
+
+    this.logout = this.logout.bind(this);
+  }
+
   logout() {
     this.props.firebase.logout();
     this.context.router.push('/');

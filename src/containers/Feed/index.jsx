@@ -96,13 +96,20 @@ Feed.contextTypes = {
 };
 
 Feed.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
   posts: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
   ]),
+};
+
+Feed.defaultProps = {
+  children: null,
 };
 
 export default compose(

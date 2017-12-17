@@ -12,22 +12,18 @@ import { required } from '../../../../utils/form';
 
 import classes from './index.scss';
 
-const NewCommentForm = () => {
-  const { handleSubmit, hasAuthorConfig } = this.props;
-
-  return (
-    <form onSubmit={handleSubmit} className={classes.inputs}>
-      {hasAuthorConfig ? <AuthorConfig /> : null}
-      <Field
-        name="content"
-        component={TextInput}
-        validate={[required]}
-        props={{ label: 'Comment' }}
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
+const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
+  <form onSubmit={handleSubmit} className={classes.inputs}>
+    {hasAuthorConfig ? <AuthorConfig /> : null}
+    <Field
+      name="content"
+      component={TextInput}
+      validate={[required]}
+      props={{ label: 'Comment' }}
+    />
+    <button type="submit">Submit</button>
+  </form>
+);
 
 NewCommentForm.propTypes = {
   onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types

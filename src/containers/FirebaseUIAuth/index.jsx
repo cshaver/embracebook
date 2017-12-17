@@ -32,7 +32,8 @@ class FirebaseUIAuth extends Component {
     };
 
     // Initialize the FirebaseUI auth widget
-    this.ui = authUI || new firebaseui.auth.AuthUI(firebase.auth());
+    authUI = authUI || new firebaseui.auth.AuthUI(firebase.auth());
+    this.ui = authUI;
     this.ui.start(this.container, this.uiConfig);
   }
 

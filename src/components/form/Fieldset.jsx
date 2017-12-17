@@ -10,7 +10,10 @@ const Fieldset = ({ label, children }) => (
 
 Fieldset.propTypes = {
   label: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default Fieldset;
