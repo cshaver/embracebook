@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import inputShape from '../../shapes/input';
+import formMetaShape from '../../shapes/formMeta';
 
 const Textarea = ({
   label,
@@ -6,32 +10,39 @@ const Textarea = ({
   input: {
     name, onBlur, onChange, onFocus, disabled, value,
   },
-  meta: { error, dirty },
-}) => {
-  let labelElement;
+  meta: {
+    error, dirty,
+  },
+}) => (
+  <label htmlFor={name}>
+    {label}
+    <textarea
+      placeholder={placeholder}
+      id={name}
+      name={name}
+      onBlur={onBlur}
+      onChange={onChange}
+      onFocus={onFocus}
+      defaultValue={value}
+      disabled={disabled ? 'disabled' : ''}
+    />
+    {error && dirty && (
+      <div>{error}</div>
+    )}
+  </label>
+);
 
-  if (label) {
-    labelElement = <label htmlFor={name}>{label}</label>;
-  }
+Textarea.propTypes = {
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  input: inputShape,
+  meta: formMetaShape,
+};
 
-  return (
-    <div>
-      {labelElement}
-      <textarea
-        placeholder={placeholder}
-        id={name}
-        name={name}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        defaultValue={value}
-        disabled={disabled ? 'disabled' : ''}
-      />
-      {error && dirty && (
-        <div>{error}</div>
-      )}
-    </div>
-  );
+Textarea.defaultProps = {
+  placeholder: null,
+  input: {},
+  meta: {},
 };
 
 export default Textarea;
