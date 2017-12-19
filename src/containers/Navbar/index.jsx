@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } from 'constants';
@@ -15,7 +16,7 @@ class Navbar extends Component {
 
   logout() {
     this.props.firebase.logout();
-    this.context.router.push('/');
+    this.props.history.push('/');
   }
 
   render() {
@@ -34,7 +35,7 @@ class Navbar extends Component {
         <span>
           <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} alt="" />
           <span>{profile.displayName}</span>
-          <button onClick={() => this.context.router.push(ACCOUNT_PATH)}>Account</button>
+          <button onClick={() => this.props.history.push(ACCOUNT_PATH)}>Account</button>
           <button onClick={this.logout}>Sign out</button>
         </span>
       ) : (
@@ -77,4 +78,4 @@ export default compose(
     auth,
     profile,
   })),
-)(Navbar);
+)(withRouter(Navbar));

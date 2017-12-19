@@ -3,7 +3,9 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { connect } from 'react-redux';
-import { withRouter } from '../../utils/components';
+import { withRouter } from 'react-router';
+
+// import { withRouter } from '../../utils/components';
 import FirebaseUIAuth from '../FirebaseUIAuth';
 import NoAccess from '../../components/NoAccess';
 import {
@@ -16,7 +18,7 @@ import {
 
 class LoginPage extends Component {
   render() {
-    const { pathname, query } = this.props.router.location;
+    const { pathname, query } = this.props.location;
     if (pathname === INVITE_PATH && !query.code) {
       return (
         <NoAccess />
@@ -31,16 +33,16 @@ class LoginPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      profile, auth, firebase, router,
+      profile, auth, firebase, location, history,
     } = nextProps;
 
     // already logged in
     if (!isEmpty(profile) || profile.type) {
-      router.push(HOME_PATH);
+      history.replace(HOME_PATH);
       return;
     }
 
-    const { pathname, query } = router.location;
+    const { pathname, query } = location;
 
     // wait for login
     if (isEmpty(auth)) {
@@ -62,7 +64,7 @@ class LoginPage extends Component {
           this.props.firebase
             .uniqueSet(`profiles/${auth.uid}`, newProfile)
             .then(() => {
-              router.push(ACCOUNT_PATH);
+              history.push(ACCOUNT_PATH);
             })
             .catch((err) => {
               // TODO: Show Snackbar

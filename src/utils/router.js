@@ -1,10 +1,6 @@
-import { UserAuthWrapper } from 'redux-auth-wrapper';
-import { browserHistory } from 'react-router';
-import { HOME_PATH, LOGIN_PATH } from 'constants';
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
+import { HOME_PATH, LOGIN_PATH } from '../constants';
 import ProgressIndicator from '../components/ProgressIndicator';
-
-// const AUTHED_REDIRECT = 'AUTHED_REDIRECT';
-const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
 
 /**
  * @description Higher Order Component that redirects to `/login` instead
@@ -12,23 +8,13 @@ const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
  * @param {Component} componentToWrap - Component to wrap
  * @return {Component} wrappedComponent
  */
-export const UserIsAuthenticated = UserAuthWrapper({
-  // eslint-disable-line new-cap
+export const UserIsAuthenticated = connectedRouterRedirect({
   wrapperDisplayName: 'UserIsAuthenticated',
-  LoadingComponent: ProgressIndicator,
-  authSelector: ({ firebase: { auth } }) => auth,
+  AuthenticatingComponent: ProgressIndicator,
+  redirectPath: LOGIN_PATH,
+  authenticatedSelector: ({ firebase: { auth } }) => !auth.isEmpty,
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
-  predicate: auth => !auth.isEmpty,
-  allowRedirectBack: false,
-  redirectAction: newLoc => (dispatch) => {
-    newLoc.pathname = LOGIN_PATH;
-    browserHistory.replace(newLoc);
-    dispatch({
-      type: UNAUTHED_REDIRECT,
-      payload: { message: 'User is not authenticated.' },
-    });
-  },
 });
 
 /**
@@ -39,19 +25,13 @@ export const UserIsAuthenticated = UserAuthWrapper({
  * @param {Component} componentToWrap - Component to wrap
  * @return {Component} wrappedComponent
  */
-export const UserIsNotAuthenticated = UserAuthWrapper({
-  // eslint-disable-line new-cap
+export const UserIsNotAuthenticated = connectedRouterRedirect({
   wrapperDisplayName: 'UserIsNotAuthenticated',
-  allowRedirectBack: false,
-  LoadingComponent: ProgressIndicator,
-  failureRedirectPath: (state, props) =>
-    // redirect to page user was on or to list path
-    (props.location.query && props.location.query.redirect) || HOME_PATH,
-  authSelector: ({ firebase: { auth } }) => auth,
+  AuthenticatingComponent: ProgressIndicator,
+  redirectPath: HOME_PATH,
+  authenticatedSelector: ({ firebase: { auth } }) => auth.isEmpty,
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing,
-  predicate: auth => auth.isEmpty,
-  redirectPath: HOME_PATH,
 });
 
 export default {

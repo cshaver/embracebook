@@ -1,33 +1,34 @@
 // We only need to import the modules necessary for initial render
-import Layout from '../components/Layout';
+// import Layout from '../components/Layout';
 import Feed from './feed';
-import LoginRoute from './login';
-import ProfileRoute from './profile';
-import NPCsRoute from './npcs';
-import PlayersRoute from './players';
-import AccountRoute from './account';
-import NotFoundRoute from './not-found';
-import NoAccessRoute from './no-access';
+import Login from './login';
+import Profile from './profile';
+import NPCs from './npcs';
+import Players from './players';
+import Account from './account';
+import NotFound from './not-found';
+import NoAccess from './no-access';
+
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
-export const createRoutes = store => ({
-  path: '/',
-  component: Layout,
-  indexRoute: Feed,
-  childRoutes: [
-    AccountRoute,
-    LoginRoute,
-    NoAccessRoute(store),
-    // async route definitions recieve store
-    NPCsRoute(store),
-    PlayersRoute(store),
-    ProfileRoute(store),
-    // Place all Routes above here so NotFoundRoute can act as a 404 page
-    NotFoundRoute(store),
-  ],
-});
+// export const createRoutes = store => ({
+//   path: '/',
+//   component: Layout,
+//   indexRoute: Feed,
+//   childRoutes: [
+//     Account,
+//     Login,
+//     NoAccess(store),
+//     // async route definitions recieve store
+//     NPCs(store),
+//     Players(store),
+//     Profile(store),
+//     // Place all routes above here so NotFound can act as a 404 page
+//     NotFound(store),
+//   ],
+// });
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
     using getChildRoutes with the following signature:
@@ -47,4 +48,17 @@ export const createRoutes = store => ({
     when the route exists and matches.
 */
 
-export default createRoutes;
+
+const routes = {
+  Feed,
+  Login,
+  Profile,
+  NPCs,
+  Players,
+  Account,
+  NotFound,
+  NoAccess,
+};
+
+export default routes;
+// export {...routes};

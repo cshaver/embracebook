@@ -1,37 +1,34 @@
-// eslint-disable no-console
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createStore from './store/createStore';
-import { version } from '../package.json';
-import { env } from '../webpack/config/project.config';
 
+import { env } from '../webpack/config/project.config';
+import './utils/polyfill';
 import './styles/main.scss';
 
-// Window Variables
-window.version = version;
-window.env = env;
+import createStore from './store/createStore';
 
-// Store Initialization
-// eslint-disable-next-line no-underscore-dangle
-const initialState = window.___INITIAL_STATE__ || {
+window.env = env;
+window.DEV = env === 'development';
+window.TEST = env === 'test';
+window.PROD = env === 'production';
+
+const initialState = /* window.___INITIAL_STATE__ || */{
   firebase: { authError: null },
 };
-const store = createStore(initialState);
 
-// Render Setup
+// DOM node to mount
 const MOUNT_NODE = document.getElementById('root');
 
 let render = () => {
   // eslint-disable-next-line global-require
   const App = require('./containers/App').default;
-  // eslint-disable-next-line global-require
-  const routes = require('./routes/index').default(store);
 
-  ReactDOM.render(<App store={store} routes={routes} />, MOUNT_NODE);
+  const store = createStore(initialState);
+
+  ReactDOM.render(<App store={store} />, MOUNT_NODE);
 };
 
-// Development Tools
+// dev tools
 // eslint-disable-next-line no-undef
 if (DEV) {
   if (module.hot) {
@@ -47,6 +44,7 @@ if (DEV) {
       try {
         renderApp();
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error(e);
         renderError(e);
       }

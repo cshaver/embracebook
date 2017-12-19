@@ -1,24 +1,16 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router-dom';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase';
 // import 'firebase/firestore' // make sure you add this for firestore
 
 import makeRootReducer from './reducers';
 import * as config from '../../webpack/config/project.config';
-import { version } from '../../package.json';
-import { updateLocation } from './reducers/location';
+// import { updateLocation } from './reducers/location';
 
 export default (initialState = {}) => {
-  // ======================================================
-  // Window Vars Config
-  // ======================================================
-  window.version = version;
-
-  // ======================================================
   // Middleware Configuration
-  // ======================================================
   const middleware = [
     thunk.withExtraArgument(getFirebase),
     // This is where you add other middleware like redux-observable
@@ -61,10 +53,10 @@ export default (initialState = {}) => {
   // optional way to listen for auth ready (requires attachAuthIsReady: true)
   // store.firebaseAuthIsReady.then(() => {
   //   console.log('Auth has loaded') // eslint-disable-line no-console
-  // })
+  // });
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-  store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
+  // store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {

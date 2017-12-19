@@ -112,7 +112,7 @@ ProfileList.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
-  ]).isRequired,
+  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
 };

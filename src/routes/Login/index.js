@@ -1,7 +1,11 @@
-import { LOGIN_PATH as path } from 'constants';
+import { withRouter } from 'react-router';
+
+// import { LOGIN_PATH as path } from 'constants';
 import component from '../../containers/Login';
 
-export default {
-  path,
-  component,
-};
+// export default {
+//   path,
+//   component,
+// };
+
+export default withRouter(component);

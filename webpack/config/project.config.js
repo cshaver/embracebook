@@ -1,8 +1,10 @@
 const path = require('path');
+const { version } = require('../../package.json');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
+  version,
   // The environment to use when building the project
   env: NODE_ENV,
   // The full path to the project's root directory
@@ -30,7 +32,7 @@ module.exports = {
     'redux',
     'react-redux',
     'redux-thunk',
-    'react-router',
+    'react-router-dom',
     'react-redux-firebase',
     'firebaseui',
   ],

@@ -1,37 +1,42 @@
-/* eslint-disable global-require */
+import { withRouter } from 'react-router';
+// /* eslint-disable global-require */
 
-import { PLAYER_LIST_PATH as path } from 'constants';
+// import { PLAYER_LIST_PATH as path } from 'constants';
 import { UserIsAuthenticated } from '../../utils/router';
 
-export default () => ({
-  path,
-  /*  Async getComponent is only invoked when route matches   */
-  getComponent(nextState, cb) {
-    /*  Webpack - use 'require.ensure' to create a split point
-        and embed an async module loader (jsonp) when bundling   */
-    require.ensure(
-      [],
-      (require) => {
-        /*  Webpack - use require callback to define
-          dependencies for bundling   */
-        const PlayerList = require('../../containers/PlayerList').default;
+// export default () => ({
+//   path,
+//   /*  Async getComponent is only invoked when route matches   */
+//   getComponent(nextState, cb) {
+//     /*  Webpack - use 'require.ensure' to create a split point
+//         and embed an async module loader (jsonp) when bundling   */
+//     require.ensure(
+//       [],
+//       (require) => {
+//         /*  Webpack - use require callback to define
+//           dependencies for bundling   */
+//         const PlayerList = require('../../containers/PlayerList').default;
 
-        /*  Return getComponent   */
-        cb(null, UserIsAuthenticated(PlayerList));
+//         /*  Return getComponent   */
+//         cb(null, UserIsAuthenticated(PlayerList));
 
-        /* Webpack named bundle   */
-      },
-      'PlayerList',
-    );
-  },
-  // getChildRoutes(partialNextState, cb) {
-  //   require.ensure([], require => {
-  //     /*  Webpack - use require callback to define
-  //         dependencies for bundling   */
-  //     const Profile = require('./routes/profile').default
-  //
-  //     /*  Return getComponent   */
-  //     cb(null, [Profile(store)])
-  //   })
-  // }
-});
+//         /* Webpack named bundle   */
+//       },
+//       'PlayerList',
+//     );
+//   },
+//   // getChildRoutes(partialNextState, cb) {
+//   //   require.ensure([], require => {
+//   //     /*  Webpack - use require callback to define
+//   //         dependencies for bundling   */
+//   //     const Profile = require('./routes/profile').default
+//   //
+//   //     /*  Return getComponent   */
+//   //     cb(null, [Profile(store)])
+//   //   })
+//   // }
+// });
+
+import component from '../../containers/PlayerList';
+
+export default withRouter(UserIsAuthenticated(component));

@@ -55,7 +55,7 @@ PlayerList.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
-  ]).isRequired,
+  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
 };
@@ -63,7 +63,7 @@ PlayerList.propTypes = {
 export default compose(
   firebaseConnect([{ path: 'users' }]),
   // Map state to props
-  connect(({ firebase, firebase: { auth, profile, data: { users } } }, { params: { uid } }) => ({
+  connect(({ firebase, firebase: { auth, profile, data: { users } } }) => ({
     auth,
     profile,
     players: users,
