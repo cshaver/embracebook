@@ -4,8 +4,6 @@ import { Field, reduxForm } from 'redux-form';
 import TextInput from '../../../../components/form/TextInput';
 import { ACCOUNT_FORM_NAME } from '../../../../constants';
 
-console.log(TextInput);
-
 const AccountForm = ({ account, handleSubmit, submitting }) => (
   <form onSubmit={handleSubmit}>
     <h4>Account</h4>

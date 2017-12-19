@@ -1,4 +1,8 @@
-import { withRouter } from 'react-router';
+import Loadable from 'react-loadable';
+
+import ProgressIndicator from '../../components/ProgressIndicator';
+
+// import { withRouter } from 'react-router';
 
 // import { NO_ACCESS_PATH } from 'constants';
 
@@ -25,6 +29,9 @@ import { withRouter } from 'react-router';
 //   },
 // });
 
-import component from '../../components/NoAccess';
+// import component from '../../components/NoAccess';
 
-export default withRouter(component);
+export default Loadable({
+  loader: () => import('../../components/NoAccess'),
+  loading: ProgressIndicator,
+});
