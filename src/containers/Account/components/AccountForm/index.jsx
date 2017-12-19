@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { TextInput } from '../../../../components/form/TextInput';
+import TextInput from '../../../../components/form/TextInput';
 import { ACCOUNT_FORM_NAME } from '../../../../constants';
+
+console.log(TextInput);
 
 const AccountForm = ({ account, handleSubmit, submitting }) => (
   <form onSubmit={handleSubmit}>
@@ -12,7 +14,11 @@ const AccountForm = ({ account, handleSubmit, submitting }) => (
       component={TextInput}
       props={{ label: 'Display Name' }}
     />
-    <Field name="email" component={TextInput} props={{ label: 'Email' }} />
+    <Field
+      name="email"
+      component={TextInput}
+      props={{ label: 'Email' }}
+    />
     <Field
       name="avatarUrl"
       component={TextInput}
