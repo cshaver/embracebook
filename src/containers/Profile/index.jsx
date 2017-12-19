@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import ProgressIndicator from '../../components/ProgressIndicator';
-import classes from './index.scss';
 
 const Profile = ({ profile }) => {
   if (isEmpty(profile)) {
@@ -16,7 +15,7 @@ const Profile = ({ profile }) => {
   }
 
   return (
-    <div className={classes.container}>
+    <div>
       <img src={profile.avatarUrl} alt="" />
       <h2>{profile.displayName}’s profile</h2>
     </div>

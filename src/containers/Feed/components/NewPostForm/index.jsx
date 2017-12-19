@@ -9,8 +9,6 @@ import { Fieldset, Textarea } from '../../../../components/form';
 import { required } from '../../../../utils/form';
 import { NEW_POST_FORM_NAME } from '../../../../constants';
 
-import classes from './index.scss';
-
 class NewPostForm extends Component {
   resetForm(result, dispatch, formProps) {
     formProps.reset();
@@ -21,7 +19,7 @@ class NewPostForm extends Component {
       open, onRequestClose, submit, handleSubmit, hasAuthorConfig,
     } = this.props;
     return (
-      <form onSubmit={handleSubmit} className={classes.inputs}>
+      <form onSubmit={handleSubmit}>
         <Fieldset label="Post">
           {hasAuthorConfig ? <AuthorConfig /> : null}
           <Field

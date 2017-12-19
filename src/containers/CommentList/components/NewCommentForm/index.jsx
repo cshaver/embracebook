@@ -10,10 +10,8 @@ import TextInput from '../../../../components/form/TextInput';
 import { required } from '../../../../utils/form';
 // import { NEW_POST_FORM_NAME } from '../../../../constants';
 
-import classes from './index.scss';
-
 const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
-  <form onSubmit={handleSubmit} className={classes.inputs}>
+  <form onSubmit={handleSubmit}>
     {hasAuthorConfig ? <AuthorConfig /> : null}
     <Field
       name="content"

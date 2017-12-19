@@ -1,6 +1,4 @@
-@import 'base';
-@import 'device-sizes';
-@import 'standard-classes';
+@import 'core';
 @import '~normalize.css/normalize';
 @import '~firebaseui/dist/firebaseui';
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,100,500,900);
@@ -12,10 +10,6 @@ body {
   height: 100%;
   font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 15px;
-
-  // @include mobile {
-  //   font-size: 12px;
-  // }
 }
 
 * {

@@ -6,13 +6,11 @@ import CommentList from '../../../../containers/CommentList';
 import DeleteButton from '../../../../components/form/DeleteButton';
 import ProfileLink from '../../../../components/ProfileLink';
 
-import classes from './index.scss';
-
 export const Post = ({
   post, onDelete, showDelete, profiles, user, hasAuthorConfig,
 }) => (
-  <blockquote className={classes.container}>
-    <div className={classes.top}>
+  <blockquote>
+    <div>
       <ProfileLink profile={post.author} />
       &nbsp;
       <i>{post.timestamp ? moment.unix(post.timestamp).fromNow() : ''}</i>

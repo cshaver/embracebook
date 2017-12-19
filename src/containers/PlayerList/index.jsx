@@ -10,8 +10,6 @@ import ProgressIndicator from '../../components/ProgressIndicator';
 import PlayerTile from './components/PlayerTile';
 import NoAccess from '../../components/NoAccess';
 
-import classes from './index.scss';
-
 class PlayerList extends Component {
   render() {
     const {
@@ -33,8 +31,8 @@ class PlayerList extends Component {
     }
 
     return (
-      <div className={classes.container}>
-        <ul className={classes.tiles}>
+      <div>
+        <ul>
           {!isEmpty(players) &&
             map(players, (profile, key) => (
               profile.type !== PLAYER_TYPE ? null : <PlayerTile

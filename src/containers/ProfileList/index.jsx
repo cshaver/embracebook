@@ -18,8 +18,6 @@ import NoAccess from '../../components/NoAccess';
 import { toggleNewProfileModal } from './actions';
 import { NPC_TYPE, PLAYER_TYPE } from '../../constants';
 
-import classes from './index.scss';
-
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 
 class ProfileList extends Component {
@@ -76,7 +74,7 @@ class ProfileList extends Component {
     }
 
     return (
-      <div className={classes.container}>
+      <div>
         {newProfileModal && (
           <NewProfileDialog
             open={newProfileModal}
@@ -87,7 +85,7 @@ class ProfileList extends Component {
             }}
           />
         )}
-        <ul className={classes.tiles}>
+        <ul>
           <NewProfileTile onClick={() => this.toggleModal(true)} />
           {!isEmpty(profiles) &&
             map(profiles, (userProfile, key) => (

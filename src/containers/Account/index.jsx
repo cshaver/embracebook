@@ -10,7 +10,6 @@ import {
 // import { UserIsAuthenticated } from '../utils/router';
 import ProgressIndicator from '../../components/ProgressIndicator';
 import AccountForm from './components/AccountForm';
-import classes from './index.scss';
 
 class Account extends Component {
   updateAccount(newData) {
@@ -33,15 +32,14 @@ class Account extends Component {
     }
 
     return (
-      <div className={classes.container}>
-        <div className={classes.avatar}>
+      <div>
+        <div>
           <img
-            className={classes.avatarCurrent}
             src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars//${profile && profile.email}`}
             onClick={this.toggleModal}
           />
         </div>
-        <div className={classes.meta}>
+        <div>
           <AccountForm
             initialValues={profile}
             account={profile}

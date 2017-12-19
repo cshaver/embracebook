@@ -15,8 +15,6 @@ import ProgressIndicator from 'components/ProgressIndicator';
 import Post from './components/Post';
 import NewPostForm from './components/NewPostForm';
 
-import classes from './index.scss';
-
 const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' },
 ];
@@ -71,8 +69,8 @@ class Feed extends Component {
     }
 
     return (
-      <div className={classes.container}>
-        <div className={classes.tiles}>
+      <div>
+        <div>
           <NewPostForm onSubmit={this.newSubmit} hasAuthorConfig={this.hasAuthorConfig()} />
           {!isEmpty(posts) &&
             posts.map(post => (

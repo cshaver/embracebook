@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { TextInput } from 'components/form/TextInput';
-import { ACCOUNT_FORM_NAME } from 'constants';
-import classes from './index.scss';
+import { TextInput } from '../../../../components/form/TextInput';
+import { ACCOUNT_FORM_NAME } from '../../../../constants';
 
 const AccountForm = ({ account, handleSubmit, submitting }) => (
-  <form className={classes.container} onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit}>
     <h4>Account</h4>
     <Field
       name="displayName"
