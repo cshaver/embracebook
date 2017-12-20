@@ -1,4 +1,4 @@
-import React, { Component, cloneElement } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { map, get } from 'lodash';
@@ -19,7 +19,7 @@ const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' },
 ];
 
-class Feed extends Component {
+class Feed extends React.Component {
   newSubmit(newPost) {
     // set author for players
     newPost.author = newPost.author || this.props.auth.uid;
@@ -65,7 +65,7 @@ class Feed extends Component {
     // Post Route is being loaded
     if (this.props.children) {
       // pass all props to children routes
-      return cloneElement(this.props.children, this.props);
+      return React.cloneElement(this.props.children, this.props);
     }
 
     return (

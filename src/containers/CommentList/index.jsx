@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import {
@@ -7,7 +7,7 @@ import {
 
 import NewCommentForm from './components/NewCommentForm';
 
-class CommentList extends Component {
+class CommentList extends React.Component {
   newSubmit(newComment) {
     // newComment.createdBy = this.props.auth.uid
     // unix seconds, instead of milliseconds

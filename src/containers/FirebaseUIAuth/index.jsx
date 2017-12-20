@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { firebaseConnect } from 'react-redux-firebase';
@@ -6,7 +6,7 @@ import * as firebaseui from 'firebaseui';
 
 let authUI;
 
-class FirebaseUIAuth extends Component {
+class FirebaseUIAuth extends React.Component {
   componentDidMount() {
     const { firebase } = this.props;
 

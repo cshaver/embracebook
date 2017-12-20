@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,7 +11,7 @@ import {
 import ProgressIndicator from '../../components/ProgressIndicator';
 import AccountForm from './components/AccountForm';
 
-class Account extends Component {
+class Account extends React.Component {
   updateAccount(newData) {
     delete newData.isLoaded;
     delete newData.isEmpty;

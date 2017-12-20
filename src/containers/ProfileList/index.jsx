@@ -1,4 +1,4 @@
-import React, { Component, cloneElement } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
@@ -20,7 +20,7 @@ import { NPC_TYPE, PLAYER_TYPE } from '../../constants';
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 
-class ProfileList extends Component {
+class ProfileList extends React.Component {
   deleteProfile(key) {
     const { profiles, firebase } = this.props;
     this.props.firebase.remove(`profiles/${profiles[key].uid}`);
@@ -66,7 +66,7 @@ class ProfileList extends Component {
     // Profile Route is being loaded
     if (this.props.children) {
       // pass all props to children routes
-      return cloneElement(this.props.children, this.props);
+      return React.cloneElement(this.props.children, this.props);
     }
 
     if (profile.type === PLAYER_TYPE) {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import { compose } from 'redux';
 import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import { Fieldset, Textarea } from '../../../../components/form';
 import { required } from '../../../../utils/form';
 import { NEW_POST_FORM_NAME } from '../../../../constants';
 
-class NewPostForm extends Component {
+class NewPostForm extends React.Component {
   resetForm(result, dispatch, formProps) {
     formProps.reset();
   }

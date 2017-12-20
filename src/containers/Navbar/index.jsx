@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } from 'constants';
 
-class Navbar extends Component {
+class Navbar extends React.Component {
   constructor() {
     super();
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
@@ -16,7 +16,7 @@ import {
   PLAYER_TYPE,
 } from '../../constants';
 
-class LoginPage extends Component {
+class LoginPage extends React.Component {
   render() {
     const { pathname, query } = this.props.location;
     if (pathname === INVITE_PATH && !query.code) {

@@ -1,4 +1,4 @@
-import React, { Component, cloneElement } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
@@ -10,7 +10,7 @@ import ProgressIndicator from '../../components/ProgressIndicator';
 import PlayerTile from './components/PlayerTile';
 import NoAccess from '../../components/NoAccess';
 
-class PlayerList extends Component {
+class PlayerList extends React.Component {
   render() {
     const {
       users, players, auth, profile,
@@ -23,7 +23,7 @@ class PlayerList extends Component {
     // Player Route is being loaded
     if (this.props.children) {
       // pass all props to children routes
-      return cloneElement(this.props.children, this.props);
+      return React.cloneElement(this.props.children, this.props);
     }
 
     if (profile.type === PLAYER_TYPE) {
