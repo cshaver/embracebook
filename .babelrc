@@ -1,8 +1,9 @@
 {
   "presets": ["airbnb"],
   "plugins": [
-    "transform-react-jsx",
-    "syntax-dynamic-import",
     "dynamic-import-webpack",
+    "react-hot-loader/babel",
+    "syntax-dynamic-import",
+    "transform-react-jsx",
   ],
 }

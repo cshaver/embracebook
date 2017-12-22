@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const loaderUtils = require('loader-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const project = require('./project.config');
 
@@ -17,28 +16,40 @@ const TEST = project.env === 'test';
 const PROD = project.env === 'production';
 
 const config = {
-  entry: {
-    normalize: [inProjectSrc('utils/normalize')],
-    main: [inProjectSrc(project.main)],
-  },
+
   devtool: project.sourcemaps ? 'source-map' : false,
+
+  devServer: {
+    contentBase: inProject(project.staticDir),
+    hot: DEV,
+  },
+
+  entry: {
+    main: [
+      'babel-polyfill',
+      'react-hot-loader/patch',
+      inProjectSrc(project.main),
+    ],
+  },
+
   output: {
     path: inProject(project.outDir),
     filename: DEV ? '[name].js' : '[name].[chunkhash].js',
-    publicPath: project.publicPath,
+    publicPath: inProject(project.publicPath),
   },
+
   resolve: {
-    modules: [inProject(project.srcDir), 'node_modules'],
+    // modules: [inProject(project.srcDir), 'node_modules'],
+    modules: ['node_modules'],
     extensions: ['*', '.js', '.jsx', '.json'],
     alias: {
       // fix issue of loading multiple versions of react
       react: path.resolve('./node_modules/react'),
     },
   },
+
   externals: project.externals,
-  module: {
-    rules: [],
-  },
+
   plugins: [
     new webpack.DefinePlugin(Object.assign(
       {
@@ -50,9 +61,14 @@ const config = {
       project.globals,
     )),
   ],
+
   node: {
     // disable node constants so constants.js file is used instead (see https://webpack.js.org/configuration/node/)
     constants: false,
+  },
+
+  module: {
+    rules: [],
   },
 };
 
@@ -219,8 +235,7 @@ config.plugins.push(new HtmlWebpackPlugin({
 // Development Tools
 // ------------------------------------
 if (DEV) {
-  config.entry.main.push(`webpack-hot-middleware/client.js?path=${config.output
-    .publicPath}__webpack_hmr`);
+  // config.entry.main.push(`webpack-hot-middleware/client.js?path=${config.output.publicPath}__webpack_hmr`);
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -261,19 +276,6 @@ if (PROD) {
         evaluate: true,
         if_return: true,
         join_vars: true,
-      },
-    }),
-    new FaviconsWebpackPlugin({
-      logo: 'static/logo.svg',
-      inject: true,
-      title: 'embracebook',
-      persistentCache: true,
-      icons: {
-        favicons: true,
-        appleIcon: true,
-        appleStartup: true,
-        firefox: true,
-        android: true,
       },
     }),
   );

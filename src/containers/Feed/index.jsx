@@ -10,8 +10,8 @@ import {
   isEmpty,
 } from 'react-redux-firebase';
 
-import { FEED_PATH, PLAYER_TYPE } from 'constants';
-import ProgressIndicator from 'components/ProgressIndicator';
+import { FEED_PATH, PLAYER_TYPE } from '../../constants';
+import ProgressIndicator from '../../components/ProgressIndicator';
 import Post from './components/Post';
 import NewPostForm from './components/NewPostForm';
 

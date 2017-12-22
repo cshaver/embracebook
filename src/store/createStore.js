@@ -1,35 +1,35 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-// import { browserHistory } from 'react-router-dom';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase';
-// import 'firebase/firestore' // make sure you add this for firestore
 
 import makeRootReducer from './reducers';
 import * as config from '../../webpack/config/project.config';
 // import { updateLocation } from './reducers/location';
+//
 
-export default (initialState = {}) => {
+const INITIAL_STATE = {
+  firebase: { authError: null },
+};
+
+export default (initialState = INITIAL_STATE) => {
   // Middleware Configuration
   const middleware = [
     thunk.withExtraArgument(getFirebase),
-    // This is where you add other middleware like redux-observable
   ];
 
-  // Initialize Firebase instance and Firestore (optional)
   firebase.initializeApp(config.firebase);
-  // firebase.firestore()
 
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
 
   let composeReducers = compose;
-  /* eslint-disable no-underscore-dangle */
+  // eslint-disable-next-line no-underscore-dangle
   const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
   // enable Redux dev tools
-  /* eslint-disable no-undef */
+  // eslint-disable-next-line no-undef
   if (DEV) {
     composeReducers = devTools ? devTools({
       actionsBlacklist: [

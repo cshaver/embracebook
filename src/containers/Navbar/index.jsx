@@ -5,7 +5,8 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
-import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } from 'constants';
+
+import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } from '../../constants';
 
 class Navbar extends React.Component {
   constructor() {
