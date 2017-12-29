@@ -7,7 +7,7 @@ import {
   isLoaded,
 } from 'react-redux-firebase';
 
-import { UserIsAuthenticated } from '../utils/auth';
+import { UserIsAuthenticated } from '../../utils/auth';
 import ProgressIndicator from '../../components/ProgressIndicator';
 import AccountForm from './components/AccountForm';
 
