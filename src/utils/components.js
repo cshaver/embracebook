@@ -12,12 +12,6 @@ export const withRouter = compose(
 );
 
 export const withStoreAndRouter = compose(
-  withContext(
-    {
-      router: PropTypes.object,
-      store: PropTypes.object,
-    },
-    () => {},
-  ),
+  withContext({ router: PropTypes.object, store: PropTypes.object }, () => {}),
   getContext({ router: PropTypes.object, store: PropTypes.object }),
 );

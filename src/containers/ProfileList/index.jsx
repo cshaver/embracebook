@@ -59,6 +59,10 @@ class ProfileList extends React.Component {
       profiles, auth, profile, newProfileModal,
     } = this.props;
 
+    console.group('ProfileList::render');
+    console.table(profiles);
+    console.groupEnd();
+
     if (!isLoaded(profiles, auth)) {
       return <ProgressIndicator />;
     }

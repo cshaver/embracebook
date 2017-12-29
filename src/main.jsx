@@ -18,8 +18,7 @@ window.PROD = env === 'production';
 
 
 const render = (Routes) => {
-  console.log('rendered');
-
+  console.group('main::render');
   ReactDOM.render(
     <AppContainer>
       <Provider store={state.store}>
@@ -30,6 +29,7 @@ const render = (Routes) => {
     </AppContainer>,
     document.getElementById('root'),
   );
+  console.groupEnd();
 };
 
 render(Routes);
@@ -41,32 +41,3 @@ if (module.hot) {
     render(newRoutes);
   });
 }
-
-// dev tools
-// if (module.hot) {
-//   const renderApp = render;
-//   const renderError = (error) => {
-//     // eslint-disable-next-line global-require
-//     const RedBox = require('redbox-react').default;
-
-//     ReactDOM.render(<RedBox error={error} />, MOUNT_NODE);
-//   };
-
-//   render = () => {
-//     try {
-//       renderApp();
-//     } catch (e) {
-//       // eslint-disable-next-line no-console
-//       console.error(e);
-//       renderError(e);
-//     }
-//   };
-
-//   // Setup hot module replacement
-//   module.hot.accept(['./containers/App', './routes/index'], () =>
-//     setImmediate(() => {
-//       ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-//       render();
-//     }));
-// }
-

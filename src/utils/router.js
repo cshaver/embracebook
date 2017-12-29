@@ -3,9 +3,9 @@ import { HOME_PATH, LOGIN_PATH } from '../constants';
 import ProgressIndicator from '../components/ProgressIndicator';
 
 /**
- * @description Higher Order Component that redirects to `/login` instead
- * rendering if user is not authenticated (default of redux-auth-wrapper).
- * @param {Component} componentToWrap - Component to wrap
+ * @description HOC that redirects to `/login` instead of rendering
+ *              if user is not authenticated.
+ * @param  {Component} componentToWrap - Component to wrap
  * @return {Component} wrappedComponent
  */
 export const UserIsAuthenticated = connectedRouterRedirect({
@@ -18,11 +18,9 @@ export const UserIsAuthenticated = connectedRouterRedirect({
 });
 
 /**
- * @description Higher Order Component that redirects to listings page or most
- * recent route instead rendering if user is not authenticated. This is useful
- * routes that should not be displayed if a user is logged in, such as the
- * login route.
- * @param {Component} componentToWrap - Component to wrap
+ * @description HOC that redirects to home page or most recent route
+ *              instead rendering if user is already authenticated.
+ * @param  {Component} componentToWrap - Component to wrap
  * @return {Component} wrappedComponent
  */
 export const UserIsNotAuthenticated = connectedRouterRedirect({

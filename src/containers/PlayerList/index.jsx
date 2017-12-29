@@ -16,6 +16,10 @@ class PlayerList extends React.Component {
       users, players, auth, profile,
     } = this.props;
 
+    console.group('PlayerList::render');
+    console.table(players);
+    console.groupEnd();
+
     if (!isLoaded(players, auth)) {
       return <ProgressIndicator />;
     }

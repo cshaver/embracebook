@@ -58,6 +58,10 @@ class Feed extends React.Component {
       posts, auth, newPostModal, profiles,
     } = this.props;
 
+    console.group('Feed::render');
+    console.table(posts);
+    console.groupEnd();
+
     if (!isLoaded(posts, auth)) {
       return <ProgressIndicator />;
     }

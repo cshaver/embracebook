@@ -25,11 +25,18 @@ class Navbar extends React.Component {
     const dataLoaded = isLoaded(auth, profile);
     const authExists = isLoaded(auth) && !isEmpty(auth);
 
+    console.group('NavBar::render');
+
+
     if (!dataLoaded) {
+      console.groupEnd();
       return (
         <nav />
       );
     }
+
+    console.log('auth', auth);
+    console.groupEnd();
 
     const rightMenu =
       authExists ? (
