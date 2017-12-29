@@ -1,19 +1,19 @@
 import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { map, get } from 'lodash';
+import { map } from 'lodash';
 import { connect } from 'react-redux';
 import {
   firebaseConnect,
-  populate,
   isLoaded,
   isEmpty,
 } from 'react-redux-firebase';
 
-import { FEED_PATH, PLAYER_TYPE } from '../../constants';
+import { PLAYER_TYPE } from '../../constants';
 import ProgressIndicator from '../../components/ProgressIndicator';
 import Post from './components/Post';
 import NewPostForm from './components/NewPostForm';
+import { UserIsAuthenticated } from '../../utils/auth';
 
 import children from '../../shapes/children';
 
@@ -22,10 +22,6 @@ const populates = [
 ];
 
 class Feed extends React.Component {
-  deletePost(key) {
-    return this.props.firebase.remove(`posts/${key}`);
-  }
-
   getDeleteVisible(post) {
     const { auth } = this.props;
     return (
@@ -33,6 +29,10 @@ class Feed extends React.Component {
       post &&
       post.createdBy === auth.uid
     );
+  }
+
+  deletePost(key) {
+    return this.props.firebase.remove(`posts/${key}`);
   }
 
   newSubmit(newPost) {
@@ -133,4 +133,5 @@ export default compose(
         // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
       }
     )),
+  UserIsAuthenticated,
 )(Feed);

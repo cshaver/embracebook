@@ -22,3 +22,5 @@ export const withStoreAndRouter = compose(
 export const withProfile = compose(connect(({ firebase: { profile } }) => ({ profile })));
 
 export const withRoles = compose(connect(({ firebase: { profile: roles } }) => ({ roles })));
+
+export const withAuth = compose(connect(({ firebase: { auth } }) => ({ auth })));

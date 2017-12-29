@@ -3,7 +3,9 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+
 import ProgressIndicator from '../../components/ProgressIndicator';
+import { UserIsAuthenticated } from '../../utils/auth';
 
 const Profile = ({ profile }) => {
   if (isEmpty(profile)) {
@@ -34,4 +36,5 @@ export default compose(
     profile: data.profiles && data.profiles[uid],
     // profile: get(data, `profiles.${uid}`) // lodash's get can be used for convience
   })),
+  UserIsAuthenticated,
 )(Profile);

@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import {
   firebaseConnect,
   isLoaded,
-  // populate
 } from 'react-redux-firebase';
-// import { UserIsAuthenticated } from '../utils/auth';
+
+import { UserIsAuthenticated } from '../utils/auth';
 import ProgressIndicator from '../../components/ProgressIndicator';
 import AccountForm from './components/AccountForm';
+
 
 class Account extends React.Component {
   updateAccount(newData) {
@@ -64,4 +65,5 @@ export default compose(
   connect(({ firebase: { profile } }) => ({
     profile,
   })),
+  UserIsAuthenticated,
 )(Account);

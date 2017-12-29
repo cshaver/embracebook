@@ -6,7 +6,7 @@ import CommentList from '../../../../containers/CommentList';
 import DeleteButton from '../../../../components/form/DeleteButton';
 import ProfileLink from '../../../../components/ProfileLink';
 
-export const Post = ({
+const Post = ({
   post, onDelete, showDelete, profiles, user, hasAuthorConfig,
 }) => (
   <blockquote>

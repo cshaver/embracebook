@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 
-import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } from '../../constants';
+import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from '../../constants';
 
 import ShowIfStoryteller from '../../components/ShowIfStoryteller';
+import ShowIfAuthenticated from '../../components/ShowIfAuthenticated';
 
 class Navbar extends React.Component {
   constructor() {
@@ -25,7 +26,6 @@ class Navbar extends React.Component {
   render() {
     const { profile, auth } = this.props;
     const dataLoaded = isLoaded(auth, profile);
-    const authExists = isLoaded(auth) && !isEmpty(auth);
 
     console.groupCollapsed('NavBar::render');
 
@@ -39,21 +39,14 @@ class Navbar extends React.Component {
     console.log('auth', auth);
     console.groupEnd();
 
-    const rightMenu =
-      authExists ? (
-        <span>
-          <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} alt="" />
-          <span>{profile.displayName}</span>
-          <button onClick={() => this.props.history.push(ACCOUNT_PATH)}>Account</button>
-          <button onClick={this.logout}>Sign out</button>
-        </span>
-      ) : (
-        <span>
-          <Link to={LOGIN_PATH}>
-            <button>Login</button>
-          </Link>
-        </span>
-      );
+    const rightMenu = (
+      <ShowIfAuthenticated>
+        <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} alt="" />
+        <span>{profile.displayName}</span>
+        <button onClick={() => this.props.history.push(ACCOUNT_PATH)}>Account</button>
+        <button onClick={this.logout}>Sign out</button>
+      </ShowIfAuthenticated>
+    );
 
     const spacer = (<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>);
 
@@ -63,10 +56,10 @@ class Navbar extends React.Component {
         <ShowIfStoryteller>
           {spacer}
           <Link to={NPC_LIST_PATH}>Manage NPCs</Link>
+          {spacer}
+          <Link to={PLAYER_LIST_PATH}>Manage Players</Link>
+          {spacer}
         </ShowIfStoryteller>
-        {spacer}
-        <Link to={PLAYER_LIST_PATH}>Manage Players</Link>
-        {spacer}
         {rightMenu}
       </nav>
     );

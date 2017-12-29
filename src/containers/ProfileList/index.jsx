@@ -5,7 +5,6 @@ import { map } from 'lodash';
 import { connect } from 'react-redux';
 import {
   firebaseConnect,
-  // populate,
   isLoaded,
   isEmpty,
 } from 'react-redux-firebase';
@@ -17,6 +16,7 @@ import NewProfileDialog from './components/NewProfileDialog';
 import NoAccess from '../../components/NoAccess';
 import { toggleNewProfileModal } from './actions';
 import { NPC_TYPE, PLAYER_TYPE } from '../../constants';
+import { UserIsAuthenticated } from '../../utils/auth';
 
 import children from '../../shapes/children';
 
@@ -146,4 +146,5 @@ export default compose(
       toggleNewProfileModal: toggleNewProfileModal(dispatch),
     }),
   ),
+  UserIsAuthenticated,
 )(ProfileList);
