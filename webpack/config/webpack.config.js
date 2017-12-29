@@ -22,6 +22,7 @@ const config = {
   devServer: {
     contentBase: inProject(project.staticDir),
     hot: DEV,
+    historyApiFallback: true,
   },
 
   entry: {

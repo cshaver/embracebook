@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { Provider } from 'react-redux';
 
 import { env } from '../webpack/config/project.config';
 import './utils/polyfill';
 import './styles/main.scss';
 
 import App from './containers/App';
-import createStore from './store/createStore';
+import Routes from './routes';
+import state from './state';
 
 window.env = env;
 window.DEV = env === 'development';
@@ -15,23 +17,29 @@ window.TEST = env === 'test';
 window.PROD = env === 'production';
 
 
-const render = (Component) => {
+const render = (Routes) => {
   console.log('rendered');
-  const store = createStore();
 
   ReactDOM.render(
     <AppContainer>
-      <Component store={store} />
+      <Provider store={state.store}>
+        <App>
+          <Routes />
+        </App>
+      </Provider>
     </AppContainer>,
     document.getElementById('root'),
   );
 };
 
-render(App);
+render(Routes);
 
-// Webpack Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./containers/App', () => { render(App); });
+  module.hot.accept('./routes', () => {
+    // eslint-disable-next-line global-require
+    const newRoutes = require('./routes').default;
+    render(newRoutes);
+  });
 }
 
 // dev tools
@@ -62,5 +70,3 @@ if (module.hot) {
 //     }));
 // }
 
-// eslint-disable-next-line no-undef
-if (!TEST) render();
