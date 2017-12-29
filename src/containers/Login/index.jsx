@@ -31,51 +31,51 @@ class LoginPage extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      profile, auth, firebase, location, history,
-    } = nextProps;
+  // componentWillReceiveProps(nextProps) {
+  //   const {
+  //     profile, auth, firebase, location, history,
+  //   } = nextProps;
 
-    // already logged in
-    if (!isEmpty(profile) || profile.type) {
-      history.replace(HOME_PATH);
-      return;
-    }
+  //   // already logged in
+  //   if (!isEmpty(profile) || profile.type) {
+  //     history.replace(HOME_PATH);
+  //     return;
+  //   }
 
-    const { pathname, query } = location;
+  //   const { pathname, query } = location;
 
-    // wait for login
-    if (isEmpty(auth)) {
-      return;
-    }
+  //   // wait for login
+  //   if (isEmpty(auth)) {
+  //     return;
+  //   }
 
-    if (isLoaded(profile)) {
-      // initialize profile
+  //   if (isLoaded(profile)) {
+  //     // initialize profile
 
-      firebase
-        .uniqueSet(`profiles/${auth.uid}`, {
-          type: PLAYER_TYPE,
-        })
-        .then(() => {
-          const newProfile = {
-            type: PLAYER_TYPE,
-            createdBy: auth.uid,
-          };
-          this.props.firebase
-            .uniqueSet(`profiles/${auth.uid}`, newProfile)
-            .then(() => {
-              history.push(ACCOUNT_PATH);
-            })
-            .catch((err) => {
-              // TODO: Show Snackbar
-              console.error('error creating new profile', err) // eslint-disable-line
-            });
-        })
-        .catch((err) => {
-          console.error('Error updating account', err); // eslint-disable-line no-console
-        });
-    }
-  }
+  //     firebase
+  //       .uniqueSet(`profiles/${auth.uid}`, {
+  //         type: PLAYER_TYPE,
+  //       })
+  //       .then(() => {
+  //         const newProfile = {
+  //           type: PLAYER_TYPE,
+  //           createdBy: auth.uid,
+  //         };
+  //         this.props.firebase
+  //           .uniqueSet(`profiles/${auth.uid}`, newProfile)
+  //           .then(() => {
+  //             history.push(ACCOUNT_PATH);
+  //           })
+  //           .catch((err) => {
+  //             // TODO: Show Snackbar
+  //             console.error('error creating new profile', err) // eslint-disable-line
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         console.error('Error updating account', err); // eslint-disable-line no-console
+  //       });
+  //   }
+  // }
 }
 
 LoginPage.propTypes = {

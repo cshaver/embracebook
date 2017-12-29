@@ -43,7 +43,7 @@ class ProfileList extends React.Component {
 
   newSubmit(newProfile) {
     newProfile.createdBy = this.props.auth.uid;
-    newProfile.type = NPC_TYPE;
+    // newProfile.type = NPC_TYPE;
 
     return this.props.firebase
       .push('profiles', newProfile)
