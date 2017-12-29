@@ -7,6 +7,8 @@ import {
 
 import NewCommentForm from './components/NewCommentForm';
 
+import children from '../../shapes/children';
+
 class CommentList extends React.Component {
   newSubmit(newComment) {
     // newComment.createdBy = this.props.auth.uid
@@ -53,16 +55,10 @@ class CommentList extends React.Component {
 }
 
 CommentList.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
-  posts: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
+  posts: children,
+  children,
 };
 
 CommentList.defaultProps = {

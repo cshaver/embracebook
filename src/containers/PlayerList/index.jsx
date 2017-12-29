@@ -1,6 +1,6 @@
 import React from 'react';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
@@ -10,13 +10,15 @@ import ProgressIndicator from '../../components/ProgressIndicator';
 import PlayerTile from './components/PlayerTile';
 import NoAccess from '../../components/NoAccess';
 
+import children from '../../shapes/children';
+
 class PlayerList extends React.Component {
   render() {
     const {
       users, players, auth, profile,
     } = this.props;
 
-    console.group('PlayerList::render');
+    console.groupCollapsed('PlayerList::render');
     console.table(players);
     console.groupEnd();
 
@@ -56,12 +58,9 @@ PlayerList.contextTypes = {
 };
 
 PlayerList.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
+  children,
 };
 
 export default compose(

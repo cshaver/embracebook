@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 
+import children from '../shapes/children';
+
 const App = ({ children }) => (
   <BrowserRouter>
     <Layout>
@@ -13,10 +15,7 @@ const App = ({ children }) => (
 );
 
 App.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: children.isRequired,
 };
 
 export default App;

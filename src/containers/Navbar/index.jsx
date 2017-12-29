@@ -8,6 +8,8 @@ import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH, LOGIN_PATH } from '../../constants';
 
+import ShowIfStoryteller from '../../components/ShowIfStoryteller';
+
 class Navbar extends React.Component {
   constructor() {
     super();
@@ -25,8 +27,7 @@ class Navbar extends React.Component {
     const dataLoaded = isLoaded(auth, profile);
     const authExists = isLoaded(auth) && !isEmpty(auth);
 
-    console.group('NavBar::render');
-
+    console.groupCollapsed('NavBar::render');
 
     if (!dataLoaded) {
       console.groupEnd();
@@ -59,8 +60,10 @@ class Navbar extends React.Component {
     return (
       <nav>
         <Link to={HOME_PATH}>embracebook</Link>
-        {spacer}
-        <Link to={NPC_LIST_PATH}>Manage NPCs</Link>
+        <ShowIfStoryteller>
+          {spacer}
+          <Link to={NPC_LIST_PATH}>Manage NPCs</Link>
+        </ShowIfStoryteller>
         {spacer}
         <Link to={PLAYER_LIST_PATH}>Manage Players</Link>
         {spacer}

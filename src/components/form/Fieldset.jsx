@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import children from '../../shapes/children';
+
 const Fieldset = ({ label, children }) => (
   <fieldset>
     <legend>{label}</legend>
@@ -10,10 +12,7 @@ const Fieldset = ({ label, children }) => (
 
 Fieldset.propTypes = {
   label: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: children.isRequired,
 };
 
 export default Fieldset;

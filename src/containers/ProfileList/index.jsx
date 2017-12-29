@@ -18,6 +18,8 @@ import NoAccess from '../../components/NoAccess';
 import { toggleNewProfileModal } from './actions';
 import { NPC_TYPE, PLAYER_TYPE } from '../../constants';
 
+import children from '../../shapes/children';
+
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 
 class ProfileList extends React.Component {
@@ -113,12 +115,9 @@ ProfileList.contextTypes = {
 };
 
 ProfileList.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
+  children,
 };
 
 export default compose(

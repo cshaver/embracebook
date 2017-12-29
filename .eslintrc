@@ -14,5 +14,6 @@
     "no-param-reassign": 0,
     "no-plusplus": 0,
     "no-shadow": 0,
+    "react/no-typos": 0,
   },
 }

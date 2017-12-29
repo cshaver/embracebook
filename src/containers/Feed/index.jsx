@@ -15,27 +15,13 @@ import ProgressIndicator from '../../components/ProgressIndicator';
 import Post from './components/Post';
 import NewPostForm from './components/NewPostForm';
 
+import children from '../../shapes/children';
+
 const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' },
 ];
 
 class Feed extends React.Component {
-  newSubmit(newPost) {
-    // set author for players
-    newPost.author = newPost.author || this.props.auth.uid;
-    // always set createdBy
-    newPost.createdBy = this.props.auth.uid;
-    // unix seconds, instead of milliseconds
-    newPost.timestamp = (new Date()).getTime() / 1000;
-
-    return this.props.firebase
-      .push('posts', newPost)
-      .catch((err) => {
-        // TODO: Show Snackbar
-        console.error('error creating new post', err) // eslint-disable-line
-      });
-  }
-
   deletePost(key) {
     return this.props.firebase.remove(`posts/${key}`);
   }
@@ -49,6 +35,15 @@ class Feed extends React.Component {
     );
   }
 
+  newSubmit(newPost) {
+    return this.props.firebase
+      .push('posts', newPost)
+      .catch((err) => {
+        // TODO: Show Snackbar
+        console.error('error creating new post', err) // eslint-disable-line
+      });
+  }
+
   hasAuthorConfig() {
     return this.props.profile.type !== PLAYER_TYPE;
   }
@@ -58,7 +53,7 @@ class Feed extends React.Component {
       posts, auth, newPostModal, profiles,
     } = this.props;
 
-    console.group('Feed::render');
+    console.groupCollapsed('Feed::render');
     console.table(posts);
     console.groupEnd();
 
@@ -98,19 +93,14 @@ Feed.contextTypes = {
 };
 
 Feed.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
   firebase: PropTypes.object.isRequired,
   auth: PropTypes.object,
-  posts: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
+  posts: children,
+  children,
 };
 
 Feed.defaultProps = {
+  posts: null,
   children: null,
 };
 

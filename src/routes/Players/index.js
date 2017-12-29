@@ -2,7 +2,7 @@ import { withRouter } from 'react-router';
 // /* eslint-disable global-require */
 
 // import { PLAYER_LIST_PATH as path } from 'constants';
-import { UserIsAuthenticated } from '../../utils/router';
+import { UserIsAuthenticated } from '../../utils/auth';
 
 // export default () => ({
 //   path,

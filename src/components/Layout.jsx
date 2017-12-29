@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../containers/Navbar';
 
+import children from '../shapes/children';
+
 const Layout = ({ children }) => (
   <div>
     <Navbar />
@@ -10,10 +12,7 @@ const Layout = ({ children }) => (
 );
 
 Layout.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: children.isRequired,
 };
 
 export default Layout;

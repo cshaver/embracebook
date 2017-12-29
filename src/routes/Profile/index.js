@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router';
 // import { PROFILE_DETAIL_PATH as path } from 'constants';
-import { UserIsAuthenticated } from '../../utils/router';
+import { UserIsAuthenticated } from '../../utils/auth';
 
 // export default () => ({
 //   path,

@@ -35,3 +35,9 @@ exports.createUser = functions.auth.user().onCreate(({ data }) => {
     }
   });
 });
+
+exports.newProfile = functions.database.ref('/profiles/').onCreate((event) => {
+  const { data, auth } = event;
+
+  return data.ref.update({ createdBy: auth });
+});
