@@ -40,12 +40,12 @@ const config = {
   },
 
   resolve: {
-    // modules: [inProject(project.srcDir), 'node_modules'],
     modules: ['node_modules'],
     extensions: ['*', '.js', '.jsx', '.json'],
     alias: {
       // fix issue of loading multiple versions of react
       react: path.resolve('./node_modules/react'),
+      embracebook: inProject(project.srcDir),
     },
   },
 
@@ -64,7 +64,8 @@ const config = {
   ],
 
   node: {
-    // disable node constants so constants.js file is used instead (see https://webpack.js.org/configuration/node/)
+    // disable node constants so constants.js file is used instead
+    // (see https://webpack.js.org/configuration/node/)
     constants: false,
   },
 
@@ -146,7 +147,9 @@ config.module.rules.push({
           importLoaders: 2,
           localIdentName: '[path][name]__[local]___[hash:base64:5]',
           getLocalIdent: (context, localIdentName, localName) => {
-            const hash = loaderUtils.interpolateName(context, '[hash:base64:5]', { content: context.resourcePath });
+            const hash = loaderUtils.interpolateName(context, '[hash:base64:5]', {
+              content: context.resourcePath,
+            });
             const parsed = path.parse(context.resourcePath);
             let { name } = parsed;
 
@@ -236,7 +239,6 @@ config.plugins.push(new HtmlWebpackPlugin({
 // Development Tools
 // ------------------------------------
 if (DEV) {
-  // config.entry.main.push(`webpack-hot-middleware/client.js?path=${config.output.publicPath}__webpack_hmr`);
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),

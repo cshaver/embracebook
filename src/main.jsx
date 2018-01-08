@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 
-import { env } from '../webpack/config/project.config';
-import './utils/polyfill';
-import './styles/main.scss';
+import 'embracebook/utils/polyfill';
+import 'embracebook/styles/main.scss';
 
-import App from './containers/App';
-import Routes from './routes';
-import state from './state';
+import App from 'embracebook/containers/App';
+import Routes from 'embracebook/routes';
+import state from 'embracebook/state';
+
+import { env } from '../webpack/config/project.config';
 
 window.env = env;
 window.DEV = env === 'development';
 window.TEST = env === 'test';
 window.PROD = env === 'production';
-
 
 const render = (Routes) => {
   console.group('main::render');

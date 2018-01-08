@@ -11,7 +11,7 @@
     "dev": "clear && npm run devServer",
     "start": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- npm run devServer",
     "start:simple": "cross-env NODE_ENV=development node webpack/devServer",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
@@ -67,6 +67,7 @@
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-import-resolver-webpack": "^0.8.4",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
@@ -85,7 +86,9 @@
     "url-loader": "^0.5.8",
     "webpack": "^3.10.0",
     "webpack-dashboard": "^1.0.1",
+    "webpack-dev-middleware": "^2.0.4",
     "webpack-dev-server": "^2.9.7",
+    "webpack-hot-middleware": "^2.21.0",
     "yargs": "^8.0.1"
   }
 }

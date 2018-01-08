@@ -19,7 +19,14 @@
       "error", {
         "components": [ "Link" ],
         "specialLink": [ "to" ],
-      }
-    ]
+      },
+    ],
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./webpack/config/webpack.config.js",
+      },
+    },
   },
 }
