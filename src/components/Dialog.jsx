@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import children from '../shapes/children';
+import children from 'embracebook/shapes/children';
 
 const Dialog = ({ title, open, children }) => (
   <dialog open={open}>

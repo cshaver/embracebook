@@ -7,7 +7,7 @@ import {
 
 import NewCommentForm from './components/NewCommentForm';
 
-import children from '../../shapes/children';
+import children from 'embracebook/shapes/children';
 
 class CommentList extends React.Component {
   newSubmit(newComment) {

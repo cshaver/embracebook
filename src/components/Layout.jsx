@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../containers/Navbar';
+import Navbar from 'embracebook/containers/Navbar';
 
-import children from '../shapes/children';
+import children from 'embracebook/shapes/children';
 
 const Layout = ({ children }) => (
   <div>

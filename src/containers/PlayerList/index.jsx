@@ -5,12 +5,12 @@ import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
-import { PLAYER_TYPE } from '../../constants';
-import ProgressIndicator from '../../components/ProgressIndicator';
+import { PLAYER_TYPE } from 'embracebook/constants';
+import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import PlayerTile from './components/PlayerTile';
-import NoAccess from '../../components/NoAccess';
+import NoAccess from 'embracebook/components/NoAccess';
 
-import children from '../../shapes/children';
+import children from 'embracebook/shapes/children';
 
 class PlayerList extends React.Component {
   render() {

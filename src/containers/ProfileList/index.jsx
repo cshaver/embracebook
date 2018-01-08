@@ -9,16 +9,16 @@ import {
   isEmpty,
 } from 'react-redux-firebase';
 
-import ProgressIndicator from '../../components/ProgressIndicator';
+import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import ProfileTile from './components/ProfileTile';
 import NewProfileTile from './components/NewProfileTile';
 import NewProfileDialog from './components/NewProfileDialog';
-import NoAccess from '../../components/NoAccess';
+import NoAccess from 'embracebook/components/NoAccess';
 import { toggleNewProfileModal } from './actions';
-import { NPC_TYPE, PLAYER_TYPE } from '../../constants';
-import { UserIsAuthenticated } from '../../utils/auth';
+import { NPC_TYPE, PLAYER_TYPE } from 'embracebook/constants';
+import { UserIsAuthenticated } from 'embracebook/utils/auth';
 
-import children from '../../shapes/children';
+import children from 'embracebook/shapes/children';
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 

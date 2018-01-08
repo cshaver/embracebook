@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 
-import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from '../../constants';
+import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from 'embracebook/constants';
 
-import ShowIfStoryteller from '../../components/ShowIfStoryteller';
-import ShowIfAuthenticated from '../../components/ShowIfAuthenticated';
+import ShowIfStoryteller from 'embracebook/components/ShowIfStoryteller';
+import ShowIfAuthenticated from 'embracebook/components/ShowIfAuthenticated';
 
 class Navbar extends React.Component {
   constructor() {

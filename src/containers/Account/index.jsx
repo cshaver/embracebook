@@ -7,8 +7,8 @@ import {
   isLoaded,
 } from 'react-redux-firebase';
 
-import { UserIsAuthenticated } from '../../utils/auth';
-import ProgressIndicator from '../../components/ProgressIndicator';
+import { UserIsAuthenticated } from 'embracebook/utils/auth';
+import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import AccountForm from './components/AccountForm';
 
 

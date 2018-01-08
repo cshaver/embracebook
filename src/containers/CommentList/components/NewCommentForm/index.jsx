@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 // import { firebaseConnect, isEmpty } from 'react-redux-firebase';
 import { Field, formValueSelector, reduxForm } from 'redux-form';
 
-import AuthorConfig from '../../../../containers/AuthorConfig';
-import TextInput from '../../../../components/form/TextInput';
-import { required } from '../../../../utils/form';
-// import { NEW_POST_FORM_NAME } from '../../../../constants';
+import AuthorConfig from 'embracebook/containers/AuthorConfig';
+import TextInput from 'embracebook/components/form/TextInput';
+import { required } from 'embracebook/utils/form';
+// import { NEW_POST_FORM_NAME } from 'embracebook/constants';
 
 const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
   <form onSubmit={handleSubmit}>

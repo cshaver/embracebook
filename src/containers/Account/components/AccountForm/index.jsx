@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import TextInput from '../../../../components/form/TextInput';
-import { ACCOUNT_FORM_NAME } from '../../../../constants';
+import TextInput from 'embracebook/components/form/TextInput';
+import { ACCOUNT_FORM_NAME } from 'embracebook/constants';
 
 const AccountForm = ({ account, handleSubmit, submitting }) => (
   <form onSubmit={handleSubmit}>

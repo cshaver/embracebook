@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { withAuth } from '../utils/components';
-import children from '../shapes/children';
-import { auth } from '../shapes/auth';
+import { withAuth } from 'embracebook/utils/components';
+import children from 'embracebook/shapes/children';
+import { auth } from 'embracebook/shapes/auth';
 
 const ShowIfAuthenticated = ({ auth, children }) => (
   auth.isEmpty ? null :

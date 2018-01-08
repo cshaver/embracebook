@@ -5,8 +5,8 @@ import { Field } from 'redux-form';
 import { firebaseConnect, isEmpty } from 'react-redux-firebase';
 import { map } from 'lodash';
 
-import { required } from '../../utils/form';
-import { NPC_TYPE } from '../../constants';
+import { required } from 'embracebook/utils/form';
+import { NPC_TYPE } from 'embracebook/constants';
 
 const AuthorConfig = ({ profiles }) => (
   <div>

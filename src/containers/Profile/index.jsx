@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
-import ProgressIndicator from '../../components/ProgressIndicator';
-import { UserIsAuthenticated } from '../../utils/auth';
+import ProgressIndicator from 'embracebook/components/ProgressIndicator';
+import { UserIsAuthenticated } from 'embracebook/utils/auth';
 
 const Profile = ({ profile }) => {
   if (isEmpty(profile)) {

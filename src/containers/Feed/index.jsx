@@ -9,13 +9,13 @@ import {
   isEmpty,
 } from 'react-redux-firebase';
 
-import { PLAYER_TYPE } from '../../constants';
-import ProgressIndicator from '../../components/ProgressIndicator';
+import { PLAYER_TYPE } from 'embracebook/constants';
+import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import Post from './components/Post';
 import NewPostForm from './components/NewPostForm';
-import { UserIsAuthenticated } from '../../utils/auth';
+import { UserIsAuthenticated } from 'embracebook/utils/auth';
 
-import children from '../../shapes/children';
+import children from 'embracebook/shapes/children';
 
 const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' },

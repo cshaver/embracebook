@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import inputShape from '../../shapes/input';
-import formMetaShape from '../../shapes/formMeta';
+import inputShape from 'embracebook/shapes/input';
+import formMetaShape from 'embracebook/shapes/formMeta';
 
 const TextInput = ({
   label,

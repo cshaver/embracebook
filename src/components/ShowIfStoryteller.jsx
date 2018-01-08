@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { withRoles } from '../utils/components';
-import children from '../shapes/children';
-import { roles } from '../shapes/profile';
+import { withRoles } from 'embracebook/utils/components';
+import children from 'embracebook/shapes/children';
+import { roles } from 'embracebook/shapes/profile';
 
 const ShowIfStoryteller = ({ roles, children }) => (
   !roles.storyteller ? null :

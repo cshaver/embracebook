@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import AuthorConfig from '../../../../containers/AuthorConfig';
-import { Fieldset, Textarea } from '../../../../components/form';
-import { required } from '../../../../utils/form';
-import { NEW_POST_FORM_NAME } from '../../../../constants';
+import AuthorConfig from 'embracebook/containers/AuthorConfig';
+import { Fieldset, Textarea } from 'embracebook/components/form';
+import { required } from 'embracebook/utils/form';
+import { NEW_POST_FORM_NAME } from 'embracebook/constants';
 
 class NewPostForm extends React.Component {
   resetForm(result, dispatch, formProps) {

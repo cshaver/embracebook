@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 
-import Layout from '../components/Layout';
+import Layout from 'embracebook/components/Layout';
 
-import children from '../shapes/children';
+import children from 'embracebook/shapes/children';
 
 const App = ({ children }) => (
   <BrowserRouter>

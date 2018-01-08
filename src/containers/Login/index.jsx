@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import FirebaseUIAuth from '../FirebaseUIAuth';
 import {
   TERMS_PATH,
-} from '../../constants';
+} from 'embracebook/constants';
 
 const LoginPage = () => (
   <React.Fragment>

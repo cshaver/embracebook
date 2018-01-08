@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 // import { isObject } from 'lodash';
 
-import DeleteButton from '../../../../components/form/DeleteButton';
-import ProfileLink from '../../../../components/ProfileLink';
+import DeleteButton from 'embracebook/components/form/DeleteButton';
+import ProfileLink from 'embracebook/components/ProfileLink';
 
 export const ProfileTile = ({
   profile, onSelect, onDelete, showDelete,

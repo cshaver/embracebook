@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import CommentList from '../../../../containers/CommentList';
-import DeleteButton from '../../../../components/form/DeleteButton';
-import ProfileLink from '../../../../components/ProfileLink';
+import CommentList from 'embracebook/containers/CommentList';
+import DeleteButton from 'embracebook/components/form/DeleteButton';
+import ProfileLink from 'embracebook/components/ProfileLink';
 
 const Post = ({
   post, onDelete, showDelete, profiles, user, hasAuthorConfig,

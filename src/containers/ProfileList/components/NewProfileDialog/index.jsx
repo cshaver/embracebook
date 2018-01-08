@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, formValueSelector, reduxForm } from 'redux-form';
 
-import Dialog from '../../../../components/Dialog';
-import TextInput from '../../../../components/form/TextInput';
-import { required, validateSlug } from '../../../../utils/form';
-import { NEW_PROFILE_FORM_NAME } from '../../../../constants';
+import Dialog from 'embracebook/components/Dialog';
+import TextInput from 'embracebook/components/form/TextInput';
+import { required, validateSlug } from 'embracebook/utils/form';
+import { NEW_PROFILE_FORM_NAME } from 'embracebook/constants';
 
 const NewProfileDialog = () => {
   const {

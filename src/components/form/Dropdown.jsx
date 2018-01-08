@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import inputShape from '../../shapes/input';
+import inputShape from 'embracebook/shapes/input';
 
 const Dropdown = (props) => {
   const {
