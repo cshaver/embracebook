@@ -1,6 +1,5 @@
 import React from 'react';
 import { compose } from 'redux';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   firebaseConnect,
@@ -9,6 +8,10 @@ import {
 
 import { UserIsAuthenticated } from 'embracebook/utils/auth';
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
+
+import firebaseShape from 'embracebook/shapes/firebase';
+import profileShape from 'embracebook/shapes/profile';
+
 import AccountForm from './components/AccountForm';
 
 
@@ -36,8 +39,8 @@ class Account extends React.Component {
       <div>
         <div>
           <img
-            src={(profile && profile.avatarUrl) || `https://api.adorable.io/avatars//${profile && profile.email}`}
-            onClick={this.toggleModal}
+            alt=""
+            src={(profile.avatarUrl) || 'https://api.adorable.io/avatars/default'}
           />
         </div>
         <div>
@@ -53,11 +56,12 @@ class Account extends React.Component {
 }
 
 Account.propTypes = {
-  profile: PropTypes.object,
-  firebase: PropTypes.shape({
-    updateProfile: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired,
-  }),
+  profile: profileShape,
+  firebase: firebaseShape.isRequired,
+};
+
+Account.defaultProps = {
+  profile: {},
 };
 
 export default compose(

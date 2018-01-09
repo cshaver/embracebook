@@ -1,30 +1,32 @@
 import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import {
-  firebaseConnect,
-} from 'react-redux-firebase';
+import { firebaseConnect } from 'react-redux-firebase';
+
+import firebaseShape from 'embracebook/shapes/firebase';
+import postShape from 'embracebook/shapes/post';
+import userShape from 'embracebook/shapes/user';
+import profileShape from 'embracebook/shapes/profile';
 
 import NewCommentForm from './components/NewCommentForm';
 
-import children from 'embracebook/shapes/children';
-
 class CommentList extends React.Component {
   newSubmit(newComment) {
+    const { firebase, post, user } = this.props;
     // newComment.createdBy = this.props.auth.uid
     // unix seconds, instead of milliseconds
     newComment.timestamp = (new Date()).getTime() / 1000;
-    newComment.author = newComment.author || this.props.user;
+    newComment.author = newComment.author || user;
 
-    return this.props.firebase
-      .push(`posts/${this.props.post.uid}/comments`, newComment)
+    return firebase
+      .push(`posts/${post.uid}/comments`, newComment)
       .catch((err) => {
         // TODO: Show Snackbar
         console.error('error creating new post', err) // eslint-disable-line
       });
   }
 
-  resetForm(result, dispatch, formProps) {
+  resetForm(result, dispatch, formProps) { // eslint-disable-line class-methods-use-this
     formProps.reset();
   }
 
@@ -55,14 +57,16 @@ class CommentList extends React.Component {
 }
 
 CommentList.propTypes = {
-  firebase: PropTypes.object.isRequired,
-  auth: PropTypes.object,
-  posts: children,
-  children,
+  firebase: firebaseShape.isRequired,
+  post: postShape.isRequired,
+  user: userShape.isRequired,
+  profiles: PropTypes.arrayOf(profileShape),
+  hasAuthorConfig: PropTypes.bool,
 };
 
 CommentList.defaultProps = {
-  children: null,
+  profiles: [],
+  hasAuthorConfig: false,
 };
 
 export default compose(firebaseConnect())(CommentList);

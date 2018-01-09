@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
@@ -7,6 +8,7 @@ import { map } from 'lodash';
 
 import { required } from 'embracebook/utils/form';
 import { NPC_TYPE } from 'embracebook/constants';
+import profileShape from 'embracebook/shapes/profile';
 
 const AuthorConfig = ({ profiles }) => (
   <div>
@@ -25,18 +27,24 @@ const AuthorConfig = ({ profiles }) => (
   </div>
 );
 
+AuthorConfig.propTypes = {
+  profiles: PropTypes.arrayOf(profileShape),
+};
+
+AuthorConfig.defaultProps = {
+  profiles: [],
+};
+
 export default compose(
   firebaseConnect([
     { path: 'profiles' },
   ]),
-  connect(
-    // map state to props
-    ({ firebase, firebase: { data: { profiles } } }, { params }) => (
-      {
-        profiles: map((profiles || []), (profile, uid) => ({
-          ...profile,
-          uid,
-        })).reverse(),
-      }
-    )),
+  connect(({ firebase: { data: { profiles } } }) => (
+    {
+      profiles: map((profiles || []), (profile, uid) => ({
+        ...profile,
+        uid,
+      })).reverse(),
+    }
+  )),
 )(AuthorConfig);

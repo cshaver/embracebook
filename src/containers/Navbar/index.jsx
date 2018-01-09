@@ -11,20 +11,24 @@ import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from 'embrac
 import ShowIfStoryteller from 'embracebook/components/ShowIfStoryteller';
 import ShowIfAuthenticated from 'embracebook/components/ShowIfAuthenticated';
 
+import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
+import historyShape from 'embracebook/shapes/history';
+import profileShape from 'embracebook/shapes/profile';
+
 class Navbar extends React.Component {
   constructor() {
     super();
-
     this.logout = this.logout.bind(this);
   }
 
   logout() {
-    this.props.firebase.logout();
-    this.props.history.push('/');
+    const { firebase, history } = this.props;
+    firebase.logout();
+    history.push('/');
   }
 
   render() {
-    const { profile, auth } = this.props;
+    const { profile, auth, history } = this.props;
     const dataLoaded = isLoaded(auth, profile);
 
     console.groupCollapsed('NavBar::render');
@@ -43,7 +47,7 @@ class Navbar extends React.Component {
       <ShowIfAuthenticated>
         <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} alt="" />
         <span>{profile.displayName}</span>
-        <button onClick={() => this.props.history.push(ACCOUNT_PATH)}>Account</button>
+        <button onClick={() => history.push(ACCOUNT_PATH)}>Account</button>
         <button onClick={this.logout}>Sign out</button>
       </ShowIfAuthenticated>
     );
@@ -71,9 +75,16 @@ Navbar.contextTypes = {
 };
 
 Navbar.propTypes = {
-  profile: PropTypes.object,
-  auth: PropTypes.object,
-  firebase: PropTypes.object.isRequired,
+  profile: profileShape,
+  auth: authShape,
+  history: historyShape,
+  firebase: firebaseShape.isRequired,
+};
+
+Navbar.defaultProps = {
+  profile: null,
+  auth: null,
+  history: null,
 };
 
 export default compose(

@@ -9,13 +9,16 @@ import {
   isEmpty,
 } from 'react-redux-firebase';
 
-import { PLAYER_TYPE } from 'embracebook/constants';
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import Post from './components/Post';
-import NewPostForm from './components/NewPostForm';
+import { PLAYER_TYPE } from 'embracebook/constants';
 import { UserIsAuthenticated } from 'embracebook/utils/auth';
 
 import children from 'embracebook/shapes/children';
+import profileShape from 'embracebook/shapes/profile';
+import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
+
+import Post from './components/Post';
+import NewPostForm from './components/NewPostForm';
 
 const populates = [
   { child: 'author', root: 'profiles', keyProp: 'uid' },
@@ -32,12 +35,13 @@ class Feed extends React.Component {
   }
 
   deletePost(key) {
-    return this.props.firebase.remove(`posts/${key}`);
+    const { firebase } = this.props;
+    return firebase.remove(`posts/${key}`);
   }
 
   newSubmit(newPost) {
-    return this.props.firebase
-      .push('posts', newPost)
+    const { firebase } = this.props;
+    return firebase.push('posts', newPost)
       .catch((err) => {
         // TODO: Show Snackbar
         console.error('error creating new post', err) // eslint-disable-line
@@ -50,7 +54,7 @@ class Feed extends React.Component {
 
   render() {
     const {
-      posts, auth, newPostModal, profiles,
+      posts, auth,
     } = this.props;
 
     console.groupCollapsed('Feed::render');
@@ -93,45 +97,48 @@ Feed.contextTypes = {
 };
 
 Feed.propTypes = {
-  firebase: PropTypes.object.isRequired,
-  auth: PropTypes.object,
+  firebase: firebaseShape.isRequired,
+  auth: authShape,
+  profile: profileShape.isRequired,
   posts: children,
   children,
 };
 
 Feed.defaultProps = {
+  auth: null,
   posts: null,
   children: null,
 };
 
 export default compose(
   firebaseConnect([
-    { path: 'posts', keyProp: 'uid', /* queryParams: ['orderByChild=timestamp'], */ populates },
+    { path: 'posts', keyProp: 'uid', populates },
   ]),
-  connect(
-    // map state to props
-    ({ firebase, firebase: { auth, profile, data: { /* users, */ profiles, posts } /* , ordered: { posts } */ }, form: { newPost } }, { params }) => (
-      {
-        auth,
-        profile,
-        profiles,
-        newPostModal: newPost,
-        // posts: populate(firebase, 'posts', populates)
-        posts: posts ? map(posts, (post, uid) => ({
-          ...post,
+  connect(({
+    firebase,
+    firebase: { auth, profile, data: { profiles, posts } }, form: { newPost },
+  }) => (
+    {
+      firebase,
+      auth,
+      profile,
+      profiles,
+      newPostModal: newPost,
+      // posts: populate(firebase, 'posts', populates)
+      posts: posts ? map(posts, (post, uid) => ({
+        ...post,
+        uid,
+        author: {
+          ...profiles[post.author],
+          uid: post.author,
+        },
+        comments: map(post.comments, (comment, uid) => ({
+          ...comment,
           uid,
-          author: {
-            ...profiles[post.author],
-            uid: post.author,
-          },
-          comments: map(post.comments, (comment, uid) => ({
-            ...comment,
-            uid,
-            author: profiles[comment.author],
-          })),
-        })) : [],
-        // posts: posts ? posts.map(({ key, value }) => ({ ...value, uid, createdBy: users[value.createdBy], author: profiles[value.author] })) : []
-      }
-    )),
+          author: profiles[comment.author],
+        })),
+      })) : [],
+    }
+  )),
   UserIsAuthenticated,
 )(Feed);

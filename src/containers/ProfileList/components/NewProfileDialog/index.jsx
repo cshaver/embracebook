@@ -8,62 +8,61 @@ import TextInput from 'embracebook/components/form/TextInput';
 import { required, validateSlug } from 'embracebook/utils/form';
 import { NEW_PROFILE_FORM_NAME } from 'embracebook/constants';
 
-const NewProfileDialog = () => {
-  const {
-    open,
-    onRequestClose,
-    handleSubmit,
-    avatarUrl,
-  } = this.props;
-
-  return (
-    <Dialog
-      title="New Profile"
-      open={open}
-      onRequestClose={onRequestClose}
-    >
-      <form action="dialog" onSubmit={handleSubmit}>
-        <Field
-          name="displayName"
-          component={TextInput}
-          validate={[required]}
-          props={{
-            label: 'Display Name',
-          }}
-        />
-        <Field
-          name="slug"
-          component={TextInput}
-          validate={[required, validateSlug]}
-          props={{
-            label: 'Slug',
-          }}
-        />
-        <Field
-          name="avatarUrl"
-          component={TextInput}
-          validate={[required]}
-          props={{
-            label: 'Avatar Url',
-          }}
-        />
-        {
-          avatarUrl &&
-          (<div><img src={avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
-        }
-        <button type="button" onClick={onRequestClose}>Cancel</button>
-        <button type="submit">Create</button>
-      </form>
-    </Dialog>
-  );
-};
+const NewProfileDialog = ({
+  open,
+  onRequestClose,
+  handleSubmit,
+  avatarUrl,
+}) => (
+  <Dialog
+    title="New Profile"
+    open={open}
+    onRequestClose={onRequestClose}
+  >
+    <form action="dialog" onSubmit={handleSubmit}>
+      <Field
+        name="displayName"
+        component={TextInput}
+        validate={[required]}
+        props={{
+          label: 'Display Name',
+        }}
+      />
+      <Field
+        name="slug"
+        component={TextInput}
+        validate={[required, validateSlug]}
+        props={{
+          label: 'Slug',
+        }}
+      />
+      <Field
+        name="avatarUrl"
+        component={TextInput}
+        validate={[required]}
+        props={{
+          label: 'Avatar Url',
+        }}
+      />
+      {
+        avatarUrl &&
+        (<div><img src={avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
+      }
+      <button type="button" onClick={onRequestClose}>Cancel</button>
+      <button type="submit">Create</button>
+    </form>
+  </Dialog>
+);
 
 NewProfileDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  submit: PropTypes.func.isRequired,
+  avatarUrl: PropTypes.string,
+};
+
+NewProfileDialog.defaultProps = {
+  avatarUrl: '',
 };
 
 export default connect(state => ({

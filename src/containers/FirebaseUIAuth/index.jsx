@@ -4,11 +4,18 @@ import PropTypes from 'prop-types';
 import { firebaseConnect } from 'react-redux-firebase';
 import * as firebaseui from 'firebaseui';
 
+import firebaseShape from 'embracebook/shapes/firebase';
+
 let authUI;
 
 class FirebaseUIAuth extends React.Component {
   componentDidMount() {
-    const { firebase } = this.props;
+    const {
+      firebase,
+      signInSuccess,
+      signInSuccessUrl,
+      tosUrl,
+    } = this.props;
 
     this.uiConfig = this.uiConfig || {
       credentialHelper: firebaseui.auth.CredentialHelper.NONE,
@@ -24,11 +31,11 @@ class FirebaseUIAuth extends React.Component {
       ],
       callbacks: {
         signInSuccess:
-          this.props.signInSuccess ||
-          this.props.signInSuccessUrl ? (() => true) : (() => false),
+          signInSuccess ||
+          signInSuccessUrl ? (() => true) : (() => false),
       },
-      signInSuccessUrl: this.props.signInSuccessUrl,
-      tosUrl: this.props.tosUrl,
+      signInSuccessUrl,
+      tosUrl,
     };
 
     // Initialize the FirebaseUI auth widget
@@ -55,10 +62,15 @@ class FirebaseUIAuth extends React.Component {
 }
 
 FirebaseUIAuth.propTypes = {
-  firebase: PropTypes.object.isRequired,
+  firebase: firebaseShape.isRequired,
   tosUrl: PropTypes.string.isRequired,
   signInSuccess: PropTypes.func,
   signInSuccessUrl: PropTypes.string,
+};
+
+FirebaseUIAuth.defaultProps = {
+  signInSuccess: null,
+  signInSuccessUrl: null,
 };
 
 export default compose(firebaseConnect())(FirebaseUIAuth);

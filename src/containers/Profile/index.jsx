@@ -1,11 +1,12 @@
 import React from 'react';
 import { compose } from 'redux';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import { UserIsAuthenticated } from 'embracebook/utils/auth';
+
+import profileShape from 'embracebook/shapes/profile';
 
 const Profile = ({ profile }) => {
   if (isEmpty(profile)) {
@@ -25,7 +26,11 @@ const Profile = ({ profile }) => {
 };
 
 Profile.propTypes = {
-  profile: PropTypes.object,
+  profile: profileShape,
+};
+
+Profile.defaultProps = {
+  profile: null,
 };
 
 export default compose(

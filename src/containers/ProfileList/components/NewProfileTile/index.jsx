@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const NewProfileTile = ({ onClick }) => (
+const NewProfileTile = ({ onClick }) => (
   <button onClick={onClick}>
     Add Profile
   </button>

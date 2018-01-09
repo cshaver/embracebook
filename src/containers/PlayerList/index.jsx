@@ -5,17 +5,21 @@ import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
-import { PLAYER_TYPE } from 'embracebook/constants';
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import PlayerTile from './components/PlayerTile';
 import NoAccess from 'embracebook/components/NoAccess';
+import { PLAYER_TYPE } from 'embracebook/constants';
 
 import children from 'embracebook/shapes/children';
+import { auth as authShape } from 'embracebook/shapes/firebase';
+import profileShape from 'embracebook/shapes/profile';
+import userShape from 'embracebook/shapes/user';
+
+import PlayerTile from './components/PlayerTile';
 
 class PlayerList extends React.Component {
   render() {
     const {
-      users, players, auth, profile,
+      players, auth, profile,
     } = this.props;
 
     console.groupCollapsed('PlayerList::render');
@@ -52,21 +56,24 @@ class PlayerList extends React.Component {
   }
 }
 
-PlayerList.contextTypes = {
-  router: PropTypes.object.isRequired,
-  firebase: PropTypes.object,
+PlayerList.propTypes = {
+  auth: authShape,
+  profile: profileShape,
+  players: PropTypes.arrayOf(userShape),
+  children,
 };
 
-PlayerList.propTypes = {
-  firebase: PropTypes.object.isRequired,
-  auth: PropTypes.object,
-  children,
+PlayerList.defaultProps = {
+  auth: null,
+  profile: null,
+  players: [],
+  children: null,
 };
 
 export default compose(
   firebaseConnect([{ path: 'users' }]),
   // Map state to props
-  connect(({ firebase, firebase: { auth, profile, data: { users } } }) => ({
+  connect(({ firebase: { auth, profile, data: { users } } }) => ({
     auth,
     profile,
     players: users,

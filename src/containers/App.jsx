@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 
 import Layout from 'embracebook/components/Layout';
-
 import children from 'embracebook/shapes/children';
 
 const App = ({ children }) => (

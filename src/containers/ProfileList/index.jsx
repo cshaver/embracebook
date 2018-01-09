@@ -10,22 +10,29 @@ import {
 } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import ProfileTile from './components/ProfileTile';
-import NewProfileTile from './components/NewProfileTile';
-import NewProfileDialog from './components/NewProfileDialog';
 import NoAccess from 'embracebook/components/NoAccess';
-import { toggleNewProfileModal } from './actions';
 import { NPC_TYPE, PLAYER_TYPE } from 'embracebook/constants';
 import { UserIsAuthenticated } from 'embracebook/utils/auth';
 
 import children from 'embracebook/shapes/children';
+import profileShape from 'embracebook/shapes/profile';
+import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
+
+import ProfileTile from './components/ProfileTile';
+import NewProfileTile from './components/NewProfileTile';
+import NewProfileDialog from './components/NewProfileDialog';
+import { toggleNewProfileModal } from './actions';
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 
 class ProfileList extends React.Component {
-  deleteProfile(key) {
-    const { profiles, firebase } = this.props;
-    this.props.firebase.remove(`profiles/${profiles[key].uid}`);
+  getDeleteVisible(key) {
+    const { auth, profiles } = this.props;
+    return (
+      !isEmpty(this.props.auth) &&
+      profiles[key] &&
+      profiles[key].createdBy.uid === auth.uid
+    );
   }
 
   toggleModal(open) {
@@ -34,13 +41,9 @@ class ProfileList extends React.Component {
     });
   }
 
-  getDeleteVisible(key) {
-    const { auth, profiles } = this.props;
-    return (
-      !isEmpty(this.props.auth) &&
-      profiles[key] &&
-      profiles[key].createdBy.uid === auth.uid
-    );
+  deleteProfile(key) {
+    const { profiles, firebase } = this.props;
+    firebase.remove(`profiles/${profiles[key].uid}`);
   }
 
   newSubmit(newProfile) {
@@ -110,14 +113,23 @@ class ProfileList extends React.Component {
 
 ProfileList.contextTypes = {
   router: PropTypes.object.isRequired,
-  firebase: PropTypes.object,
-  toggleNewProfileModal: PropTypes.func,
 };
 
 ProfileList.propTypes = {
-  firebase: PropTypes.object.isRequired,
-  auth: PropTypes.object,
+  firebase: firebaseShape.isRequired,
+  auth: authShape,
+  profile: profileShape,
+  profiles: PropTypes.arrayOf(profileShape),
+  toggleNewProfileModal: PropTypes.func.isRequired,
+  newProfileModal: PropTypes.bool.isRequired,
   children,
+};
+
+ProfileList.defaultProps = {
+  auth: null,
+  profile: null,
+  profiles: [],
+  children: null,
 };
 
 export default compose(

@@ -13,4 +13,9 @@ DeleteButton.propTypes = {
   onDelete: PropTypes.func,
 };
 
+DeleteButton.defaultProps = {
+  showDelete: false,
+  onDelete: null,
+};
+
 export default DeleteButton;

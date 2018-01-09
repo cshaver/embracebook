@@ -6,6 +6,10 @@ import CommentList from 'embracebook/containers/CommentList';
 import DeleteButton from 'embracebook/components/form/DeleteButton';
 import ProfileLink from 'embracebook/components/ProfileLink';
 
+import userShape from 'embracebook/shapes/user';
+import postShape from 'embracebook/shapes/post';
+import profileShape from 'embracebook/shapes/profile';
+
 const Post = ({
   post, onDelete, showDelete, profiles, user, hasAuthorConfig,
 }) => (
@@ -22,9 +26,20 @@ const Post = ({
 );
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  post: postShape.isRequired,
+  profiles: PropTypes.arrayOf(profileShape),
+  user: userShape,
   onDelete: PropTypes.func,
   showDelete: PropTypes.bool,
+  hasAuthorConfig: PropTypes.bool,
+};
+
+Post.defaultProps = {
+  profiles: [],
+  user: null,
+  onDelete: null,
+  showDelete: false,
+  hasAuthorConfig: false,
 };
 
 export default Post;

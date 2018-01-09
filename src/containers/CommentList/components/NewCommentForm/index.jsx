@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { map, get } from 'lodash';
 import { connect } from 'react-redux';
-// import { firebaseConnect, isEmpty } from 'react-redux-firebase';
 import { Field, formValueSelector, reduxForm } from 'redux-form';
 
 import AuthorConfig from 'embracebook/containers/AuthorConfig';
 import TextInput from 'embracebook/components/form/TextInput';
 import { required } from 'embracebook/utils/form';
-// import { NEW_POST_FORM_NAME } from 'embracebook/constants';
 
 const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
   <form onSubmit={handleSubmit}>
@@ -24,7 +21,13 @@ const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
 );
 
 NewCommentForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  hasAuthorConfig: PropTypes.bool,
+};
+
+NewCommentForm.defaultProps = {
+  hasAuthorConfig: false,
 };
 
 export default connect(state => ({
