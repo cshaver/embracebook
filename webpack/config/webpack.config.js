@@ -46,6 +46,8 @@ const config = {
       // fix issue of loading multiple versions of react
       react: path.resolve('./node_modules/react'),
       embracebook: inProject(project.srcDir),
+      '@embracebook': inProject(project.srcDir),
+      '@': inProject(project.srcDir),
     },
   },
 
