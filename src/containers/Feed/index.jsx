@@ -73,20 +73,18 @@ class Feed extends React.Component {
 
     return (
       <div>
-        <div>
-          <NewPostForm onSubmit={this.newSubmit} hasAuthorConfig={this.hasAuthorConfig()} />
-          {!isEmpty(posts) &&
-            posts.map(post => (
-              <Post
-                key={`${post.createdBy}-Collab-${post.uid}`}
-                post={post}
-                user={auth.uid}
-                hasAuthorConfig={this.hasAuthorConfig()}
-                onDelete={() => this.deletePost(post.uid)}
-                showDelete={this.getDeleteVisible(post)}
-              />
-            )).reverse()}
-        </div>
+        <NewPostForm onSubmit={this.newSubmit} hasAuthorConfig={this.hasAuthorConfig()} />
+        {!isEmpty(posts) &&
+          posts.map(post => (
+            <Post
+              key={`${post.createdBy}-Collab-${post.uid}`}
+              post={post}
+              user={auth.uid}
+              hasAuthorConfig={this.hasAuthorConfig()}
+              onDelete={() => this.deletePost(post.uid)}
+              showDelete={this.getDeleteVisible(post)}
+            />
+          )).reverse()}
       </div>
     );
   }

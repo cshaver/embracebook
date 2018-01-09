@@ -7,6 +7,7 @@ import Profile from './containers/Profile';
 import ProfileList from './containers/ProfileList';
 import PlayerList from './containers/PlayerList';
 import Account from './containers/Account';
+import Invite from './containers/Invite';
 import NoAccess from './components/NoAccess';
 import NotFound from './components/NotFound';
 
@@ -18,6 +19,7 @@ const Routes = () => (
     <Route exact path="/npcs" component={ProfileList} />
     <Route exact path="/players" component={PlayerList} />
     <Route exact path="/account" component={Account} />
+    <Route exact path="/invite" component={Invite} />
     <Route exact path="/noaccess" component={NoAccess} />
     <Route component={NotFound} />
   </Switch>

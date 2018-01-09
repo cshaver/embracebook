@@ -6,6 +6,7 @@ import formMetaShape from 'embracebook/shapes/formMeta';
 
 const TextInput = ({
   label,
+  type,
   placeholder,
   input: {
     name, onBlur, onChange, onFocus, disabled, value,
@@ -17,7 +18,7 @@ const TextInput = ({
   <label htmlFor={name}>
     {label}
     <input
-      type="text"
+      type={type}
       placeholder={placeholder}
       id={name}
       name={name}
@@ -35,12 +36,14 @@ const TextInput = ({
 
 TextInput.propTypes = {
   label: PropTypes.string.isRequired,
+  type: PropTypes.string,
   placeholder: PropTypes.string,
   input: inputShape,
   meta: formMetaShape,
 };
 
 TextInput.defaultProps = {
+  type: 'text',
   placeholder: null,
   input: {},
   meta: {},
