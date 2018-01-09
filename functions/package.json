@@ -9,8 +9,10 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "firebase-admin": "~5.4.2",
-    "firebase-functions": "^0.7.1"
+    "firebase-admin": "^5.7.0",
+    "firebase-functions": "^0.8.0",
+    "nodemailer": "^4.4.1"
   },
-  "private": true
+  "private": true,
+  "registry": "https://registry.npmjs.org/"
 }
