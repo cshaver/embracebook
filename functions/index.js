@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const uuid = require('uuid/v1');
 
 const APP_NAME = 'Embracebook';
 const DEFAULT_FROM = `${APP_NAME} <noreply@firebase.com>`;
@@ -38,7 +39,7 @@ function sendWelcomeEmail(email, displayName) {
   return sendMail({
     to: email,
     subject: `Welcome to ${APP_NAME}!`,
-    text: `Hello, ${displayName || ''}. You've been invited to ${APP_NAME}. Log in at https://embracebook.net/`,
+    text: `Hello, ${displayName || ''}. You've been invited to ${APP_NAME}. Log in at https://embracebook.net/login`,
   }).then(() => {
     console.log('New welcome email sent to:', email);
   });
@@ -61,6 +62,57 @@ function sendGoodbyEmail(email, displayName) {
 //   ));
 // }
 
+exports.invitedUser = functions.database.ref('/invites/').onCreate((event) => {
+  const data = event.data.toJSON();
+  const inviteRef = data.adminRef;
+  const {
+    email,
+    roles,
+    createdBy,
+    createdAt,
+  } = data;
+  const password = uuid();
+
+  console.log(email, password);
+
+  admin.auth().createUser({
+    email,
+    password,
+  })
+    .then((userRecord) => {
+      const { uid } = userRecord;
+      // See the UserRecord reference doc for the contents of userRecord.
+      console.log('Successfully created new user:', uid);
+
+      const profile = {
+        roles,
+        createdBy,
+        createdAt,
+      };
+
+      // push new /users node with existing invite data
+      const usersRef = admin.database().ref('/users/');
+      usersRef.child(uid).set(profile)
+        .then(() => {
+          console.info(`Successfully set profile with roles for ${email}`);
+          // delete existing /invites node
+          inviteRef.remove()
+            .then(() => {
+              console.info(`Successfully migrated invite for ${email}`);
+            })
+            .catch((error) => {
+              console.log('Error removing invite:', error);
+            });
+        })
+        .catch((error) => {
+          console.log('Error creating user profile:', error);
+        });
+    })
+    .catch((error) => {
+      console.log('Error creating new user:', error);
+    });
+});
+
 exports.createdUser = functions.auth.user().onCreate((event) => {
   const user = event.data;
   const { email, displayName } = user;
@@ -73,37 +125,4 @@ exports.deletedUser = functions.auth.user().onDelete((event) => {
   const { email, displayName } = user;
 
   return sendGoodbyEmail(email, displayName);
-});
-
-// exports.createUser = functions.auth.user().onCreate(({ data }) => {
-//   const { email, uid } = data;
-
-//   const inviteRef = admin.database().ref(`/invites/${encodeID(email)}`);
-
-//   return inviteRef.once('value').then((snapshot) => {
-//     const data = snapshot.val();
-
-//     if (!data) {
-//       console.info(`No existing invite found for ${email}`);
-//       return;
-//     }
-
-//     // user has been invited
-//     if (data) {
-//       // push new /users node with existing invite data
-//       const usersRef = admin.database().ref('/users/');
-//       usersRef.child(uid).set(data);
-
-//       // delete existing /invites node
-//       inviteRef.remove();
-
-//       console.info(`Successfully redeemed invite for ${email}`);
-//     }
-//   });
-// });
-
-exports.newProfile = functions.database.ref('/profiles/').onCreate((event) => {
-  const { data, auth } = event;
-
-  return data.ref.update({ createdBy: auth });
 });

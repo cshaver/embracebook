@@ -53,6 +53,7 @@ class Invite extends React.Component {
 Invite.propTypes = {
   firebase: firebaseShape.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 function validateInvitation(values) {
