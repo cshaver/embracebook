@@ -6,12 +6,10 @@ import formMetaShape from 'embracebook/shapes/formMeta';
 
 import ErrorMessage from './ErrorMessage';
 
-const TextInput = ({
+const Radio = ({
   label,
-  type,
-  placeholder,
   input: {
-    name, onBlur, onChange, onFocus, disabled, value,
+    name, onBlur, onChange, onFocus, disabled, checked,
   },
   meta: {
     error, submitFailed,
@@ -20,11 +18,10 @@ const TextInput = ({
   <label htmlFor={name}>
     {label}
     <input
-      type={type}
-      placeholder={placeholder}
+      type="radio"
       id={name}
       name={name}
-      value={value}
+      checked={checked}
       onBlur={onBlur}
       onChange={onChange}
       onFocus={onFocus}
@@ -36,19 +33,15 @@ const TextInput = ({
   </label>
 );
 
-TextInput.propTypes = {
+Radio.propTypes = {
   label: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
   input: inputShape,
   meta: formMetaShape,
 };
 
-TextInput.defaultProps = {
-  type: 'text',
-  placeholder: null,
+Radio.defaultProps = {
   input: {},
   meta: {},
 };
 
-export default TextInput;
+export default Radio;

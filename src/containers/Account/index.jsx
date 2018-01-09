@@ -16,11 +16,19 @@ import AccountForm from './components/AccountForm';
 
 
 class Account extends React.Component {
+  constructor() {
+    super();
+
+    this.updateAccount = this.updateAccount.bind(this);
+  }
+
   updateAccount(newData) {
+    const { firebase } = this.props;
+
     delete newData.isLoaded;
     delete newData.isEmpty;
 
-    return this.props.firebase
+    return firebase
       .updateProfile(newData)
       .catch((err) => {
         console.error('Error updating account', err); // eslint-disable-line no-console

@@ -6,9 +6,9 @@ import { roles } from 'embracebook/shapes/profile';
 
 const ShowIfStoryteller = ({ roles, children }) => (
   !roles.storyteller ? null :
-  <span>
+  <React.Fragment>
     {children}
-  </span>
+  </React.Fragment>
 );
 
 ShowIfStoryteller.propTypes = {

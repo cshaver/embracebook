@@ -1,7 +1,8 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import * as config from '../../webpack/config/project.config';
 
@@ -25,19 +26,12 @@ export class State {
       firebase.initializeApp(config.firebase);
     }
 
-    let composeEnhancers = compose;
-
-    if (DEV) {
-      const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__; // eslint-disable-line no-underscore-dangle,max-len
-      if (composeWithDevToolsExtension) {
-        composeEnhancers = composeWithDevToolsExtension({
-          actionsBlacklist: [
-            '@@reactReduxFirebase',
-            '@@redux-form',
-          ],
-        });
-      }
-    }
+    const composeEnhancers = composeWithDevTools({
+      actionsBlacklist: [
+        // '@@reactReduxFirebase',
+        // '@@redux-form',
+      ],
+    });
 
     this.store = createStore(
       createRootReducer({}),

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import inputShape from 'embracebook/shapes/input';
 import formMetaShape from 'embracebook/shapes/formMeta';
 
+import ErrorMessage from './ErrorMessage';
+
 const Textarea = ({
   label,
   placeholder,
@@ -27,7 +29,7 @@ const Textarea = ({
       disabled={disabled ? 'disabled' : ''}
     />
     {error && dirty && (
-      <div>{error}</div>
+      <ErrorMessage>{error}</ErrorMessage>
     )}
   </label>
 );

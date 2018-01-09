@@ -7,6 +7,8 @@ import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import NoAccess from 'embracebook/components/NoAccess';
+import Invite from 'embracebook/containers/Invite';
+
 import { PLAYER_TYPE } from 'embracebook/constants';
 
 import children from 'embracebook/shapes/children';
@@ -51,6 +53,7 @@ class PlayerList extends React.Component {
               />
             ))}
         </ul>
+        <Invite onSubmit={this.inviteUser} />
       </div>
     );
   }
@@ -76,6 +79,6 @@ export default compose(
   connect(({ firebase: { auth, profile, data: { users } } }) => ({
     auth,
     profile,
-    players: users,
+    players: map(users),
   })),
 )(PlayerList);

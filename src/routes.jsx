@@ -19,7 +19,6 @@ const Routes = () => (
     <Route exact path="/npcs" component={ProfileList} />
     <Route exact path="/players" component={PlayerList} />
     <Route exact path="/account" component={Account} />
-    <Route exact path="/invite" component={Invite} />
     <Route exact path="/noaccess" component={NoAccess} />
     <Route component={NotFound} />
   </Switch>

@@ -65,6 +65,6 @@ module.exports = {
   reduxFirebase: {
     userProfile: 'users',
     enableLogging: false,
-    updateProfileOnLogin: false,
+    updateProfileOnLogin: true,
   },
 };
