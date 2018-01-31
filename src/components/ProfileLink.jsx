@@ -5,7 +5,7 @@ import profileShape from 'embracebook/shapes/profile';
 import children from 'embracebook/shapes/children';
 
 const ProfileLink = ({ profile, children }) => (
-  <Link to={`/profile/${profile.uid}/${profile.slug}`}>
+  <Link to={`/profile/${profile.uid}/${profile.slug || ''}`}>
     {children || profile.displayName || profile.uid}
   </Link>
 );

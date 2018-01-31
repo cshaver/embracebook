@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from 'embracebook/containers/Navbar';
+import Navbar from 'embracebook/components/Navbar';
 
 import children from 'embracebook/shapes/children';
 

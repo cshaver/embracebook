@@ -3,6 +3,7 @@ const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const uuid = require('uuid/v1');
 
+const CONFIG = functions.config();
 const APP_NAME = 'Embracebook';
 const DEFAULT_FROM = `${APP_NAME} <noreply@firebase.com>`;
 
@@ -15,8 +16,8 @@ const DEFAULT_FROM = `${APP_NAME} <noreply@firebase.com>`;
  * TODO: Configure the `gmail.email` and `gmail.password` Google Cloud environment variables:
  *     > firebase functions:config:set gmail.email="foo@gmail.com" gmail.password="1234"
  */
-const gmailEmail = functions.config().gmail.email;
-const gmailPassword = functions.config().gmail.password;
+const gmailEmail = CONFIG.gmail.email;
+const gmailPassword = CONFIG.gmail.password;
 const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -25,7 +26,7 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp(CONFIG.firebase);
 
 function sendMail(mailOptions) {
   mailOptions.from = mailOptions.from || DEFAULT_FROM;
@@ -46,7 +47,7 @@ function sendWelcomeEmail(email, displayName) {
 }
 
 // Sends a goodbye email to the given user.
-function sendGoodbyEmail(email, displayName) {
+function sendGoodbyeEmail(email, displayName) {
   return sendMail({
     to: email,
     subject: 'Bye!',
@@ -63,7 +64,7 @@ function sendGoodbyEmail(email, displayName) {
 // }
 
 exports.invitedUser = functions.database.ref('/invites/').onCreate((event) => {
-  const data = event.data.toJSON();
+  const data = event.data.val();
   const inviteRef = data.adminRef;
   const {
     email,
@@ -73,7 +74,15 @@ exports.invitedUser = functions.database.ref('/invites/').onCreate((event) => {
   } = data;
   const password = uuid();
 
-  console.log(email, password);
+  console.log('data', data);
+  console.log('key', event.data.key);
+  console.log('email', email);
+  console.log('temp password', password);
+
+  if (!email) {
+    console.log('No email provided');
+    return;
+  }
 
   admin.auth().createUser({
     email,
@@ -124,5 +133,5 @@ exports.deletedUser = functions.auth.user().onDelete((event) => {
   const user = event.data;
   const { email, displayName } = user;
 
-  return sendGoodbyEmail(email, displayName);
+  return sendGoodbyeEmail(email, displayName);
 });

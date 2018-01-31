@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { map } from 'lodash';
 import { connect } from 'react-redux';
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import NoAccess from 'embracebook/components/NoAccess';
 import Invite from 'embracebook/containers/Invite';
 
-import { PLAYER_TYPE } from 'embracebook/constants';
+import { userIsStoryteller } from 'embracebook/utils/components';
 
 import children from 'embracebook/shapes/children';
 import { auth as authShape } from 'embracebook/shapes/firebase';
@@ -21,7 +20,7 @@ import PlayerTile from './components/PlayerTile';
 class PlayerList extends React.Component {
   render() {
     const {
-      players, auth, profile,
+      players, auth,
     } = this.props;
 
     console.groupCollapsed('PlayerList::render');
@@ -32,26 +31,16 @@ class PlayerList extends React.Component {
       return <ProgressIndicator />;
     }
 
-    // Player Route is being loaded
-    if (this.props.children) {
-      // pass all props to children routes
-      return React.cloneElement(this.props.children, this.props);
-    }
-
-    if (profile.type === PLAYER_TYPE) {
-      return (<NoAccess />);
-    }
-
     return (
       <div>
         <ul>
-          {!isEmpty(players) &&
-            map(players, (profile, key) => (
-              profile.type !== PLAYER_TYPE ? null : <PlayerTile
-                key={`${profile.displayName}-Collab-${key}`}
-                profile={profile}
-              />
-            ))}
+          {/* TODO: test for NPC-type profile */}
+          {map(players, (profile, key) => (
+            <PlayerTile
+              key={`${profile.displayName}-Collab-${key}`}
+              profile={profile}
+            />
+          ))}
         </ul>
         <Invite onSubmit={this.inviteUser} />
       </div>
@@ -79,6 +68,7 @@ export default compose(
   connect(({ firebase: { auth, profile, data: { users } } }) => ({
     auth,
     profile,
-    players: map(users),
+    players: map(users, (user, uid) => ({ ...user, uid })),
   })),
+  userIsStoryteller,
 )(PlayerList);

@@ -3,16 +3,11 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { connect } from 'react-redux';
-import {
-  firebaseConnect,
-  isLoaded,
-  isEmpty,
-} from 'react-redux-firebase';
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import NoAccess from 'embracebook/components/NoAccess';
-import { NPC_TYPE, PLAYER_TYPE } from 'embracebook/constants';
-import { UserIsAuthenticated } from 'embracebook/utils/auth';
+import { NPC_TYPE } from 'embracebook/constants';
+import { userIsStoryteller } from 'embracebook/utils/components';
 
 import children from 'embracebook/shapes/children';
 import profileShape from 'embracebook/shapes/profile';
@@ -25,7 +20,12 @@ import { toggleNewProfileModal } from './actions';
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 
-class ProfileList extends React.Component {
+class NPCList extends React.Component {
+  constructor() {
+    super();
+    this.newSubmit = this.newSubmit.bind(this);
+  }
+
   getDeleteVisible(key) {
     const { auth, profiles } = this.props;
     return (
@@ -47,24 +47,24 @@ class ProfileList extends React.Component {
   }
 
   newSubmit(newProfile) {
-    newProfile.createdBy = this.props.auth.uid;
+    const { auth, firebase } = this.props;
+    newProfile.createdBy = auth.uid;
     // newProfile.type = NPC_TYPE;
 
-    return this.props.firebase
-      .push('profiles', newProfile)
+    return firebase.push('profiles', newProfile)
       .then(() => this.toggleModal(false))
       .catch((err) => {
-        // TODO: Show Snackbar
         console.error('error creating new profile', err) // eslint-disable-line
       });
   }
 
   render() {
     const {
-      profiles, auth, profile, newProfileModal,
+      profiles, auth, newProfileModal,
     } = this.props;
 
-    console.group('ProfileList::render');
+    console.group('NPCList::render');
+    console.log(this.props);
     console.table(profiles);
     console.groupEnd();
 
@@ -76,10 +76,6 @@ class ProfileList extends React.Component {
     if (this.props.children) {
       // pass all props to children routes
       return React.cloneElement(this.props.children, this.props);
-    }
-
-    if (profile.type === PLAYER_TYPE) {
-      return (<NoAccess />);
     }
 
     return (
@@ -96,38 +92,36 @@ class ProfileList extends React.Component {
         )}
         <ul>
           <NewProfileTile onClick={() => this.toggleModal(true)} />
-          {!isEmpty(profiles) &&
-            map(profiles, (userProfile, key) => (
-              userProfile.type !== NPC_TYPE ? null : <ProfileTile
-                key={`${userProfile.displayName}-Collab-${key}`}
-                profile={userProfile}
-                onDelete={() => this.deleteProfile(key)}
-                showDelete={this.getDeleteVisible(key)}
-              />
-            ))}
+          {/* TODO: test for NPC-type profile */}
+          {map(profiles, (userProfile, key) => (
+            <ProfileTile
+              key={`${userProfile.displayName}-Collab-${key}`}
+              profile={userProfile}
+              onDelete={() => this.deleteProfile(key)}
+              showDelete={this.getDeleteVisible(key)}
+            />
+          ))}
         </ul>
       </div>
     );
   }
 }
 
-ProfileList.contextTypes = {
+NPCList.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
-ProfileList.propTypes = {
+NPCList.propTypes = {
   firebase: firebaseShape.isRequired,
   auth: authShape,
-  profile: profileShape,
   profiles: PropTypes.arrayOf(profileShape),
   toggleNewProfileModal: PropTypes.func.isRequired,
   newProfileModal: PropTypes.bool.isRequired,
   children,
 };
 
-ProfileList.defaultProps = {
+NPCList.defaultProps = {
   auth: null,
-  profile: null,
   profiles: [],
   children: null,
 };
@@ -136,11 +130,10 @@ export default compose(
   firebaseConnect([{ path: 'profiles', populates }]),
   connect(
     ({
-      firebase: { auth, profile, data: { users, profiles } },
+      firebase: { auth, data: { users, profiles } },
       modal,
     }) => ({
       auth,
-      profile,
       newProfileModal: modal.newProfile,
       profiles: map(profiles || [], (profileItem, uid) => ({
         ...profileItem,
@@ -158,5 +151,5 @@ export default compose(
       toggleNewProfileModal: toggleNewProfileModal(dispatch),
     }),
   ),
-  UserIsAuthenticated,
-)(ProfileList);
+  userIsStoryteller,
+)(NPCList);

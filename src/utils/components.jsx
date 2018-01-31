@@ -1,32 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withContext, getContext } from 'recompose';
+import { compose, wrapDisplayName } from 'recompose';
 import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import NoAccess from 'embracebook/components/NoAccess';
 
 import { roles as rolesShape } from 'embracebook/shapes/profile';
 
-export function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
-
-export const withStore = compose(
-  withContext({ store: PropTypes.object }, () => {}),
-  getContext({ store: PropTypes.object }),
-);
-
-export const withRouter = compose(
-  withContext({ router: PropTypes.object }, () => {}),
-  getContext({ router: PropTypes.object }),
-);
-
-export const withStoreAndRouter = compose(
-  withContext({ router: PropTypes.object, store: PropTypes.object }, () => {}),
-  getContext({ router: PropTypes.object, store: PropTypes.object }),
-);
-
+export const withFirebase = firebaseConnect();
+export const withAuth = compose(connect(({ firebase: { auth } }) => ({ auth })));
 export const withProfile = compose(connect(({ firebase: { profile } }) => ({ profile })));
 
 export const withRoles = compose(connect(({ firebase: { profile, profile: { roles } } }) => ({
@@ -36,8 +20,6 @@ export const withRoles = compose(connect(({ firebase: { profile, profile: { role
     ...roles,
   },
 })));
-
-export const withAuth = compose(connect(({ firebase: { auth } }) => ({ auth })));
 
 export const withLoading = function withLoading(WrappedComponent) {
   const Component = (props) => {
@@ -54,9 +36,9 @@ export const withLoading = function withLoading(WrappedComponent) {
     isLoaded: PropTypes.bool.isRequired,
   };
 
-  Component.displayName = `withLoading(${getDisplayName(WrappedComponent)})`;
+  Component.displayName = wrapDisplayName(WrappedComponent, 'withLoading');
 
-  return withRoles(Component);
+  return Component;
 };
 
 export const userIsStoryteller = function userIsStoryteller(WrappedComponent) {
@@ -74,7 +56,7 @@ export const userIsStoryteller = function userIsStoryteller(WrappedComponent) {
     roles: rolesShape.isRequired,
   };
 
-  Component.displayName = `userIsStoryteller(${getDisplayName(WrappedComponent)})`;
+  Component.displayName = wrapDisplayName(WrappedComponent, 'userIsStoryteller');
 
-  return withLoading(withRoles(Component));
+  return withRoles(Component);
 };
