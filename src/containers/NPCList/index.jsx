@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import { NPC_TYPE } from 'embracebook/constants';
+// import { NPC_TYPE } from 'embracebook/constants';
 import { userIsStoryteller } from 'embracebook/utils/components';
 
 import children from 'embracebook/shapes/children';

@@ -50,9 +50,9 @@ class PlayerList extends React.Component {
 
 PlayerList.propTypes = {
   auth: authShape,
-  profile: profileShape,
+  // profile: profileShape,
   players: PropTypes.arrayOf(userShape),
-  children,
+  // children,
 };
 
 PlayerList.defaultProps = {

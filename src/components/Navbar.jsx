@@ -19,10 +19,6 @@ const propTypes = {
   firebase: firebaseShape.isRequired,
 };
 
-const defaultProps = {
-  profile: null,
-};
-
 class Navbar extends React.Component {
   constructor() {
     super();
@@ -70,7 +66,6 @@ class Navbar extends React.Component {
 }
 
 Navbar.propTypes = propTypes;
-Navbar.defaultProps = defaultProps;
 
 export default compose(
   withFirebase,

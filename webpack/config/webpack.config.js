@@ -242,8 +242,14 @@ config.plugins.push(new HtmlWebpackPlugin({
 // ------------------------------------
 if (DEV) {
   config.plugins.push(
+    // enable HMR globally
     new webpack.HotModuleReplacementPlugin(),
+
+    // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
+
+    // do not emit compiled assets that include errors
+    new webpack.NoEmitOnErrorsPlugin(),
   );
 }
 
