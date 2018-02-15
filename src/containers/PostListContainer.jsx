@@ -1,14 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import PropTypes from 'prop-types';
 
 import Post from 'embracebook/components/Post';
 import NewPostForm from 'embracebook/components/NewPostForm';
 import { UserIsAuthenticated } from 'embracebook/utils/auth';
 import { withFirebase, withRoles } from 'embracebook/utils/components';
 
-import children from 'embracebook/shapes/children';
+import postShape from 'embracebook/shapes/post';
 import { roles as rolesShape } from 'embracebook/shapes/profile';
 import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
 
@@ -18,7 +18,7 @@ const propTypes = {
   firebase: firebaseShape.isRequired,
   auth: authShape,
   roles: rolesShape,
-  posts: children,
+  posts: PropTypes.arrayOf(postShape),
 };
 
 const defaultProps = {
@@ -34,35 +34,50 @@ const contextTypes = {
 class PostListContainer extends React.Component {
   constructor() {
     super();
+
     this.deletePost = this.deletePost.bind(this);
     this.newSubmit = this.newSubmit.bind(this);
   }
 
   getDeleteVisible(post) {
     const { auth } = this.props;
-    return (
+    return !!(
       post &&
       post.createdBy === auth.uid
     );
   }
 
-  deletePost(key) {
+  deletePost(uid) {
     const { firebase } = this.props;
-    return firebase.remove(`posts/${key}`);
+    return firebase.remove(`posts/${uid}`)
+      .then(() => {
+        console.log('successfully deleted post');
+      })
+      .catch((err) => {
+        console.error('error deleting post', err);
+      });
   }
 
   newSubmit(newPost) {
-    const { firebase } = this.props;
-    return firebase.push('posts', newPost)
+    console.log('newSubmit', newPost);
+    const { firebase, auth } = this.props;
+    return firebase.push('posts', {
+      author: auth.uid,
+      ...newPost,
+      timestamp: (new Date()).toISOString(),
+      createdBy: auth.uid,
+    })
+      .then(() => {
+        console.log('successfully created post');
+      })
       .catch((err) => {
-        // TODO: Show Snackbar
-        console.error('error creating new post', err) // eslint-disable-line
+        console.error('error creating new post', err);
       });
   }
 
   hasAuthorConfig() {
     const { roles } = this.props;
-    return roles.storyteller || roles.admin;
+    return !!(roles.storyteller || roles.admin);
   }
 
   render() {
@@ -70,20 +85,16 @@ class PostListContainer extends React.Component {
       posts, auth,
     } = this.props;
 
-    console.groupCollapsed('PostListContainer::render');
-    console.table(posts);
-    console.groupEnd();
-
     return (
       <div>
         <NewPostForm onSubmit={this.newSubmit} hasAuthorConfig={this.hasAuthorConfig()} />
-        {!posts.map(post => (
+        {posts && posts.map(post => (
           <Post
-            key={`${post.createdBy}-Collab-${post.uid}`}
+            key={post.uid}
             post={post}
             user={auth.uid}
             hasAuthorConfig={this.hasAuthorConfig()}
-            onDelete={() => this.deletePost(post.uid)}
+            onDelete={this.deletePost}
             showDelete={this.getDeleteVisible(post)}
           />
         )).reverse()}

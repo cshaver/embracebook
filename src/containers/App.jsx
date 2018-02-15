@@ -6,10 +6,12 @@ import children from 'embracebook/shapes/children';
 
 const App = ({ children }) => (
   <BrowserRouter>
-    <Navbar />
-    <main>
-      {children}
-    </main>
+    <React.Fragment>
+      <Navbar />
+      <main>
+        {children}
+      </main>
+    </React.Fragment>
   </BrowserRouter>
 );
 

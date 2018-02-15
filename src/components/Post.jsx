@@ -2,44 +2,68 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import CommentList from 'embracebook/containers/CommentList';
+import CommentListContainer from 'embracebook/containers/CommentListContainer';
 import DeleteButton from 'embracebook/components/form/DeleteButton';
 import ProfileLink from 'embracebook/components/ProfileLink';
 
-import userShape from 'embracebook/shapes/user';
 import postShape from 'embracebook/shapes/post';
 import profileShape from 'embracebook/shapes/profile';
 
-const Post = ({
-  post, onDelete, showDelete, profiles, user, hasAuthorConfig,
-}) => (
-  <blockquote>
-    <div>
-      <ProfileLink profile={post.author} />
-      &nbsp;
-      <i>{post.timestamp ? moment.unix(post.timestamp).fromNow() : ''}</i>
-      <p>{post.content}</p>
-      <DeleteButton showDelete={showDelete} onDelete={onDelete} />
-    </div>
-    <CommentList hasAuthorConfig={hasAuthorConfig} profiles={profiles} post={post} user={user} />
-  </blockquote>
-);
-
-Post.propTypes = {
+const propTypes = {
   post: postShape.isRequired,
   profiles: PropTypes.arrayOf(profileShape),
-  user: userShape,
-  onDelete: PropTypes.func,
-  showDelete: PropTypes.bool,
-  hasAuthorConfig: PropTypes.bool,
+  user: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  showDelete: PropTypes.bool.isRequired,
+  hasAuthorConfig: PropTypes.bool.isRequired,
 };
 
-Post.defaultProps = {
+const defaultProps = {
   profiles: [],
-  user: null,
-  onDelete: null,
-  showDelete: false,
-  hasAuthorConfig: false,
 };
+
+class Post extends React.Component {
+  constructor() {
+    super();
+
+    this.onDelete = this.onDelete.bind(this);
+  }
+
+  onDelete() {
+    const { onDelete, post } = this.props;
+    return onDelete(post.uid);
+  }
+
+  render() {
+    const {
+      post,
+      showDelete,
+      profiles,
+      user,
+      hasAuthorConfig,
+    } = this.props;
+
+    return (
+      <blockquote>
+        <div>
+          <ProfileLink profile={post.author} />
+          &nbsp;
+          <i>{post.timestamp ? moment(post.timestamp).fromNow() : ''}</i>
+          <p>{post.content}</p>
+          <DeleteButton showDelete={showDelete} onDelete={this.onDelete} />
+        </div>
+        <CommentListContainer
+          hasAuthorConfig={hasAuthorConfig}
+          profiles={profiles}
+          post={post}
+          user={user}
+        />
+      </blockquote>
+    );
+  }
+}
+
+Post.propTypes = propTypes;
+Post.defaultProps = defaultProps;
 
 export default Post;
