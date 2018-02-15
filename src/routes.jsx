@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 
-import Feed from './containers/Feed';
+import PostListContainer from './containers/PostListContainer';
 import Login from './containers/Login';
-import Profile from './containers/Profile';
+import Profile from './components/Profile';
 import NPCList from './containers/NPCList';
 import PlayerList from './containers/PlayerList';
 import Account from './containers/Account';
@@ -13,7 +13,7 @@ import NotFound from './components/NotFound';
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={Feed} />
+    <Route exact path="/" component={PostListContainer} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/profile" component={Profile} />
     <Route exact path="/npcs" component={NPCList} />

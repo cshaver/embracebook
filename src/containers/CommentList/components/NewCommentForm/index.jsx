@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, formValueSelector, reduxForm } from 'redux-form';
 
-import AuthorConfig from 'embracebook/containers/AuthorConfig';
+import AuthorConfig from 'embracebook/components/AuthorConfig';
 import TextInput from 'embracebook/components/form/TextInput';
 import { required } from 'embracebook/utils/form';
 

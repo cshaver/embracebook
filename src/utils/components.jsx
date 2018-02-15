@@ -13,8 +13,9 @@ export const withFirebase = firebaseConnect();
 export const withAuth = compose(connect(({ firebase: { auth } }) => ({ auth })));
 export const withProfile = compose(connect(({ firebase: { profile } }) => ({ profile })));
 
-export const withRoles = compose(connect(({ firebase: { profile, profile: { roles } } }) => ({
+export const withRoles = compose(connect(({ firebase: { auth, profile, profile: { roles } } }) => ({
   isLoaded: profile.isLoaded,
+  auth,
   roles: {
     isEmpty: !roles,
     ...roles,

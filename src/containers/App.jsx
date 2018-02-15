@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import Layout from 'embracebook/components/Layout';
+import Navbar from 'embracebook/components/Navbar';
 import children from 'embracebook/shapes/children';
 
 const App = ({ children }) => (
   <BrowserRouter>
-    <Layout>
+    <Navbar />
+    <main>
       {children}
-    </Layout>
+    </main>
   </BrowserRouter>
 );
 

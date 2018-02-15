@@ -7,7 +7,7 @@
     "clean": "rimraf public",
     "compile": "node webpack/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "devServer": "webpack-dev-server --config webpack/config/webpack.config.js",
+    "devServer": "webpack-dev-server --port 80 --config webpack/config/webpack.config.js",
     "dev": "clear && npm run devServer",
     "start": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- npm run devServer",
     "start:simple": "cross-env NODE_ENV=development node webpack/devServer",
@@ -49,8 +49,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.2.0",
     "redux-thunk": "^2.2.0",
-    "slugify": "^1.2.1",
-    "whatwg-fetch": "^2.0.3"
+    "slugify": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.35",

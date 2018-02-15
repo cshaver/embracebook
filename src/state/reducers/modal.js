@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { newProfileModalReducer as newProfile } from 'embracebook/containers/ProfileList/reducers';
+import { newProfileModalReducer as newProfile } from 'embracebook/containers/NPCList/reducers';
 
 const reducer = combineReducers({
   newProfile,

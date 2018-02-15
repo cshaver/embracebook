@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
-import AuthorConfig from 'embracebook/containers/AuthorConfig';
+import AuthorConfig from 'embracebook/components/AuthorConfig';
 import { Fieldset, Textarea } from 'embracebook/components/form';
 import { required } from 'embracebook/utils/form';
 import { NEW_POST_FORM_NAME } from 'embracebook/constants';

@@ -10,11 +10,11 @@
     "DEV": true,
   },
   "rules": {
-    "no-console": 0,
-    "no-param-reassign": 0,
-    "no-plusplus": 0,
-    "no-shadow": 0,
-    "react/no-typos": 0,
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-shadow": "off",
+    "react/no-typos": "off",
     "jsx-a11y/anchor-is-valid": [
       "error", {
         "components": [ "Link" ],

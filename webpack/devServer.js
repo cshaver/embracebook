@@ -3,6 +3,6 @@ const server = require('./server');
 
 logger.info('Starting server...');
 
-server.listen(3000, () => {
+server.listen(80, () => {
   logger.success('Server is running at http://localhost:3000');
 });
