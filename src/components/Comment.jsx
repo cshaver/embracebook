@@ -28,7 +28,7 @@ class Comment extends React.Component {
     return (
       <React.Fragment>
         <b>{comment.author ? comment.author.displayName : ''}:</b>
-        {comment.content} ~!~!
+        {comment.content}
         <DeleteButton showDelete={showDelete} onDelete={this.onDelete} />
       </React.Fragment>
     );

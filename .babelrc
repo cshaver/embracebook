@@ -1,6 +1,11 @@
 {
-  "presets": ["airbnb"],
+  "presets": [
+    "airbnb",
+    ["es2015", { "modules": false }],
+  ],
   "plugins": [
+    "lodash",
+    "transform-decorators-legacy",
     "dynamic-import-webpack",
     "react-hot-loader/babel",
     "react-loadable/babel",

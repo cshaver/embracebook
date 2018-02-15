@@ -30,26 +30,17 @@ module.exports = {
   // Whether to generate sourcemaps
   sourcemaps: NODE_ENV === 'development',
 
-  // A hash map of keys that the compiler should treat as external to the project
-  externals: {},
-
-  // A hash map of variables and their values to expose globally
-  globals: {},
-
-  // Whether to enable verbose logging
-  verbose: false,
-
   // The list of modules to bundle separately from the core application code
-  vendors: [
-    'firebaseui',
-    'react',
-    'react-dom',
-    'react-redux',
-    'react-redux-firebase',
-    'react-router-dom',
-    'redux',
-    'redux-thunk',
-  ],
+  // vendors: [
+  //   'firebaseui',
+  //   'react',
+  //   'react-dom',
+  //   'react-redux',
+  //   'react-redux-firebase',
+  //   'react-router-dom',
+  //   'redux',
+  //   'redux-thunk',
+  // ],
 
   /**
    * Settings used to create src/config.js using firebase-ci

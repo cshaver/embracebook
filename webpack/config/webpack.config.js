@@ -17,18 +17,25 @@ const PROD = project.env === 'production';
 
 const config = {
 
-  devtool: project.sourcemaps ? 'source-map' : false,
+  // devtool: DEV && 'source-map',
+  devtool: DEV && 'eval',
 
   devServer: {
     contentBase: inProject(project.staticDir),
     hot: DEV,
     historyApiFallback: true,
+    host: '0.0.0.0',
+    port: 80,
+    // noInfo: true,
+    overlay: true,
   },
 
   entry: {
     main: [
       'babel-polyfill',
       'react-hot-loader/patch',
+      'webpack-dev-server/client',
+      'webpack/hot/only-dev-server',
       inProjectSrc(project.main),
     ],
   },
@@ -51,25 +58,7 @@ const config = {
     },
   },
 
-  externals: project.externals,
-
-  plugins: [
-    new webpack.DefinePlugin(Object.assign(
-      {
-        'process.env': { NODE_ENV: JSON.stringify(project.env) },
-        DEV,
-        TEST,
-        PROD,
-      },
-      project.globals,
-    )),
-  ],
-
-  node: {
-    // disable node constants so constants.js file is used instead
-    // (see https://webpack.js.org/configuration/node/)
-    constants: false,
-  },
+  plugins: [],
 
   module: {
     rules: [],
@@ -90,39 +79,6 @@ config.module.rules.push({
       loader: 'babel-loader',
       query: {
         cacheDirectory: true,
-        plugins: [
-          'lodash',
-          'transform-decorators-legacy',
-          // 'babel-plugin-transform-class-properties',
-          // 'babel-plugin-syntax-dynamic-import',
-          // [
-          //   'babel-plugin-transform-runtime',
-          //   {
-          //     helpers: true,
-          //     polyfill: false, // we polyfill needed features in src/normalize.js
-          //     regenerator: true
-          //   }
-          // ],
-          // [
-          //   'babel-plugin-transform-object-rest-spread',
-          //   {
-          //     useBuiltIns: true // we polyfill Object.assign in src/normalize.js
-          //   }
-          // ]
-        ],
-        // presets: [
-        //   'babel-preset-react',
-        //   [
-        //     'babel-preset-env',
-        //     {
-        //       targets: {
-        //         ie9: true,
-        //         uglify: true,
-        //         modules: false
-        //       }
-        //     }
-        //   ]
-        // ]
       },
     },
   ],
@@ -250,20 +206,23 @@ if (DEV) {
 
     // do not emit compiled assets that include errors
     new webpack.NoEmitOnErrorsPlugin(),
+
+    // webpack-dashboard
+    new DashboardPlugin(),
   );
 }
 
-// Bundle Splitting
-// ------------------------------------
-if (!TEST) {
-  const bundles = [/* 'normalize', */'manifest'];
+// // Bundle Splitting
+// // ------------------------------------
+// if (!TEST) {
+//   const bundles = [/* 'normalize', */'manifest'];
 
-  if (project.vendors && project.vendors.length) {
-    bundles.unshift('vendor');
-    config.entry.vendor = project.vendors;
-  }
-  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({ names: bundles }));
-}
+//   if (project.vendors && project.vendors.length) {
+//     bundles.unshift('vendor');
+//     config.entry.vendor = project.vendors;
+//   }
+//   config.plugins.push(new webpack.optimize.CommonsChunkPlugin({ names: bundles }));
+// }
 
 // Production Optimizations
 // ------------------------------------
@@ -290,8 +249,6 @@ if (PROD) {
       },
     }),
   );
-} else {
-  config.plugins.push(new DashboardPlugin());
 }
 
 module.exports = config;
