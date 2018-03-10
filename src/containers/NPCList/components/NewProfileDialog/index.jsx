@@ -11,7 +11,7 @@ import { NEW_PROFILE_FORM_NAME } from 'embracebook/constants';
 const NewProfileDialog = ({
   open,
   onRequestClose,
-  handleSubmit,
+  onSubmit,
   avatarUrl,
 }) => (
   <Dialog
@@ -19,7 +19,7 @@ const NewProfileDialog = ({
     open={open}
     onRequestClose={onRequestClose}
   >
-    <form action="dialog" onSubmit={handleSubmit}>
+    <form action="dialog" onSubmit={onSubmit}>
       <Field
         name="displayName"
         component={TextInput}
@@ -57,7 +57,7 @@ const NewProfileDialog = ({
 NewProfileDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   avatarUrl: PropTypes.string,
 };
 

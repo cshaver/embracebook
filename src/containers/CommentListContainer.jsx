@@ -18,10 +18,12 @@ const propTypes = {
   user: PropTypes.string.isRequired,
   profiles: PropTypes.arrayOf(profileShape),
   hasAuthorConfig: PropTypes.bool.isRequired,
+  authorProfiles: PropTypes.arrayOf(profileShape),
 };
 
 const defaultProps = {
   profiles: [],
+  authorProfiles: [],
   auth: null,
 };
 
@@ -29,7 +31,7 @@ class CommentList extends React.Component {
   constructor() {
     super();
 
-    this.newSubmit = this.newSubmit.bind(this);
+    this.newComment = this.newComment.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
   }
 
@@ -41,7 +43,7 @@ class CommentList extends React.Component {
     );
   }
 
-  newSubmit(newComment) {
+  newComment(comment) {
     const {
       firebase,
       post,
@@ -52,7 +54,7 @@ class CommentList extends React.Component {
     return firebase
       .push(`posts/${post.uid}/comments`, {
         author: user,
-        ...newComment,
+        ...comment,
         timestamp: (new Date()).toISOString(),
         createdBy: auth.uid,
       })
@@ -75,13 +77,13 @@ class CommentList extends React.Component {
       });
   }
 
-  resetForm(result, dispatch, formProps) { // eslint-disable-line class-methods-use-this
+  resetForm(result, dispatch, formProps) {
     formProps.reset();
   }
 
   render() {
     const {
-      profiles, post, post: { comments }, hasAuthorConfig,
+      profiles, post, post: { comments }, hasAuthorConfig, authorProfiles,
     } = this.props;
 
     return (
@@ -101,7 +103,8 @@ class CommentList extends React.Component {
           profiles={profiles}
           form={`newComment-${post.uid}`}
           hasAuthorConfig={hasAuthorConfig}
-          onSubmit={this.newSubmit}
+          authorProfiles={authorProfiles}
+          onSubmit={this.newComment}
           onSubmitSuccess={this.resetForm}
         />
       </div>

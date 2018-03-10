@@ -33,9 +33,9 @@ class Invite extends React.Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { onSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.inviteUser)}>
+      <form onSubmit={onSubmit(this.inviteUser)}>
         <Field component={TextInput} validate={[required, validateEmail]} name="email" type="email" label="Email" />
 
         <ShowIfAdmin>
@@ -52,7 +52,7 @@ class Invite extends React.Component {
 
 Invite.propTypes = {
   firebase: firebaseShape.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
 };
 

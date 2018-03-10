@@ -6,11 +6,27 @@ import AuthorConfig from 'embracebook/components/AuthorConfig';
 import { Fieldset, Textarea } from 'embracebook/components/form';
 import { required } from 'embracebook/utils/form';
 import { NEW_POST_FORM_NAME } from 'embracebook/constants';
+import profileShape from 'embracebook/shapes/profile';
 
-const NewPostForm = ({ handleSubmit, hasAuthorConfig }) => (
+const propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  hasAuthorConfig: PropTypes.bool,
+  authorProfiles: PropTypes.arrayOf(profileShape),
+};
+
+const defaultProps = {
+  hasAuthorConfig: false,
+  authorProfiles: [],
+};
+
+const NewPostForm = ({
+  handleSubmit,
+  hasAuthorConfig,
+  authorProfiles,
+}) => (
   <form onSubmit={handleSubmit}>
     <Fieldset label="Post">
-      {hasAuthorConfig ? <AuthorConfig /> : null}
+      {hasAuthorConfig && <AuthorConfig profiles={authorProfiles} />}
       <Field
         name="content"
         component={Textarea}
@@ -22,16 +38,8 @@ const NewPostForm = ({ handleSubmit, hasAuthorConfig }) => (
   </form>
 );
 
-NewPostForm.propTypes = {
-  // onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  handleSubmit: PropTypes.func.isRequired, // added by redux-form
-  // submit: PropTypes.func.isRequired, // added by redux-form
-  hasAuthorConfig: PropTypes.bool,
-};
-
-NewPostForm.defaultProps = {
-  hasAuthorConfig: false,
-};
+NewPostForm.propTypes = propTypes;
+NewPostForm.defaultProps = defaultProps;
 
 export default (reduxForm({
   form: NEW_POST_FORM_NAME,

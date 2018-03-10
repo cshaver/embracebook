@@ -12,7 +12,6 @@ const inProject = path.resolve.bind(path, project.basePath);
 const inProjectSrc = file => inProject(project.srcDir, file);
 
 const DEV = project.env === 'development';
-const TEST = project.env === 'test';
 const PROD = project.env === 'production';
 
 const config = {
@@ -25,7 +24,7 @@ const config = {
     hot: DEV,
     historyApiFallback: true,
     host: '0.0.0.0',
-    port: 80,
+    port: 8080,
     // noInfo: true,
     overlay: true,
   },

@@ -12,21 +12,14 @@ const withPosts = compose(
   connect(({
     firebase: { data: { profiles, posts, users } },
   }) => {
-    // console.group('withPosts');
-    // console.log('profiles', profiles);
-    // console.log('posts', posts);
-    // console.log('users', users);
-    // console.groupEnd();
-
     const authors = {
       ...users,
       ...profiles,
     };
 
-    console.log(authors);
-
     return {
-      posts: profiles && users && posts ? map(posts, (post, uid) => ({
+      profiles: profiles && Object.keys(profiles).map(uuid => ({ ...profiles[uuid], uuid })),
+      posts: profiles && users && posts && map(posts, (post, uid) => ({
         ...post,
         uid,
         author: {
@@ -38,7 +31,7 @@ const withPosts = compose(
           uid,
           author: authors[comment.author],
         })),
-      })) : [],
+      })),
     };
   }),
 );

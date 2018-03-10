@@ -16,10 +16,12 @@ const propTypes = {
   onDelete: PropTypes.func.isRequired,
   showDelete: PropTypes.bool.isRequired,
   hasAuthorConfig: PropTypes.bool.isRequired,
+  authorProfiles: PropTypes.arrayOf(profileShape),
 };
 
 const defaultProps = {
   profiles: [],
+  authorProfiles: [],
 };
 
 class Post extends React.Component {
@@ -41,6 +43,7 @@ class Post extends React.Component {
       profiles,
       user,
       hasAuthorConfig,
+      authorProfiles,
     } = this.props;
 
     return (
@@ -54,6 +57,7 @@ class Post extends React.Component {
         </div>
         <CommentListContainer
           hasAuthorConfig={hasAuthorConfig}
+          authorProfiles={authorProfiles}
           profiles={profiles}
           post={post}
           user={user}

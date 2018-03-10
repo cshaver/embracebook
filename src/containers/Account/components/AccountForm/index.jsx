@@ -5,8 +5,8 @@ import { Field, reduxForm } from 'redux-form';
 import TextInput from 'embracebook/components/form/TextInput';
 import { ACCOUNT_FORM_NAME } from 'embracebook/constants';
 
-const AccountForm = ({ handleSubmit }) => (
-  <form onSubmit={handleSubmit}>
+const AccountForm = ({ onSubmit }) => (
+  <form onSubmit={onSubmit}>
     <h4>Account</h4>
     <Field
       name="displayName"
@@ -28,7 +28,7 @@ const AccountForm = ({ handleSubmit }) => (
 );
 
 AccountForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

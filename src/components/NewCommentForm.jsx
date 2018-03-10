@@ -6,10 +6,22 @@ import { Field, formValueSelector, reduxForm } from 'redux-form';
 import AuthorConfig from 'embracebook/components/AuthorConfig';
 import TextInput from 'embracebook/components/form/TextInput';
 import { required } from 'embracebook/utils/form';
+import profileShape from 'embracebook/shapes/profile';
 
-const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
+const propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  hasAuthorConfig: PropTypes.bool,
+  authorProfiles: PropTypes.arrayOf(profileShape),
+};
+
+const defaultProps = {
+  hasAuthorConfig: false,
+  authorProfiles: [],
+};
+
+const NewCommentForm = ({ handleSubmit, hasAuthorConfig, authorProfiles }) => (
   <form onSubmit={handleSubmit}>
-    {hasAuthorConfig ? <AuthorConfig /> : null}
+    {hasAuthorConfig && <AuthorConfig profiles={authorProfiles} />}
     <Field
       name="content"
       component={TextInput}
@@ -20,15 +32,8 @@ const NewCommentForm = ({ handleSubmit, hasAuthorConfig }) => (
   </form>
 );
 
-NewCommentForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  hasAuthorConfig: PropTypes.bool,
-};
-
-NewCommentForm.defaultProps = {
-  hasAuthorConfig: false,
-};
+NewCommentForm.propTypes = propTypes;
+NewCommentForm.defaultProps = defaultProps;
 
 export default connect(state => ({
   author: formValueSelector('authorConfig')(state, 'author'),
