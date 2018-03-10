@@ -12,6 +12,12 @@ import { required, validateEmail } from 'embracebook/utils/form';
 
 import firebaseShape from 'embracebook/shapes/firebase';
 
+const propTypes = {
+  firebase: firebaseShape.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+};
+
 class Invite extends React.Component {
   constructor() {
     super();
@@ -33,9 +39,9 @@ class Invite extends React.Component {
   }
 
   render() {
-    const { onSubmit } = this.props;
+    const { handleSubmit } = this.props;
     return (
-      <form onSubmit={onSubmit(this.inviteUser)}>
+      <form onSubmit={handleSubmit(this.inviteUser)}>
         <Field component={TextInput} validate={[required, validateEmail]} name="email" type="email" label="Email" />
 
         <ShowIfAdmin>
@@ -50,11 +56,7 @@ class Invite extends React.Component {
   }
 }
 
-Invite.propTypes = {
-  firebase: firebaseShape.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-};
+Invite.propTypes = propTypes;
 
 function validateInvitation(values) {
   const { roles } = values;
