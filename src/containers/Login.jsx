@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TERMS_PATH } from 'embracebook/constants';
 
-import FirebaseUIAuth from '../FirebaseUIAuth';
+import FirebaseUIAuth from './FirebaseUIAuth';
 
 const LoginPage = () => (
   <React.Fragment>
