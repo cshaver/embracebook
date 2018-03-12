@@ -70,7 +70,7 @@ class PlayerList extends React.Component {
             <PlayerTile
               key={`${key}`}
               profile={profile}
-              onDelete={this.onDelete}
+              onDelete={this.deleteUser}
             />
           ))}
         </ul>

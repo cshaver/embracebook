@@ -8,6 +8,7 @@ import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from 'embrac
 import ShowIfStoryteller from 'embracebook/components/ShowIfStoryteller';
 import ShowIfAuthenticated from 'embracebook/components/ShowIfAuthenticated';
 import { withFirebase, withProfile } from 'embracebook/utils/components';
+import { css, withStyles } from 'embracebook/components/utils/withStyles';
 
 import firebaseShape from 'embracebook/shapes/firebase';
 import historyShape from 'embracebook/shapes/history';
@@ -32,7 +33,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, styles } = this.props;
 
     const spacer = (<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>);
 
@@ -56,7 +57,7 @@ class Navbar extends React.Component {
     );
 
     return (
-      <nav>
+      <nav {...css(styles.container)}>
         <Link to={HOME_PATH}>embracebook</Link>
         {leftMenu}
         {rightMenu}
@@ -68,6 +69,13 @@ class Navbar extends React.Component {
 Navbar.propTypes = propTypes;
 
 export default compose(
+  withStyles(() => ({
+    container: {
+      background: '#eee',
+      padding: '1em',
+      borderBottom: '3px solid #ddd',
+    },
+  })),
   withFirebase,
   withProfile,
   withRouter,
