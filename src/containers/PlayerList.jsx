@@ -15,7 +15,7 @@ import { auth as authShape } from 'embracebook/shapes/firebase';
 import profileShape from 'embracebook/shapes/profile';
 import userShape from 'embracebook/shapes/user';
 
-import PlayerTile from './components/PlayerTile';
+import PlayerTile from 'embracebook/components/PlayerTile';
 
 class PlayerList extends React.Component {
   render() {

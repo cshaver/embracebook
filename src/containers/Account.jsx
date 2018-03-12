@@ -12,7 +12,7 @@ import ProgressIndicator from 'embracebook/components/ProgressIndicator';
 import firebaseShape from 'embracebook/shapes/firebase';
 import profileShape from 'embracebook/shapes/profile';
 
-import AccountForm from './components/AccountForm';
+import AccountForm from 'embracebook/components/AccountForm';
 
 
 class Account extends React.Component {
