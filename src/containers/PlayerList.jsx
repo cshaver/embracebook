@@ -6,26 +6,46 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 
 import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import Invite from 'embracebook/containers/Invite';
-
+import InviteForm from 'embracebook/components/InviteForm';
+import PlayerTile from 'embracebook/components/PlayerTile';
 import { userIsStoryteller } from 'embracebook/utils/components';
 
-import children from 'embracebook/shapes/children';
-import { auth as authShape } from 'embracebook/shapes/firebase';
-import profileShape from 'embracebook/shapes/profile';
+import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
 import userShape from 'embracebook/shapes/user';
 
-import PlayerTile from 'embracebook/components/PlayerTile';
+
+const propTypes = {
+  auth: authShape,
+  players: PropTypes.arrayOf(userShape),
+  firebase: firebaseShape.isRequired,
+};
+
+const defaultProps = {
+  auth: null,
+  players: [],
+};
 
 class PlayerList extends React.Component {
-  render() {
-    const {
-      players, auth,
-    } = this.props;
+  constructor(props) {
+    super(props);
 
-    console.groupCollapsed('PlayerList::render');
-    console.table(players);
-    console.groupEnd();
+    this.inviteUser = this.inviteUser.bind(this);
+  }
+
+  inviteUser(values) {
+    const { firebase } = this.props;
+    const { email, roles } = values;
+
+    return firebase.pushWithMeta('invites', {
+      email,
+      roles,
+    }).then(() => {
+      console.log('invite complete');
+    });
+  }
+
+  render() {
+    const { players, auth } = this.props;
 
     if (!isLoaded(players, auth)) {
       return <ProgressIndicator />;
@@ -42,25 +62,14 @@ class PlayerList extends React.Component {
             />
           ))}
         </ul>
-        <Invite onSubmit={this.inviteUser} />
+        <InviteForm onInvite={this.inviteUser} />
       </div>
     );
   }
 }
 
-PlayerList.propTypes = {
-  auth: authShape,
-  // profile: profileShape,
-  players: PropTypes.arrayOf(userShape),
-  // children,
-};
-
-PlayerList.defaultProps = {
-  auth: null,
-  profile: null,
-  players: [],
-  children: null,
-};
+PlayerList.propTypes = propTypes;
+PlayerList.defaultProps = defaultProps;
 
 export default compose(
   firebaseConnect([{ path: 'users' }]),

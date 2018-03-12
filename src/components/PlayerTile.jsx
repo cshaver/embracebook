@@ -6,7 +6,17 @@ import ProfileLink from 'embracebook/components/ProfileLink';
 
 import profileShape from 'embracebook/shapes/profile';
 
-export const ProfileTile = ({
+const propTypes = {
+  profile: profileShape.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  showDelete: PropTypes.bool,
+};
+
+const defaultProps = {
+  showDelete: false,
+};
+
+const PlayerTile = ({
   profile, onDelete, showDelete,
 }) => (
   <li>
@@ -22,14 +32,7 @@ export const ProfileTile = ({
   </li>
 );
 
-ProfileTile.propTypes = {
-  profile: profileShape.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  showDelete: PropTypes.bool,
-};
+PlayerTile.propTypes = propTypes;
+PlayerTile.defaultProps = defaultProps;
 
-ProfileTile.defaultProps = {
-  showDelete: false,
-};
-
-export default ProfileTile;
+export default PlayerTile;
