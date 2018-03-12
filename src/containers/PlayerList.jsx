@@ -13,7 +13,6 @@ import { userIsStoryteller } from 'embracebook/utils/components';
 import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
 import userShape from 'embracebook/shapes/user';
 
-
 const propTypes = {
   auth: authShape,
   players: PropTypes.arrayOf(userShape),
@@ -30,6 +29,18 @@ class PlayerList extends React.Component {
     super(props);
 
     this.inviteUser = this.inviteUser.bind(this);
+  }
+
+  deleteUser(values) {
+    const { firebase } = this.props;
+    const { email, roles } = values;
+
+    return firebase.pushWithMeta('invites', {
+      email,
+      roles,
+    }).then(() => {
+      console.log('invite complete');
+    });
   }
 
   inviteUser(values) {
@@ -57,8 +68,9 @@ class PlayerList extends React.Component {
           {/* TODO: test for NPC-type profile */}
           {map(players, (profile, key) => (
             <PlayerTile
-              key={`${profile.displayName}-Collab-${key}`}
+              key={`${key}`}
               profile={profile}
+              onDelete={this.onDelete}
             />
           ))}
         </ul>

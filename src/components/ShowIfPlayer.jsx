@@ -4,6 +4,15 @@ import { withRoles } from 'embracebook/utils/components';
 import children from 'embracebook/shapes/children';
 import { roles } from 'embracebook/shapes/profile';
 
+const propTypes = {
+  children: children.isRequired,
+  roles,
+};
+
+const defaultProps = {
+  roles: {},
+};
+
 const ShowIfPlayer = ({ roles, children }) => (
   !roles.player ? null :
   <span>
@@ -11,13 +20,7 @@ const ShowIfPlayer = ({ roles, children }) => (
   </span>
 );
 
-ShowIfPlayer.propTypes = {
-  children: children.isRequired,
-  roles,
-};
-
-ShowIfPlayer.defaultProps = {
-  roles: {},
-};
+ShowIfPlayer.propTypes = propTypes;
+ShowIfPlayer.defaultProps = defaultProps;
 
 export default withRoles(ShowIfPlayer);

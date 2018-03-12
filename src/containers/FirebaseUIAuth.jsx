@@ -8,6 +8,18 @@ import firebaseShape from 'embracebook/shapes/firebase';
 
 let authUI;
 
+const propTypes = {
+  firebase: firebaseShape.isRequired,
+  tosUrl: PropTypes.string.isRequired,
+  signInSuccess: PropTypes.func,
+  signInSuccessUrl: PropTypes.string,
+};
+
+const defaultProps = {
+  signInSuccess: null,
+  signInSuccessUrl: null,
+};
+
 class FirebaseUIAuth extends React.Component {
   componentDidMount() {
     const {
@@ -61,16 +73,7 @@ class FirebaseUIAuth extends React.Component {
   }
 }
 
-FirebaseUIAuth.propTypes = {
-  firebase: firebaseShape.isRequired,
-  tosUrl: PropTypes.string.isRequired,
-  signInSuccess: PropTypes.func,
-  signInSuccessUrl: PropTypes.string,
-};
-
-FirebaseUIAuth.defaultProps = {
-  signInSuccess: null,
-  signInSuccessUrl: null,
-};
+FirebaseUIAuth.propTypes = propTypes;
+FirebaseUIAuth.defaultProps = defaultProps;
 
 export default compose(firebaseConnect())(FirebaseUIAuth);

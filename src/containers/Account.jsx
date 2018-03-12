@@ -14,6 +14,14 @@ import profileShape from 'embracebook/shapes/profile';
 
 import AccountForm from 'embracebook/components/AccountForm';
 
+const propTypes = {
+  profile: profileShape,
+  firebase: firebaseShape.isRequired,
+};
+
+const defaultProps = {
+  profile: {},
+};
 
 class Account extends React.Component {
   constructor() {
@@ -63,14 +71,8 @@ class Account extends React.Component {
   }
 }
 
-Account.propTypes = {
-  profile: profileShape,
-  firebase: firebaseShape.isRequired,
-};
-
-Account.defaultProps = {
-  profile: {},
-};
+Account.propTypes = propTypes;
+Account.defaultProps = defaultProps;
 
 export default compose(
   firebaseConnect(),

@@ -16,21 +16,30 @@ const defaultProps = {
   showDelete: false,
 };
 
-const PlayerTile = ({
-  profile, onDelete, showDelete,
-}) => (
-  <li>
-    <ProfileLink profile={profile}>
-      <img alt="" src={profile.avatarUrl} height="50" />
-    </ProfileLink>
-    <div>
-      <ProfileLink profile={profile} />
-      <DeleteButton showDelete={showDelete} onDelete={onDelete} />
-      <br />
-      <i>{profile.createdBy ? `Created by ${profile.createdBy.displayName}` : ''}</i>
-    </div>
-  </li>
-);
+class PlayerTile extends React.Component {
+  onDelete() {
+    const { onDelete, profile: { uid } } = this.props;
+    return onDelete(uid);
+  }
+
+  render() {
+    const { profile, showDelete } = this.props;
+
+    return (
+      <li>
+        <ProfileLink profile={profile}>
+          <img alt="" src={profile.avatarUrl} height="50" />
+        </ProfileLink>
+        <div>
+          <ProfileLink profile={profile} />
+          <DeleteButton showDelete={showDelete} onDelete={this.onDelete} />
+          <br />
+          <i>{profile.createdBy ? `Created by ${profile.createdBy.displayName}` : ''}</i>
+        </div>
+      </li>
+    );
+  }
+}
 
 PlayerTile.propTypes = propTypes;
 PlayerTile.defaultProps = defaultProps;

@@ -8,6 +8,14 @@ import { UserIsAuthenticated } from 'embracebook/utils/auth';
 
 import profileShape from 'embracebook/shapes/profile';
 
+const propTypes = {
+  profile: profileShape,
+};
+
+const defaultProps = {
+  profile: null,
+};
+
 const Profile = ({ profile }) => {
   if (isEmpty(profile)) {
     return <div>Profile not found</div>;
@@ -25,13 +33,8 @@ const Profile = ({ profile }) => {
   );
 };
 
-Profile.propTypes = {
-  profile: profileShape,
-};
-
-Profile.defaultProps = {
-  profile: null,
-};
+Profile.propTypes = propTypes;
+Profile.defaultProps = defaultProps;
 
 export default compose(
   // Get profile path from firebase based on params prop (route params from react-router)

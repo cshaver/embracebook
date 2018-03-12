@@ -4,6 +4,10 @@ import { Form } from 'react-final-form';
 
 import Field from 'embracebook/components/form/Field';
 
+const propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
 const AccountForm = ({ onSubmit }) => (
   <Form
     onSubmit={(values, { reset }) => onSubmit(values).then(reset)}
@@ -19,9 +23,7 @@ const AccountForm = ({ onSubmit }) => (
   />
 );
 
-AccountForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+AccountForm.propTypes = propTypes;
 
 export default AccountForm;
 
