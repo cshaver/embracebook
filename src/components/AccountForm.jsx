@@ -6,7 +6,7 @@ import Field from 'embracebook/components/form/Field';
 
 const propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  initialValues: PropTypes.obj,
+  initialValues: PropTypes.object,
 };
 
 const defaultProps = {

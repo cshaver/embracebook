@@ -56,6 +56,7 @@ class Account extends React.Component {
         <div>
           <img
             alt=""
+            width="80"
             src={(profile.avatarUrl) || 'https://api.adorable.io/avatars/default'}
           />
         </div>

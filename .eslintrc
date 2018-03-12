@@ -16,6 +16,7 @@
     "no-shadow": "off",
     "react/no-typos": "off",
     "object-curly-newline": "off",
+    "react/forbid-prop-types": "warn",
     "jsx-a11y/anchor-is-valid": [
       "error", {
         "components": [ "Link" ],
