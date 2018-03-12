@@ -29,7 +29,6 @@ export class State {
     const composeEnhancers = composeWithDevTools({
       actionsBlacklist: [
         // '@@reactReduxFirebase',
-        // '@@redux-form',
       ],
     });
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
 import { map } from 'lodash';
 
+import Field from 'embracebook/components/form/Field';
 import { required } from 'embracebook/utils/form';
 import profileShape from 'embracebook/shapes/profile';
 
@@ -11,18 +11,16 @@ const propTypes = {
 };
 
 const AuthorConfig = ({ profiles }) => (
-  <div>
-    <Field
-      name="author"
-      component="select"
-      validate={[required]}
-    >
-      <option key="default" value="" disabled>Author</option>
-      {map(profiles, profile => (
-        <option key={profile.uuid} value={profile.uuid}>{profile.displayName}</option>
-      ))}&
-    </Field>
-  </div>
+  <Field
+    name="author"
+    component="select"
+    validate={required}
+  >
+    <option key="default" value="" disabled>Author</option>
+    {profiles && map(profiles, ({ uuid, displayName }) => (
+      <option key={uuid} value={uuid}>{displayName}</option>
+    ))}
+  </Field>
 );
 
 AuthorConfig.propTypes = propTypes;

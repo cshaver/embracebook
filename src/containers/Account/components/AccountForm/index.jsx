@@ -1,37 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { Form } from 'react-final-form';
 
-import TextInput from 'embracebook/components/form/TextInput';
-import { ACCOUNT_FORM_NAME } from 'embracebook/constants';
+import Field from 'embracebook/components/form/Field';
 
 const AccountForm = ({ onSubmit }) => (
-  <form onSubmit={onSubmit}>
-    <h4>Account</h4>
-    <Field
-      name="displayName"
-      component={TextInput}
-      props={{ label: 'Display Name' }}
-    />
-    <Field
-      name="email"
-      component={TextInput}
-      props={{ label: 'Email' }}
-    />
-    <Field
-      name="avatarUrl"
-      component={TextInput}
-      props={{ label: 'Avatar Url' }}
-    />
-    <button type="submit">Save</button>
-  </form>
+  <Form
+    onSubmit={(values, { reset }) => onSubmit(values).then(reset)}
+    render={({ handleSubmit, submitting }) => (
+      <form onSubmit={handleSubmit}>
+        <h4>Account</h4>
+        <Field component="input" type="text" name="displayName" label="Display Name" />
+        <Field component="input" type="text" name="email" label="Email" />
+        <Field component="input" type="text" name="avatarUrl" label="Avatar Url" />
+        <button type="submit" disabled={submitting}>Save</button>
+      </form>
+    )}
+  />
 );
 
 AccountForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default reduxForm({
-  form: ACCOUNT_FORM_NAME,
-})(AccountForm);
+export default AccountForm;
 

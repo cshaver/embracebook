@@ -77,10 +77,6 @@ class CommentList extends React.Component {
       });
   }
 
-  resetForm(result, dispatch, formProps) {
-    formProps.reset();
-  }
-
   render() {
     const {
       profiles, post, post: { comments }, hasAuthorConfig, authorProfiles,
@@ -105,7 +101,6 @@ class CommentList extends React.Component {
           hasAuthorConfig={hasAuthorConfig}
           authorProfiles={authorProfiles}
           onSubmit={this.newComment}
-          onSubmitSuccess={this.resetForm}
         />
       </div>
     );

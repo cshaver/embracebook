@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
 import Post from 'embracebook/components/Post';
@@ -86,10 +85,6 @@ class PostListContainer extends React.Component {
       });
   }
 
-  resetForm(result, dispatch, formProps) {
-    formProps.reset();
-  }
-
   render() {
     const {
       posts, auth,
@@ -99,7 +94,6 @@ class PostListContainer extends React.Component {
       <div>
         <NewPostForm
           onSubmit={this.newPost}
-          onSubmitSuccess={this.resetForm}
           hasAuthorConfig={!!this.hasAuthorConfig()}
           authorProfiles={this.getAuthorProfiles()}
         />
@@ -128,5 +122,4 @@ export default compose(
   withFirebase,
   withRoles,
   withPosts,
-  connect(({ form: { newPost } }) => ({ newPostModal: newPost })),
 )(PostListContainer);

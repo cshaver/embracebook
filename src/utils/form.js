@@ -1,7 +1,7 @@
 export const required = value => (value ? undefined : 'Required');
 
 export const validateEmail = value =>
-  (value && !/^.+@.+$/i.test(value)
+  (!value || !/^.+@.+$/i.test(value)
     ? 'Invalid email address'
     : undefined);
 

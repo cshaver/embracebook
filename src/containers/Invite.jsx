@@ -1,62 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import { Field, reduxForm } from 'redux-form';
+import { Form } from 'react-final-form';
 import { reduce } from 'lodash';
 
 import ShowIfAdmin from 'embracebook/components/ShowIfAdmin';
 import { userIsStoryteller } from 'embracebook/utils/components';
-import { TextInput, Checkbox } from 'embracebook/components/form';
-import { required, validateEmail } from 'embracebook/utils/form';
+import Field from 'embracebook/components/form/Field';
+import { validateEmail } from 'embracebook/utils/form';
 
 import firebaseShape from 'embracebook/shapes/firebase';
-
-const propTypes = {
-  firebase: firebaseShape.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-};
-
-class Invite extends React.Component {
-  constructor() {
-    super();
-
-    this.inviteUser = this.inviteUser.bind(this);
-  }
-
-  inviteUser(values) {
-    const { firebase, reset } = this.props;
-    const { email, roles } = values;
-
-    return firebase.pushWithMeta('invites', {
-      email,
-      roles,
-    }).then(() => {
-      console.log('invite complete');
-      reset();
-    });
-  }
-
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <form onSubmit={handleSubmit(this.inviteUser)}>
-        <Field component={TextInput} validate={[required, validateEmail]} name="email" type="email" label="Email" />
-
-        <ShowIfAdmin>
-          <Field component={Checkbox} type="checkbox" label="Admin?" id="admin" name="roles.admin" />
-        </ShowIfAdmin>
-        <Field component={Checkbox} type="checkbox" label="Storyteller?" id="storyteller" name="roles.storyteller" />
-        <Field component={Checkbox} type="checkbox" label="Player?" id="player" name="roles.player" />
-
-        <button type="submit">Invite</button>
-      </form>
-    );
-  }
-}
-
-Invite.propTypes = propTypes;
 
 function validateInvitation(values) {
   const { roles } = values;
@@ -73,11 +26,55 @@ function validateInvitation(values) {
   return errors;
 }
 
+const propTypes = {
+  firebase: firebaseShape.isRequired,
+};
+
+class Invite extends React.Component {
+  constructor() {
+    super();
+
+    this.inviteUser = this.inviteUser.bind(this);
+  }
+
+  inviteUser(values) {
+    const { firebase } = this.props;
+    const { email, roles } = values;
+
+    return firebase.pushWithMeta('invites', {
+      email,
+      roles,
+    }).then(() => {
+      console.log('invite complete');
+    });
+  }
+
+  render() {
+    return (
+      <Form
+        validate={validateInvitation}
+        onSubmit={(values, { reset }) => this.inviteUser(values).then(reset)}
+        render={({ handleSubmit, submitting }) => (
+          <form onSubmit={handleSubmit}>
+            <Field component="input" type="email" validate={validateEmail} name="email" label="Email" />
+
+            <ShowIfAdmin>
+              <Field component="input" type="checkbox" label="Admin?" name="roles.admin" />
+            </ShowIfAdmin>
+            <Field component="input" type="checkbox" label="Storyteller?" name="roles.storyteller" />
+            <Field component="input" type="checkbox" label="Player?" name="roles.player" />
+
+            <button type="submit" disabled={submitting}>Invite</button>
+          </form>
+        )}
+      />
+    );
+  }
+}
+
+Invite.propTypes = propTypes;
+
 export default compose(
   firebaseConnect(),
   userIsStoryteller,
-  reduxForm({
-    form: 'contact',
-    validate: validateInvitation,
-  }),
 )(Invite);

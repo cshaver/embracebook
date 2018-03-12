@@ -15,6 +15,7 @@
     "no-plusplus": "off",
     "no-shadow": "off",
     "react/no-typos": "off",
+    "object-curly-newline": "off",
     "jsx-a11y/anchor-is-valid": [
       "error", {
         "components": [ "Link" ],
