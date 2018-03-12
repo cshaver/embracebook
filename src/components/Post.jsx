@@ -11,7 +11,6 @@ import profileShape from 'embracebook/shapes/profile';
 
 const propTypes = {
   post: postShape.isRequired,
-  profiles: PropTypes.arrayOf(profileShape),
   user: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   showDelete: PropTypes.bool.isRequired,
@@ -20,7 +19,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  profiles: [],
   authorProfiles: [],
 };
 
@@ -40,7 +38,6 @@ class Post extends React.Component {
     const {
       post,
       showDelete,
-      profiles,
       user,
       hasAuthorConfig,
       authorProfiles,
@@ -58,7 +55,6 @@ class Post extends React.Component {
         <CommentListContainer
           hasAuthorConfig={hasAuthorConfig}
           authorProfiles={authorProfiles}
-          profiles={profiles}
           post={post}
           user={user}
         />

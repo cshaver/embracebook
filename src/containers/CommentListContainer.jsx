@@ -16,13 +16,11 @@ const propTypes = {
   auth: authShape,
   post: postShape.isRequired,
   user: PropTypes.string.isRequired,
-  profiles: PropTypes.arrayOf(profileShape),
   hasAuthorConfig: PropTypes.bool.isRequired,
   authorProfiles: PropTypes.arrayOf(profileShape),
 };
 
 const defaultProps = {
-  profiles: [],
   authorProfiles: [],
   auth: null,
 };
@@ -79,7 +77,7 @@ class CommentList extends React.Component {
 
   render() {
     const {
-      profiles, post, post: { comments }, hasAuthorConfig, authorProfiles,
+      post, post: { comments }, hasAuthorConfig, authorProfiles,
     } = this.props;
 
     return (
@@ -96,7 +94,6 @@ class CommentList extends React.Component {
           ))}
         </ul>
         <NewCommentForm
-          profiles={profiles}
           form={`newComment-${post.uid}`}
           hasAuthorConfig={hasAuthorConfig}
           authorProfiles={authorProfiles}

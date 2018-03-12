@@ -10,6 +10,7 @@
     "devServer": "webpack-dev-server --config webpack/config/webpack.config.js",
     "start": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- npm run devServer",
     "start:simple": "cross-env NODE_ENV=development npm run devServer",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -57,6 +58,8 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.35",
     "@babel/plugin-transform-react-jsx": "^7.0.0-beta.35",
+    "@storybook/addon-actions": "^3.3.15",
+    "@storybook/react": "^3.3.15",
     "babel-eslint": "^8.0.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-dynamic-import-webpack": "^1.0.2",
