@@ -6,11 +6,17 @@ import Field from 'embracebook/components/form/Field';
 
 const propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  initialValues: PropTypes.obj,
 };
 
-const AccountForm = ({ onSubmit }) => (
+const defaultProps = {
+  initialValues: {},
+};
+
+const AccountForm = ({ onSubmit, initialValues }) => (
   <Form
     onSubmit={(values, { reset }) => onSubmit(values).then(reset)}
+    initialValues={initialValues}
     render={({ handleSubmit, submitting }) => (
       <form onSubmit={handleSubmit}>
         <h4>Account</h4>
@@ -24,6 +30,7 @@ const AccountForm = ({ onSubmit }) => (
 );
 
 AccountForm.propTypes = propTypes;
+AccountForm.defaultProps = defaultProps;
 
 export default AccountForm;
 
