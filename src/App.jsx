@@ -9,8 +9,6 @@ import './styles/main.scss';
 import store from './configureStore';
 import Routes from './routes';
 
-console.log(store);
-
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>

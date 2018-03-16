@@ -1,5 +1,11 @@
-/*
-  This file acts as a bundler for all variables, mixins, etc.
-*/
-@import './device-sizes';
-@import './colors';
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}

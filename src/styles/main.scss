@@ -1,34 +1,7 @@
-@import 'core';
-@import '~normalize.css/normalize';
-@import '~firebaseui/dist/firebaseui';
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,100,500,900);
+@import "~normalize.css/normalize";
+@import "~firebaseui/dist/firebaseui";
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,600");
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px;
-}
-
-* {
-	box-sizing: border-box;
-}
-
-main {
-  padding: 1em;
-}
-
-fieldset,
-blockquote {
-	width: 100%;
-	padding: 1em;
-  margin-left: 0;
-  margin-right: 0;
-	border: 1px solid #ccc;
-}
-
-button {
-  margin-top: 0.5em;
-}
+@import "./colors";
+@import "./core";
+@import "./base";

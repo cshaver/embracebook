@@ -1,0 +1,40 @@
+body {
+  font-family: "IBM Plex Mono", monospace;
+  line-height: 1.2em;
+  color: $copy;
+  background: $page;
+}
+
+a {
+  color: $link;
+  text-decoration: underline;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+  background: inherit;
+  border-radius: 0;
+  border: 1px solid $dimmed;
+  appearance: none;
+  padding: 0;
+}
+
+button {
+  border: 0;
+  padding: 8px;
+  background: $purple;
+}
+
+// TODO: Remove
+fieldset,
+blockquote {
+  width: 100%;
+  padding: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  border: 1px solid $dimmed;
+}

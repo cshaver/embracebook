@@ -69,11 +69,11 @@ class Navbar extends React.Component {
 Navbar.propTypes = propTypes;
 
 export default compose(
-  withStyles(() => ({
+  withStyles(({ color }) => ({
     container: {
-      background: '#eee',
+      background: color.secondary,
       padding: '1em',
-      borderBottom: '3px solid #ddd',
+      borderBottom: `3px solid ${color.dimmed}`,
     },
   })),
   withFirebase,
