@@ -4,16 +4,16 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import * as config from '../../webpack/config/project.config';
+import * as config from '../webpack/config/project.config';
 
-import createRootReducer from './reducer';
+import createReducer from './reducers';
 
 const initialState = {
   firebase: { authError: null },
 };
 
-export class State {
-  constructor(initialState = State.initialState) {
+export class Store {
+  constructor(initialState = Store.initialState) {
     const enhancers = [
       reactReduxFirebase(firebase, config.reduxFirebase),
     ];
@@ -28,12 +28,12 @@ export class State {
 
     const composeEnhancers = composeWithDevTools({
       actionsBlacklist: [
-        // '@@reactReduxFirebase',
+        '@@reactReduxFirebase',
       ],
     });
 
     this.store = createStore(
-      createRootReducer({}),
+      createReducer({}),
       initialState,
       composeEnhancers(
         ...enhancers,
@@ -44,8 +44,8 @@ export class State {
     this.store.asyncReducers = {};
 
     if (module.hot) {
-      module.hot.accept('./reducer', () => {
-        this.store.replaceReducer(createRootReducer(this.store.asyncReducers));
+      module.hot.accept('./reducers', () => {
+        this.store.replaceReducer(createReducer(this.store.asyncReducers));
       });
     }
   }
@@ -54,10 +54,12 @@ export class State {
     if (Object.hasOwnProperty.apply(this.store.asyncReducers, key)) return;
 
     this.store.asyncReducers[key] = reducer;
-    this.store.replaceReducer(createRootReducer(this.store.asyncReducers));
+    this.store.replaceReducer(createReducer(this.store.asyncReducers));
   }
 }
 
-State.initialState = initialState;
+Store.initialState = initialState;
 
-export default new State();
+const store = new Store();
+
+export default store.store;

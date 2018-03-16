@@ -7,11 +7,13 @@ import Navbar from 'embracebook/components/Navbar';
 import './utils/polyfill';
 import './styles/main.scss';
 
-import state from './state';
+import store from './configureStore';
 import Routes from './routes';
 
+console.log(store);
+
 const App = () => (
-  <Provider store={state.store}>
+  <Provider store={store}>
     <BrowserRouter>
       <React.Fragment>
         <Navbar />
