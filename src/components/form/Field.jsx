@@ -7,6 +7,7 @@ import Error from './Error';
 const propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
+  id: PropTypes.string,
   component: PropTypes.string.isRequired,
 };
 
@@ -14,9 +15,9 @@ const defaultProps = {
   label: null,
 };
 
-const Field = ({ name, label, component, ...props }) => (
-  <label>
-    {label && label}
+const Field = ({ id, name, label, component, ...props }) => (
+  <label htmlFor={id}>
+    {label}
     <FormField
       name={name}
       component={component}

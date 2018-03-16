@@ -15,9 +15,33 @@ module.exports = (baseConfig, env) => {
       rules: [
         ...config.module.rules,
         {
-          test: /\.scss$/,
-          loaders: ['style-loader', 'css-loader', 'sass-loader'],
-          include: path.resolve(__dirname, '../'),
+          test: /\.s?css$/,
+          use: ['style-loader', 'raw-loader', 'sass-loader'],
+          include: [
+            path.resolve(__dirname, '../src/styles/'),
+          ],
+        },
+        {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: 'babel-loader',
+              query: {
+                presets: ['airbnb'],
+              },
+            },
+          ],
+        },
+        {
+          test: /\.jsx$/,
+          use: [
+            {
+              loader: 'babel-loader',
+              query: {
+                presets: ['airbnb'],
+              },
+            },
+          ],
         },
       ],
     },

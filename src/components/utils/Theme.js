@@ -42,5 +42,6 @@ export default {
     link: color.cyan,
     error: color.red,
   },
+  unit: 8,
   breakpoint,
 };

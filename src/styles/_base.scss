@@ -3,11 +3,17 @@ body {
   line-height: 1.2em;
   color: $copy;
   background: $page;
+  caret-color: $green;
 }
 
 a {
   color: $link;
   text-decoration: underline;
+
+  &:hover {
+    background: $link;
+    color: $page;
+  }
 }
 
 input,
@@ -26,7 +32,22 @@ textarea {
 button {
   border: 0;
   padding: 8px;
-  background: $purple;
+  color: $purple;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: $page;
+    background: $purple;
+  }
+
+  &:before {
+    content: '[';
+  }
+
+  &:after {
+    content: ']';
+  }
 }
 
 // TODO: Remove

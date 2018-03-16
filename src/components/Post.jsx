@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 
 import CommentListContainer from 'embracebook/containers/CommentListContainer';
-import DeleteButton from 'embracebook/components/form/DeleteButton';
+import Button from 'embracebook/components/form/Button';
 import ProfileLink from 'embracebook/components/ProfileLink';
 
 import postShape from 'embracebook/shapes/post';
@@ -14,12 +15,13 @@ const propTypes = {
   user: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   showDelete: PropTypes.bool.isRequired,
-  hasAuthorConfig: PropTypes.bool.isRequired,
+  hasAuthorConfig: PropTypes.bool,
   authorProfiles: PropTypes.arrayOf(profileShape),
 };
 
 const defaultProps = {
   authorProfiles: [],
+  hasAuthorConfig: false,
 };
 
 class Post extends React.Component {
@@ -36,6 +38,7 @@ class Post extends React.Component {
 
   render() {
     const {
+      styles,
       post,
       showDelete,
       user,
@@ -43,14 +46,19 @@ class Post extends React.Component {
       authorProfiles,
     } = this.props;
 
+    const { author, timestamp, content } = post;
+
+    console.log(post);
     return (
-      <blockquote>
+      <blockquote {...css(styles.container)}>
         <div>
-          <ProfileLink profile={post.author} />
-          &nbsp;
-          <i>{post.timestamp ? moment(post.timestamp).fromNow() : ''}</i>
-          <p>{post.content}</p>
-          <DeleteButton showDelete={showDelete} onDelete={this.onDelete} />
+          <ProfileLink profile={author} />
+          {' '}
+          {timestamp && <i {...css(styles.timestamp)}>{moment(timestamp).fromNow()}</i>}
+          {' '}
+          <p {...css(styles.content)}>{content}</p>
+          {' '}
+          {showDelete && <Button copy="Delete" onPress={this.onDelete} />}
         </div>
         <CommentListContainer
           hasAuthorConfig={hasAuthorConfig}
@@ -66,4 +74,14 @@ class Post extends React.Component {
 Post.propTypes = propTypes;
 Post.defaultProps = defaultProps;
 
-export default Post;
+export default withStyles(({ color }) => ({
+  container: {
+    border: `2px solid ${color.green}`,
+  },
+  timestamp: {
+    color: color.dimmed,
+  },
+  content: {
+    display: 'inline',
+  },
+}))(Post);

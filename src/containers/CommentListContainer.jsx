@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withFirebase } from 'react-redux-firebase';
 import { compose } from 'recompose';
+import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 
 import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
 import postShape from 'embracebook/shapes/post';
@@ -77,12 +78,12 @@ class CommentList extends React.Component {
 
   render() {
     const {
-      post, post: { comments }, hasAuthorConfig, authorProfiles,
+      post, post: { comments }, hasAuthorConfig, authorProfiles, styles,
     } = this.props;
 
     return (
       <div>
-        <ul>
+        <ul {...css(styles.list)}>
           {comments.map(comment => (
             <li key={comment.uid}>
               <Comment
@@ -108,6 +109,21 @@ CommentList.propTypes = propTypes;
 CommentList.defaultProps = defaultProps;
 
 export default compose(
+  withStyles(({ color }) => ({
+    list: {
+      margin: 0,
+      listStyle: 'none',
+    },
+
+    listItem: {
+      padding: 0,
+
+      ':before': {
+        content: '>',
+        display: 'inline',
+      },
+    },
+  })),
   withFirebase,
   withAuth,
 )(CommentList);

@@ -13,7 +13,7 @@ const defaultProps = {
   children: null,
 };
 
-const ProfileLink = ({ profile, children }) => (
+const ProfileLink = ({ profile, children, styles }) => (
   <Link to={`/profile/${profile.uid}/${profile.slug || ''}`}>
     {children || profile.displayName || profile.uid}
   </Link>

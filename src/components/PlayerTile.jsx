@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DeleteButton from 'embracebook/components/form/DeleteButton';
+import Button from 'embracebook/components/form/Button';
 import ProfileLink from 'embracebook/components/ProfileLink';
 
 import profileShape from 'embracebook/shapes/profile';
@@ -32,7 +32,7 @@ class PlayerTile extends React.Component {
         </ProfileLink>
         <div>
           <ProfileLink profile={profile} />
-          <DeleteButton showDelete={showDelete} onDelete={this.onDelete} />
+          {showDelete && <Button copy="Delete" onPress={this.onDelete} />}
           <br />
           <i>{profile.createdBy ? `Created by ${profile.createdBy.displayName}` : ''}</i>
         </div>
