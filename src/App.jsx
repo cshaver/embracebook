@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Navbar from 'embracebook/components/Navbar';
 
-import './utils/polyfill';
 import './styles/main.scss';
 
 import store from './configureStore';
