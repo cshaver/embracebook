@@ -4,7 +4,7 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import * as config from '../webpack/config/project.config';
+import * as config from '../webpack/project.config';
 
 import createReducer from './reducers';
 

@@ -24,7 +24,6 @@ const config = {
     historyApiFallback: true,
     host: '0.0.0.0',
     port: 8080,
-    // noInfo: true,
     overlay: true,
   },
 
@@ -32,6 +31,7 @@ const config = {
     main: [
       'babel-polyfill',
       'webpack-dev-server/client',
+      'webpack/hot/only-dev-server',
       inProjectSrc(project.main),
     ],
   },

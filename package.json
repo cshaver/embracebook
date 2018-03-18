@@ -7,7 +7,7 @@
     "clean": "rimraf public",
     "compile": "node webpack/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "devServer": "webpack-dev-server --config webpack/config/webpack.config.js --hot",
+    "devServer": "webpack-dev-server --config webpack/webpack.config.js --hot",
     "start": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- npm run devServer",
     "start:simple": "cross-env NODE_ENV=development npm run devServer",
     "storybook": "start-storybook -p 9001 -c .storybook",

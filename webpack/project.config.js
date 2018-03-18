@@ -1,5 +1,5 @@
 const path = require('path');
-const { version } = require('../../package.json');
+const { version } = require('../package.json');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -10,7 +10,7 @@ module.exports = {
   env: NODE_ENV,
 
   // The full path to the project's root directory
-  basePath: path.join(__dirname, '../..'),
+  basePath: path.join(__dirname, '..'),
 
   // The name of the directory containing the application source code
   srcDir: 'src',
@@ -29,18 +29,6 @@ module.exports = {
 
   // Whether to generate sourcemaps
   sourcemaps: NODE_ENV === 'development',
-
-  // The list of modules to bundle separately from the core application code
-  // vendors: [
-  //   'firebaseui',
-  //   'react',
-  //   'react-dom',
-  //   'react-redux',
-  //   'react-redux-firebase',
-  //   'react-router-dom',
-  //   'redux',
-  //   'redux-thunk',
-  // ],
 
   /**
    * Settings used to create src/config.js using firebase-ci
