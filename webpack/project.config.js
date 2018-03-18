@@ -29,21 +29,4 @@ module.exports = {
 
   // Whether to generate sourcemaps
   sourcemaps: NODE_ENV === 'development',
-
-  /**
-   * Settings used to create src/config.js using firebase-ci
-   * in ci environment. If you are running locally, go to src/config.js.
-   */
-  firebase: {
-    apiKey: 'AIzaSyAI0oXPjn2jHFezom3LjA39mSpAcKEgmus',
-    authDomain: 'embracebook-e403d.firebaseapp.com',
-    databaseURL: 'https://embracebook-e403d.firebaseio.com',
-    storageBucket: 'embracebook-e403d.appspot.com',
-  },
-
-  reduxFirebase: {
-    userProfile: 'users',
-    enableLogging: false,
-    updateProfileOnLogin: true,
-  },
 };

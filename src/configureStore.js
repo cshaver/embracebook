@@ -4,7 +4,7 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import * as config from '../webpack/project.config';
+import { FIREBASE, REDUX_FIREBASE } from './config';
 
 import createReducer from './reducers';
 
@@ -15,7 +15,7 @@ const initialState = {
 export class Store {
   constructor(initialState = Store.initialState) {
     const enhancers = [
-      reactReduxFirebase(firebase, config.reduxFirebase),
+      reactReduxFirebase(firebase, REDUX_FIREBASE),
     ];
 
     const middleware = [
@@ -23,7 +23,7 @@ export class Store {
     ];
 
     if (!firebase.apps.length) {
-      firebase.initializeApp(config.firebase);
+      firebase.initializeApp(FIREBASE);
     }
 
     const composeEnhancers = composeWithDevTools({
