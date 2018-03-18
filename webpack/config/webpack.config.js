@@ -21,7 +21,6 @@ const config = {
 
   devServer: {
     contentBase: inProject(project.staticDir),
-    hot: DEV,
     historyApiFallback: true,
     host: '0.0.0.0',
     port: 8080,
@@ -32,9 +31,7 @@ const config = {
   entry: {
     main: [
       'babel-polyfill',
-      'react-hot-loader/patch',
       'webpack-dev-server/client',
-      'webpack/hot/only-dev-server',
       inProjectSrc(project.main),
     ],
   },
@@ -93,59 +90,57 @@ const extractStyles = new ExtractTextPlugin({
 
 config.module.rules.push({
   test: /\.(css|sass|scss)$/,
-  loader: extractStyles.extract({
+  // HMR for styles
+  use: ['css-hot-loader'].concat(extractStyles.extract({
     fallback: 'style-loader',
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          modules: true,
-          importLoaders: 2,
-          localIdentName: '[path][name]__[local]___[hash:base64:5]',
-          getLocalIdent: (context, localIdentName, localName) => {
-            const hash = loaderUtils.interpolateName(context, '[hash:base64:5]', {
-              content: context.resourcePath,
-            });
-            const parsed = path.parse(context.resourcePath);
-            let { name } = parsed;
+    use: [{
+      loader: 'css-loader',
+      options: {
+        sourceMap: project.sourcemaps,
+        modules: true,
+        importLoaders: 2,
+        localIdentName: '[path][name]__[local]___[hash:base64:5]',
+        getLocalIdent: (context, localIdentName, localName) => {
+          const hash = loaderUtils.interpolateName(context, '[hash:base64:5]', {
+            content: context.resourcePath,
+          });
+          const parsed = path.parse(context.resourcePath);
+          let { name } = parsed;
 
-            if (path.basename(parsed.dir) === 'styles') {
-              return localName;
-            }
+          if (path.basename(parsed.dir) === 'styles') {
+            return localName;
+          }
 
-            if (name === 'index') {
-              name = path.basename(parsed.dir);
-            }
+          if (name === 'index') {
+            name = path.basename(parsed.dir);
+          }
 
-            return `${name}-${localName}--${hash}`;
+          return `${name}-${localName}--${hash}`;
+        },
+        minimize: {
+          autoprefixer: {
+            add: true,
+            remove: true,
+            browsers: ['last 2 versions'],
           },
-          minimize: {
-            autoprefixer: {
-              add: true,
-              remove: true,
-              browsers: ['last 2 versions'],
-            },
-            discardComments: {
-              removeAll: true,
-            },
-            discardUnused: false,
-            mergeIdents: false,
-            reduceIdents: false,
-            safe: true,
-            sourcemap: project.sourcemaps,
+          discardComments: {
+            removeAll: true,
           },
+          discardUnused: false,
+          mergeIdents: false,
+          reduceIdents: false,
+          safe: true,
+          sourcemap: project.sourcemaps,
         },
       },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          includePaths: [inProjectSrc('styles')],
-        },
+    }, {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: project.sourcemaps,
+        includePaths: [inProjectSrc('styles')],
       },
-    ],
-  }),
+    }],
+  })),
 });
 config.plugins.push(extractStyles);
 
@@ -197,9 +192,6 @@ config.plugins.push(new HtmlWebpackPlugin({
 // ------------------------------------
 if (DEV) {
   config.plugins.push(
-    // enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
-
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 

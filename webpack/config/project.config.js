@@ -16,7 +16,7 @@ module.exports = {
   srcDir: 'src',
 
   // The file name of the application's entry point
-  main: 'main',
+  main: 'index',
 
   // The name of the directory in which to emit compiled assets
   outDir: 'public',

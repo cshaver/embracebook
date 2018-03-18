@@ -11,6 +11,7 @@ import postShape from 'embracebook/shapes/post';
 import profileShape from 'embracebook/shapes/profile';
 
 const propTypes = {
+  ...withStylesPropTypes,
   post: postShape.isRequired,
   user: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,

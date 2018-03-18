@@ -1,12 +1,10 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import Navbar from 'embracebook/components/Navbar';
-
-import './styles/main.scss';
-
 import store from './configureStore';
+import Navbar from './components/Navbar';
 import Routes from './routes';
 
 const App = () => (
@@ -20,5 +18,4 @@ const App = () => (
   </Provider>
 );
 
-export default App;
-
+export default hot(module)(App);
