@@ -38,7 +38,7 @@ class Comment extends React.Component {
         {' '}
         {content}
         {' '}
-        {showDelete && <Button copy="Delete" onDelete={this.onDelete} />}
+        {showDelete && <Button copy="Delete" onPress={this.onDelete} />}
       </React.Fragment>
     );
   }
