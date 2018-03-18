@@ -49,7 +49,6 @@ class Post extends React.Component {
 
     const { author, timestamp, content } = post;
 
-    console.log(post);
     return (
       <blockquote {...css(styles.container)}>
         <div>

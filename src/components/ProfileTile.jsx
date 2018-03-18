@@ -27,7 +27,7 @@ const ProfileTile = ({
     </ProfileLink>
     <div>
       <ProfileLink profile={profile} />
-      {showDelete && <Button copy="Delete" onPress={this.onDelete} />}
+      {showDelete && <Button copy="Delete" onPress={onDelete} />}
       <br />
       <i>{profile.createdBy ? `Created by ${profile.createdBy.displayName}` : ''}</i>
     </div>
