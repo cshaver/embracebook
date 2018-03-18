@@ -22,7 +22,7 @@ module.exports = (options = {}) => ({
 
   output: {
     path: inProject(project.outDir),
-    filename: '[name].[chunkhash].js',
+    filename: '[name].[hash].js',
     publicPath: inProject(project.publicPath),
     ...options.output,
   },
@@ -48,8 +48,7 @@ module.exports = (options = {}) => ({
       // css
       {
         test: /\.(css|sass|scss)$/,
-        // HMR for styles
-        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [{
             loader: 'css-loader',
@@ -79,7 +78,7 @@ module.exports = (options = {}) => ({
               includePaths: [inProjectSrc('styles')],
             },
           }],
-        })),
+        }),
       },
 
       // images

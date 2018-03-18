@@ -7,7 +7,7 @@ const webpack = require('webpack');
 
 const logger = require('./logger');
 
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.prod.config');
 const project = require('./project.config');
 
 const runWebpackCompiler = config => (
