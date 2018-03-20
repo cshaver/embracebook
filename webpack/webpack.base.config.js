@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -22,7 +23,8 @@ module.exports = (options = {}) => ({
 
   output: {
     path: inProject(project.outDir),
-    filename: '[name].[hash].js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].chunk.js',
     publicPath: inProject(project.publicPath),
     ...options.output,
   },
@@ -105,6 +107,9 @@ module.exports = (options = {}) => ({
   },
 
   plugins: [
+    // ignore moment locales
+    // https://github.com/moment/moment/issues/2373
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // css
     new ExtractTextPlugin({
       filename: 'styles/[name].[contenthash].css',

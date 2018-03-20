@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = require('./webpack.base.config.js')({
   mode: 'development',
@@ -9,12 +9,14 @@ module.exports = require('./webpack.base.config.js')({
 
   entry: [],
 
-  output: {
-    filename: '[name].js',
-  },
+  output: {},
 
   plugins: [
     // webpack-dashboard
     new DashboardPlugin(),
+    // bundle analyser at http://localhost:8888/
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+    }),
   ],
 });
