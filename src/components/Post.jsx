@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 
+import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
 import CommentListContainer from 'embracebook/containers/CommentListContainer';
 import Button from 'embracebook/components/form/Button';
 import ProfileLink from 'embracebook/components/ProfileLink';
@@ -39,6 +39,7 @@ class Post extends React.Component {
 
   render() {
     const {
+      css,
       styles,
       post,
       showDelete,
@@ -50,7 +51,7 @@ class Post extends React.Component {
     const { author, timestamp, content } = post;
 
     return (
-      <blockquote {...css(styles.container)}>
+      <div {...css(styles.container)}>
         <div>
           <ProfileLink profile={author} />
           {' '}
@@ -66,7 +67,7 @@ class Post extends React.Component {
           post={post}
           user={user}
         />
-      </blockquote>
+      </div>
     );
   }
 }
@@ -74,13 +75,17 @@ class Post extends React.Component {
 Post.propTypes = propTypes;
 Post.defaultProps = defaultProps;
 
-export default withStyles(({ color }) => ({
+export default withStyles(({ color, unit }) => ({
   container: {
-    border: `2px solid ${color.green}`,
+    border: `${unit}px ridge ${color.green}`,
+    margin: `${2 * unit}px 0`,
+    padding: 2 * unit,
   },
+
   timestamp: {
     color: color.dimmed,
   },
+
   content: {
     display: 'inline',
   },

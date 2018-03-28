@@ -4,6 +4,7 @@ import { Form } from 'react-final-form';
 
 import Field from 'embracebook/components/form/Field';
 import Dialog from 'embracebook/components/Dialog';
+import Button from 'embracebook/components/form/Button';
 import { required } from 'embracebook/utils/form';
 
 const propTypes = {
@@ -34,8 +35,8 @@ const NewProfileDialog = ({ open, onRequestClose, onSubmit, avatarUrl }) => (
             avatarUrl &&
             (<div><img src={avatarUrl} style={{ maxWidth: '180px', margin: '1em auto', display: 'block' }} alt="" /></div>)
           }
-          <button type="button" onClick={onRequestClose}>Cancel</button>
-          <button type="submit" disabled={submitting}>Create</button>
+          <Button type="button" onClick={onRequestClose} copy="Cancel" />
+          <Button type="submit" disabled={submitting} copy="Create" />
         </form>
       )}
     />

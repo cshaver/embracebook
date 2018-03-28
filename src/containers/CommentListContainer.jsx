@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withFirebase } from 'react-redux-firebase';
 import { compose } from 'recompose';
-import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 
+import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
 import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
 import postShape from 'embracebook/shapes/post';
 import profileShape from 'embracebook/shapes/profile';
@@ -13,6 +13,7 @@ import NewCommentForm from 'embracebook/components/NewCommentForm';
 import Comment from 'embracebook/components/Comment';
 
 const propTypes = {
+  ...withStylesPropTypes,
   firebase: firebaseShape.isRequired,
   auth: authShape,
   post: postShape.isRequired,
@@ -78,7 +79,7 @@ class CommentList extends React.Component {
 
   render() {
     const {
-      post, post: { comments }, hasAuthorConfig, authorProfiles, styles,
+      css, post, post: { comments }, hasAuthorConfig, authorProfiles, styles,
     } = this.props;
 
     return (

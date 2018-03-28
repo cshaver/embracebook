@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import ProfileLink from 'embracebook/components/ProfileLink';
 import Button from 'embracebook/components/form/Button';
-import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
+import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
 
 const propTypes = {
   ...withStylesPropTypes,
@@ -27,7 +27,7 @@ class Comment extends React.Component {
   }
 
   render() {
-    const { comment, showDelete, styles } = this.props;
+    const { comment, css, showDelete, styles } = this.props;
     const { author, content, timestamp } = comment;
 
     return (

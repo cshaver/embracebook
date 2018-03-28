@@ -4,6 +4,7 @@ import { Form } from 'react-final-form';
 
 import AuthorConfig from 'embracebook/components/AuthorConfig';
 import Field from 'embracebook/components/form/Field';
+import Button from 'embracebook/components/form/Button';
 import { required } from 'embracebook/utils/form';
 import profileShape from 'embracebook/shapes/profile';
 
@@ -24,8 +25,8 @@ const NewCommentForm = ({ onSubmit, hasAuthorConfig, authorProfiles }) => (
     render={({ handleSubmit, submitting }) => (
       <form onSubmit={handleSubmit}>
         {hasAuthorConfig && <AuthorConfig profiles={authorProfiles} />}
-        <Field label="Content" name="content" component="input" type="text" validate={required} />
-        <button type="submit" disabled={submitting}>Comment</button>
+        <Field name="content" component="input" type="text" placeholder="..." validate={required} />
+        <Button type="submit" disabled={submitting} copy="Comment" />
       </form>
     )}
   />
@@ -35,4 +36,3 @@ NewCommentForm.propTypes = propTypes;
 NewCommentForm.defaultProps = defaultProps;
 
 export default NewCommentForm;
-

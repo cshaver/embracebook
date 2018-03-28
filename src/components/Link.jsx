@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 import { ReactRouterLink } from 'react-router-dom';
 
+import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
 import children from 'embracebook/shapes/children';
 
 const propTypes = {
@@ -10,7 +10,7 @@ const propTypes = {
   children: children.isRequired,
 };
 
-const Link = ({ children, styles, ...props }) => (
+const Link = ({ children, css, styles, ...props }) => (
   <span {...css(styles.link)}>
     <ReactRouterLink {...props}>
       {children}

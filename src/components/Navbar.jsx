@@ -8,13 +8,15 @@ import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from 'embrac
 import ShowIfStoryteller from 'embracebook/components/ShowIfStoryteller';
 import ShowIfAuthenticated from 'embracebook/components/ShowIfAuthenticated';
 import { withFirebase, withProfile } from 'embracebook/utils/components';
-import { css, withStyles } from 'embracebook/components/utils/withStyles';
+import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
+import Button from 'embracebook/components/form/Button';
 
 import firebaseShape from 'embracebook/shapes/firebase';
 import historyShape from 'embracebook/shapes/history';
 import profileShape from 'embracebook/shapes/profile';
 
 const propTypes = {
+  ...withStylesPropTypes,
   profile: profileShape.isRequired,
   history: historyShape.isRequired,
   firebase: firebaseShape.isRequired,
@@ -33,7 +35,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { profile, styles } = this.props;
+    const { css, profile, styles } = this.props;
 
     const spacer = (<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>);
 
@@ -42,7 +44,7 @@ class Navbar extends React.Component {
         <img width={40} src={profile.avatarUrl || 'https://api.adorable.io/avatars/default.png'} alt="" />
         <span>{profile.displayName}</span>
         <Link to={ACCOUNT_PATH}>Account</Link>
-        <button onClick={this.logout}>Sign out</button>
+        <Button onClick={this.logout} copy="Sign out" />
       </ShowIfAuthenticated>
     );
 

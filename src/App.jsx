@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import store from './configureStore';
 import Navbar from './components/Navbar';
+import Page from './components/Page';
 import Routes from './routes';
 
 const App = () => (
@@ -12,7 +13,9 @@ const App = () => (
     <BrowserRouter>
       <React.Fragment>
         <Navbar />
-        <Routes />
+        <Page>
+          <Routes />
+        </Page>
       </React.Fragment>
     </BrowserRouter>
   </Provider>

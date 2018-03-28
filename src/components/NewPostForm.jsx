@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 
 import AuthorConfig from 'embracebook/components/AuthorConfig';
+import Button from 'embracebook/components/form/Button';
 import { required } from 'embracebook/utils/form';
 import profileShape from 'embracebook/shapes/profile';
 
@@ -23,8 +24,8 @@ const NewPostForm = ({ onSubmit, hasAuthorConfig, authorProfiles }) => (
     render={({ handleSubmit, reset, submitting }) => (
       <form onSubmit={event => handleSubmit(event).then(reset)}>
         {hasAuthorConfig && <AuthorConfig profiles={authorProfiles} />}
-        <Field name="content" component="textarea" placeholder="Say something..." validate={required} />
-        <button type="submit" disabled={submitting}>Post</button>
+        <Field name="content" component="textarea" placeholder="..." validate={required} />
+        <Button type="submit" disabled={submitting} copy="Post" />
       </form>
     )}
   />

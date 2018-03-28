@@ -5,6 +5,7 @@ import { reduce } from 'lodash';
 
 import ShowIfAdmin from 'embracebook/components/ShowIfAdmin';
 import Field from 'embracebook/components/form/Field';
+import Button from 'embracebook/components/form/Button';
 import { validateEmail } from 'embracebook/utils/form';
 
 function validateInvitation(values) {
@@ -40,7 +41,7 @@ const InviteForm = ({ onInvite }) => (
         <Field component="input" type="checkbox" label="Storyteller?" name="roles.storyteller" />
         <Field component="input" type="checkbox" label="Player?" name="roles.player" />
 
-        <button type="submit" disabled={submitting}>Invite</button>
+        <Button type="submit" disabled={submitting} copy="Invite" />
       </form>
     )}
   />

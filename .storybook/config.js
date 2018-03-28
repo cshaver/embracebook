@@ -2,7 +2,6 @@ import { configure } from '@storybook/react';
 
 import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet';
 import aphroditeInterface from 'react-with-styles-interface-aphrodite';
-import { css, withStyles } from 'react-with-styles';
 
 import '../src/styles/main.scss';
 import Theme from '../src/components/utils/Theme';

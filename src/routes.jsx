@@ -7,42 +7,66 @@ import ProgressIndicator from './components/ProgressIndicator';
 // import Invite from './containers/Invite';
 
 const LoadablePostListContainer = Loadable({
-  loader: () => import(/* webpackChunkName: "PostListContainer" */ './containers/PostListContainer'),
+  loader: () => import(
+    /* webpackChunkName: "PostListContainer" */
+    './containers/PostListContainer',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadableLogin = Loadable({
-  loader: () => import(/* webpackChunkName: "Login" */ './containers/Login'),
+  loader: () => import(
+    /* webpackChunkName: "Login" */
+    './containers/Login',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadableProfile = Loadable({
-  loader: () => import(/* webpackChunkName: "Profile" */ './components/Profile'),
+  loader: () => import(
+    /* webpackChunkName: "Profile" */
+    './components/Profile',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadableNPCList = Loadable({
-  loader: () => import(/* webpackChunkName: "NPCList" */ './containers/NPCList'),
+  loader: () => import(
+    /* webpackChunkName: "NPCList" */
+    './containers/NPCList',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadablePlayerList = Loadable({
-  loader: () => import(/* webpackChunkName: "PlayerList" */ './containers/PlayerList'),
+  loader: () => import(
+    /* webpackChunkName: "PlayerList" */
+    './containers/PlayerList',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadableAccount = Loadable({
-  loader: () => import(/* webpackChunkName: "Account" */ './containers/Account'),
+  loader: () => import(
+    /* webpackChunkName: "Account" */
+    './containers/Account',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadableNoAccess = Loadable({
-  loader: () => import(/* webpackChunkName: "NoAccess" */ './components/NoAccess'),
+  loader: () => import(
+    /* webpackChunkName: "NoAccess" */
+    './components/NoAccess',
+  ),
   loading: ProgressIndicator,
 });
 
 const LoadableNotFound = Loadable({
-  loader: () => import(/* webpackChunkName: "NotFound" */ './components/NotFound'),
+  loader: () => import(
+    /* webpackChunkName: "NotFound" */
+    './components/NotFound',
+  ),
   loading: ProgressIndicator,
 });
 
