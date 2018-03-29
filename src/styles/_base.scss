@@ -1,15 +1,30 @@
-/*
-Application Settings Go Here
-------------------------------------
-This file acts as a bundler for all variables/mixins/themes, so they
-can easily be swapped out without `core.scss` ever having to know.
+body {
+  font-family: "IBM Plex Mono", monospace;
+  line-height: 1.2em;
+  color: $copy;
+  background: $page;
+  caret-color: $green;
+}
 
-For example:
+a {
+  color: $link;
+  text-decoration: underline;
 
-@import './variables/colors';
-@import './variables/components';
-@import './themes/default';
-*/
-@import './device-sizes';
-@import './colors';
-@import './standard-classes';
+  &:hover {
+    background: $link;
+    color: $page;
+  }
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+  background: inherit;
+  border-radius: 0;
+  border: 1px solid $dimmed;
+  appearance: none;
+  padding: 0;
+}

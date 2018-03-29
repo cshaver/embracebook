@@ -1,3 +1,12 @@
 {
-  "presets": ["airbnb"]
+  "presets": [
+    "airbnb"
+  ],
+  "plugins": [
+    "lodash",
+    "syntax-dynamic-import",
+    "react-hot-loader/babel",
+    "transform-react-jsx"
+  ],
+  "comments": true
 }

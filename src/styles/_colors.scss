@@ -1,20 +1,25 @@
-$blue: blue;
-$gray: #E6E6E6;
-$lightGray: #D8D8D8;
-$mediumGray: #979797;
-$darkGray: #616161;
-$blackGray: #272822;
-$primary: rgb(33,150,243);
-$secondary: rgb(200,230,201);
-$materialBlue: #00bcd4;
-$background: #F2F2F2;
-$white: #ffffff;
-$navbar: $materialBlue;
-$navbarText: $white;
-$subNavbar: $materialBlue;
-$editorBackground: $blackGray;
-$success: #c8e6c9;
-$error: #ffa3a3;
-$accentColor: #03A9F4;
-$Tab: #333333;
-$linkBlue: #427fed;
+// colors from dracula:
+// https://github.com/dracula/dracula-theme
+$foreground: #f8f8f2;
+$background: #282a36;
+$primary: #44475a;
+$highlight: #6272a4;
+$cyan: #8be9fd;
+$green: #50fa7b;
+$orange: #ffb86c;
+$pink: #ff79c6;
+$purple: #bd93f9;
+$red: #ff5555;
+$yellow: #f1fa8c;
+
+// green theme?
+// $page: #0a1416;
+// $primary: #32932e;
+// $dimmed: #32932e;
+// $secondary: #152f34;
+
+// color aliases
+$page: $background;
+$dimmed: $highlight;
+$copy: $foreground;
+$link: $cyan;
