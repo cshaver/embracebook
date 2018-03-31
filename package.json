@@ -7,14 +7,16 @@
     "clean": "rimraf public",
     "build": "cross-env NODE_ENV=production webpack-cli --config webpack/webpack.prod.config.js --color -p --progress --hide-modules --display-optimization-bailout",
     "devServer": "webpack-serve webpack/webpack.dev.config.js --no-clipboard",
-    "start": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- npm run devServer",
+    "start": "npm run start:simple",
+    "start:dashboard": "cross-env NODE_ENV=development webpack-dashboard -t embracebook -- npm run devServer",
     "start:simple": "cross-env NODE_ENV=development npm run devServer",
     "start:prod": "cross-env NODE_ENV=production webpack-serve webpack/webpack.prod.config.js --no-clipboard",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix",
     "analyze": "webpack-serve --config webpack/webpack.analyze.config.js --no-clipboard",
-    "stats": "webpack-cli --config webpack/webpack.prod.config.js --profile --json > stats.json"
+    "stats": "webpack-cli --config webpack/webpack.prod.config.js --profile --json > stats.json",
+    "prisma": "prisma"
   },
   "repository": {
     "type": "git",
@@ -86,6 +88,7 @@
     "husky": "^0.14.3",
     "node-sass": "^4.8.2",
     "prettier": "^1.11.1",
+    "prisma": "^1.5.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.7",
