@@ -112,7 +112,7 @@ module.exports = (options = {}) => ({
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // css
     new ExtractTextPlugin({
-      filename: 'styles/[name].[contenthash].css',
+      filename: 'styles/[name].[chunkhash].css',
       allChunks: true,
       disable: DEV,
     }),

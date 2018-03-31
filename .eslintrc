@@ -20,15 +20,15 @@
     "jsx-a11y/anchor-is-valid": [
       "error", {
         "components": [ "Link" ],
-        "specialLink": [ "to" ],
-      },
+        "specialLink": [ "to" ]
+      }
     ],
   },
   "settings": {
     "import/resolver": {
-      "webpack": {
-        "config": "./webpack/webpack.dev.config.js",
-      },
+      // "webpack": {
+      //   "config": "./webpack/webpack.base.config.js",
+      // },
     },
   },
 }

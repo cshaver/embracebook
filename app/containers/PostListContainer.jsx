@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import Post from 'embracebook/components/Post';
 import NewPostForm from 'embracebook/components/NewPostForm';
 import { UserIsAuthenticated } from 'embracebook/utils/auth';
@@ -11,7 +14,7 @@ import postShape from 'embracebook/shapes/post';
 import profileShape, { roles as rolesShape } from 'embracebook/shapes/profile';
 import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
 
-import withPosts from 'embracebook/components/withPosts';
+// import withPosts from 'embracebook/components/withPosts';
 
 const propTypes = {
   firebase: firebaseShape.isRequired,
@@ -31,6 +34,15 @@ const defaultProps = {
 const contextTypes = {
   router: PropTypes.object.isRequired,
 };
+
+const ALL_POSTS_QUERY = gql`
+  query AllPostsQuery {
+    allPosts(orderBy: createdAt_DESC) {
+      id
+      content
+    }
+  }
+`;
 
 class PostListContainer extends React.Component {
   constructor() {
@@ -117,9 +129,16 @@ PostListContainer.propTypes = propTypes;
 PostListContainer.defaultProps = defaultProps;
 PostListContainer.contextTypes = contextTypes;
 
+
 export default compose(
-  UserIsAuthenticated,
-  withFirebase,
-  withRoles,
-  withPosts,
+  // UserIsAuthenticated,
+  // withFirebase,
+  // withRoles,
+  // withPosts,
+  graphql(ALL_POSTS_QUERY, {
+    name: 'allPostsQuery',
+    options: {
+      fetchPolicy: 'network-only',
+    },
+  })
 )(PostListContainer);
