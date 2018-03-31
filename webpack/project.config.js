@@ -13,7 +13,7 @@ module.exports = {
   basePath: path.join(__dirname, '..'),
 
   // The name of the directory containing the application source code
-  srcDir: 'src',
+  srcDir: 'app',
 
   // The file name of the application's entry point
   main: 'index',
@@ -22,7 +22,7 @@ module.exports = {
   outDir: 'public',
 
   // directory containing static assets
-  staticDir: 'src/public',
+  staticDir: 'app/public',
 
   // The base path for all projects assets (relative to the website root)
   publicPath: '/',
