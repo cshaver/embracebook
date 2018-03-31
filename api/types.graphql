@@ -1,0 +1,69 @@
+type File @model {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type User @model {
+  id: ID! @isUnique
+  email: String! @isUnique
+  profiles: [Profile!]! @relation(name: "UserProfiles")
+  storytellers: [Storyteller!]! @relation(name: "UserStorytellers")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Post @model {
+  id: ID! @isUnique
+  content: String!
+  author: Profile! @relation(name: "PostsByProfile")
+  city: City! @relation(name: "CityPosts")
+  comments: [Comment!]! @relation(name: "PostComments")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Comment @model {
+  id: ID! @isUnique
+  content: String!
+  parent: Post! @relation(name: "PostComments")
+  author: Profile! @relation(name: "CommentsByProfile")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type City @model {
+  id: ID! @isUnique
+  name: String!
+  profiles: [Profile!]! @relation(name: "CityProfiles")
+  posts: [Post!]! @relation(name: "CityPosts")
+  storytellers: [Storyteller!]! @relation(name: "CityStorytellers")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Profile @model {
+  id: ID! @isUnique
+  name: String!
+  posts: [Post!]! @relation(name: "PostsByProfile")
+  comments: [Comment!]! @relation(name: "CommentsByProfile")
+  city: City! @relation(name: "CityProfiles")
+  user: User @relation(name: "UserProfiles")
+  isNPC: Boolean! @defaultValue(value: false)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Storyteller @model {
+  id: ID! @isUnique
+  name: String!
+  city: City! @relation(name: "CityStorytellers")
+  user: User @relation(name: "UserStorytellers")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

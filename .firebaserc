@@ -1,9 +1,0 @@
-{
-  "projects": {
-    "dev": "embracebook-e403d",
-    "stage": "embracebook-e403d",
-    "master": "embracebook-e403d",
-    "prod": "embracebook-e403d",
-    "default": "embracebook-e403d"
-  }
-}
