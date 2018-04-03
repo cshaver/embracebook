@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { firebaseConnect } from 'react-redux-firebase';
 import * as firebaseui from 'firebaseui';
 
-import firebaseShape from 'embracebook/shapes/firebase';
+import firebaseShape from '../shapes/firebase';
 
 let authUI;
 

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');

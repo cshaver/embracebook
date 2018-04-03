@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import { reduce } from 'lodash';
 
-import ShowIfAdmin from 'embracebook/components/ShowIfAdmin';
-import Field from 'embracebook/components/form/Field';
-import Button from 'embracebook/components/form/Button';
-import { validateEmail } from 'embracebook/utils/form';
+import ShowIfAdmin from './ShowIfAdmin';
+import Field from './form/Field';
+import Button from './form/Button';
+import { validateEmail } from '../utils/form';
 
 function validateInvitation(values) {
   const { roles } = values;

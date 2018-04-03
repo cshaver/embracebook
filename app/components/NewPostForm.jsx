@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 
-import AuthorConfig from 'embracebook/components/AuthorConfig';
-import Button from 'embracebook/components/form/Button';
-import { required } from 'embracebook/utils/form';
-import profileShape from 'embracebook/shapes/profile';
+import AuthorConfig from './AuthorConfig';
+import Button from './form/Button';
+import { required } from '../utils/form';
+import profileShape from '../shapes/profile';
 
 const propTypes = {
   onSubmit: PropTypes.func.isRequired,

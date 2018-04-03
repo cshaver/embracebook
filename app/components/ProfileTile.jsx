@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'embracebook/components/form/Button';
-import ProfileLink from 'embracebook/components/ProfileLink';
+import Button from './form/Button';
+import ProfileLink from './ProfileLink';
 
-import profileShape from 'embracebook/shapes/profile';
+import profileShape from '../shapes/profile';
 
 const propTypes = {
   profile: profileShape,

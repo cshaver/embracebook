@@ -6,13 +6,13 @@ import {
   isLoaded,
 } from 'react-redux-firebase';
 
-import { UserIsAuthenticated } from 'embracebook/utils/auth';
-import ProgressIndicator from 'embracebook/components/ProgressIndicator';
+import { UserIsAuthenticated } from '../utils/auth';
+import ProgressIndicator from '../components/ProgressIndicator';
 
-import firebaseShape from 'embracebook/shapes/firebase';
-import profileShape from 'embracebook/shapes/profile';
+import firebaseShape from '../shapes/firebase';
+import profileShape from '../shapes/profile';
 
-import AccountForm from 'embracebook/components/AccountForm';
+import AccountForm from '../components/AccountForm';
 
 const propTypes = {
   profile: profileShape,

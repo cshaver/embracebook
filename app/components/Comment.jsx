@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import ProfileLink from 'embracebook/components/ProfileLink';
-import Button from 'embracebook/components/form/Button';
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
+import ProfileLink from './ProfileLink';
+import Button from './form/Button';
+import { withStyles, withStylesPropTypes } from './utils/withStyles';
 
 const propTypes = {
   ...withStylesPropTypes,

@@ -3,10 +3,10 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
-import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import { UserIsAuthenticated } from 'embracebook/utils/auth';
+import ProgressIndicator from './ProgressIndicator';
+import { UserIsAuthenticated } from '../utils/auth';
 
-import profileShape from 'embracebook/shapes/profile';
+import profileShape from '../shapes/profile';
 
 const propTypes = {
   profile: profileShape,

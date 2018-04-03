@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 

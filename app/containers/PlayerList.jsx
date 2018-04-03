@@ -5,13 +5,13 @@ import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 
-import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import InviteForm from 'embracebook/components/InviteForm';
-import PlayerTile from 'embracebook/components/PlayerTile';
-import { userIsStoryteller } from 'embracebook/utils/components';
+import ProgressIndicator from '../components/ProgressIndicator';
+import InviteForm from '../components/InviteForm';
+import PlayerTile from '../components/PlayerTile';
+import { userIsStoryteller } from '../utils/components';
 
-import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
-import userShape from 'embracebook/shapes/user';
+import firebaseShape, { auth as authShape } from '../shapes/firebase';
+import userShape from '../shapes/user';
 
 const propTypes = {
   auth: authShape,

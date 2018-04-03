@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
-
 const chalk = require('chalk');
 const figures = require('figures');
 

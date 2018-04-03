@@ -5,17 +5,17 @@ import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
-import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-// import { NPC_TYPE } from 'embracebook/constants';
-import { userIsStoryteller } from 'embracebook/utils/components';
+import ProgressIndicator from '../components/ProgressIndicator';
+// import { NPC_TYPE } from '../constants';
+import { userIsStoryteller } from '../utils/components';
 
-import children from 'embracebook/shapes/children';
-import profileShape from 'embracebook/shapes/profile';
-import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
+import children from '../shapes/children';
+import profileShape from '../shapes/profile';
+import firebaseShape, { auth as authShape } from '../shapes/firebase';
 
-import ProfileTile from 'embracebook/components/ProfileTile';
-import NewProfileTile from 'embracebook/components/NewProfileTile';
-import NewProfileDialog from 'embracebook/components/NewProfileDialog';
+import ProfileTile from '../components/ProfileTile';
+import NewProfileTile from '../components/NewProfileTile';
+import NewProfileDialog from '../components/NewProfileDialog';
 
 const populates = [{ child: 'createdBy', root: 'users', keyProp: 'uid' }];
 

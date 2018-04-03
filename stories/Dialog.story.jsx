@@ -5,7 +5,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 
-import Dialog from 'embracebook/components/Dialog';
+import Dialog from '../app/components/Dialog';
 
 storiesOf('Dialog', module)
   // .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)

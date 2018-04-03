@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { withFirebase } from 'react-redux-firebase';
 import { compose } from 'recompose';
 
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
-import firebaseShape, { auth as authShape } from 'embracebook/shapes/firebase';
-import postShape from 'embracebook/shapes/post';
-import profileShape from 'embracebook/shapes/profile';
-import { withAuth } from 'embracebook/utils/components';
+import { withStyles, withStylesPropTypes } from '../components/utils/withStyles';
+import firebaseShape, { auth as authShape } from '../shapes/firebase';
+import postShape from '../shapes/post';
+import profileShape from '../shapes/profile';
+import { withAuth } from '../utils/components';
 
-import NewCommentForm from 'embracebook/components/NewCommentForm';
-import Comment from 'embracebook/components/Comment';
+import NewCommentForm from '../components/NewCommentForm';
+import Comment from '../components/Comment';
 
 const propTypes = {
   ...withStylesPropTypes,
@@ -110,7 +110,7 @@ CommentList.propTypes = propTypes;
 CommentList.defaultProps = defaultProps;
 
 export default compose(
-  withStyles(({ color }) => ({
+  withStyles(() => ({
     list: {
       margin: 0,
       listStyle: 'none',

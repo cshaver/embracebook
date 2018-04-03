@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field as FormField } from 'react-final-form';
 
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
+import { withStyles, withStylesPropTypes } from '../utils/withStyles';
 
 import Error from './Error';
 

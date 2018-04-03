@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TERMS_PATH } from 'embracebook/constants';
+import { TERMS_PATH } from '../constants';
 
 import FirebaseUIAuth from './FirebaseUIAuth';
 

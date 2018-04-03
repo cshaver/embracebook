@@ -6,7 +6,7 @@ import { Form } from 'react-final-form';
 import { noop } from 'lodash';
 // import { action } from '@storybook/addon-actions';
 
-import Field from 'embracebook/components/form/Field';
+import Field from '../../app/components/form/Field';
 
 const alwaysFail = () => 'Oops!';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import profileShape from 'embracebook/shapes/profile';
-import children from 'embracebook/shapes/children';
+import profileShape from '../shapes/profile';
+import children from '../shapes/children';
 
 const propTypes = {
   profile: profileShape.isRequired,
@@ -13,7 +13,7 @@ const defaultProps = {
   children: null,
 };
 
-const ProfileLink = ({ profile, children, styles }) => (
+const ProfileLink = ({ profile, children }) => (
   <Link to={`/profile/${profile.uid}/${profile.slug || ''}`}>
     {children || profile.displayName || profile.uid}
   </Link>

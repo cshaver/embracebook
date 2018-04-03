@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 
-import Field from 'embracebook/components/form/Field';
-import { required } from 'embracebook/utils/form';
-import profileShape from 'embracebook/shapes/profile';
+import Field from './form/Field';
+import { required } from '../utils/form';
+import profileShape from '../shapes/profile';
 
 const propTypes = {
   profiles: PropTypes.arrayOf(profileShape).isRequired,

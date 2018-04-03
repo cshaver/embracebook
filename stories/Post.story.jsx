@@ -5,8 +5,8 @@ import { MemoryRouter } from 'react-router';
 
 import { storiesOf } from '@storybook/react';
 
-import Post from 'embracebook/components/Post';
-import store from '../src/configureStore';
+import Post from '../app/components/Post';
+import store from '../app/configureStore';
 
 const SAMPLE_POST = {
   author: {
@@ -56,14 +56,14 @@ const SAMPLE_AUTHOR_PROFILES = [
     createdBy: '7JKjBI1STJM86AmOSPuVpecYQ2x2',
     displayName: 'Test Profile',
     slug: 'test-profile',
-    uuid: '-L4ADB0VTBVd-d8yYQsQ'
+    uuid: '-L4ADB0VTBVd-d8yYQsQ',
   },
   {
     avatarUrl: 'https://api.adorable.io/avatars/second-profile.png',
     createdBy: 'MZOf8gvnbfRnuOJn7nTw9USw5K63',
     displayName: 'Second Profile',
     slug: 'second-profile',
-    uuid: '-L5N4SpKAZ1wM8iS9Kv2'
+    uuid: '-L5N4SpKAZ1wM8iS9Kv2',
   },
   {
     avatarUrl: 'https://api.adorable.io/avatars/third-profile.png',

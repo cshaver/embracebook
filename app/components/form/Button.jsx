@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
+import { withStyles, withStylesPropTypes } from '../utils/withStyles';
 
 const propTypes = {
   ...withStylesPropTypes,

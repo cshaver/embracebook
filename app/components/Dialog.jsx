@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import children from 'embracebook/shapes/children';
+import children from '../shapes/children';
 
 const propTypes = {
   title: PropTypes.string.isRequired,

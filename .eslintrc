@@ -6,29 +6,30 @@
   "env": {
     "browser": true,
   },
-  "globals": {
-    "DEV": true,
-  },
+  "globals": {},
   "rules": {
-    "no-console": "off",
-    "no-param-reassign": "off",
-    "no-plusplus": "off",
-    "no-shadow": "off",
-    "react/no-typos": "off",
-    "object-curly-newline": "off",
-    "react/forbid-prop-types": "warn",
+    "function-paren-newline": ["error", "consistent"],
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": [
+          ".storybook/**/*",
+          "stories/**/*",
+          "webpack/**/*",
+        ],
+      },
+    ],
     "jsx-a11y/anchor-is-valid": [
       "error", {
         "components": [ "Link" ],
         "specialLink": [ "to" ]
-      }
+      },
     ],
-  },
-  "settings": {
-    "import/resolver": {
-      // "webpack": {
-      //   "config": "./webpack/webpack.base.config.js",
-      // },
-    },
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-shadow": "off",
+    "object-curly-newline": "off",
+    "react/forbid-prop-types": "warn",
+    "react/no-typos": "off",
   },
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ReactRouterLink } from 'react-router-dom';
 
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
-import children from 'embracebook/shapes/children';
+import { withStyles, withStylesPropTypes } from './utils/withStyles';
+import children from '../shapes/children';
 
 const propTypes = {
   ...withStylesPropTypes,

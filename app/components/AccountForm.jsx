@@ -2,12 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
-import Field from 'embracebook/components/form/Field';
-import Button from 'embracebook/components/form/Button';
+import Field from './form/Field';
+import Button from './form/Button';
 
 const propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  initialValues: PropTypes.object,
+  initialValues: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+  }),
 };
 
 const defaultProps = {

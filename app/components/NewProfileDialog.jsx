@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
-import Field from 'embracebook/components/form/Field';
-import Dialog from 'embracebook/components/Dialog';
-import Button from 'embracebook/components/form/Button';
-import { required } from 'embracebook/utils/form';
+import Field from './form/Field';
+import Dialog from './Dialog';
+import Button from './form/Button';
+import { required } from '../utils/form';
 
 const propTypes = {
   open: PropTypes.bool.isRequired,

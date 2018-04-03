@@ -1,6 +1,6 @@
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
-import { HOME_PATH, LOGIN_PATH } from 'embracebook/constants';
-import ProgressIndicator from 'embracebook/components/ProgressIndicator';
+import { HOME_PATH, LOGIN_PATH } from '../constants';
+import ProgressIndicator from '../components/ProgressIndicator';
 
 /**
  * @description HOC that redirects to `/login` instead of rendering

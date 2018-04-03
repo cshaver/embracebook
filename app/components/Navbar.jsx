@@ -3,17 +3,17 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from 'embracebook/constants';
+import { HOME_PATH, ACCOUNT_PATH, NPC_LIST_PATH, PLAYER_LIST_PATH } from '../constants';
 
-import ShowIfStoryteller from 'embracebook/components/ShowIfStoryteller';
-import ShowIfAuthenticated from 'embracebook/components/ShowIfAuthenticated';
-import { withFirebase, withProfile } from 'embracebook/utils/components';
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
-import Button from 'embracebook/components/form/Button';
+import ShowIfStoryteller from './ShowIfStoryteller';
+import ShowIfAuthenticated from './ShowIfAuthenticated';
+import { withFirebase, withProfile } from '../utils/components';
+import { withStyles, withStylesPropTypes } from './utils/withStyles';
+import Button from './form/Button';
 
-import firebaseShape from 'embracebook/shapes/firebase';
-import historyShape from 'embracebook/shapes/history';
-import profileShape from 'embracebook/shapes/profile';
+import firebaseShape from '../shapes/firebase';
+import historyShape from '../shapes/history';
+import profileShape from '../shapes/profile';
 
 const propTypes = {
   ...withStylesPropTypes,

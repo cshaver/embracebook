@@ -4,10 +4,10 @@ import { compose, wrapDisplayName } from 'recompose';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 
-import ProgressIndicator from 'embracebook/components/ProgressIndicator';
-import NoAccess from 'embracebook/components/NoAccess';
+import ProgressIndicator from '../components/ProgressIndicator';
+import NoAccess from '../components/NoAccess';
 
-import { roles as rolesShape } from 'embracebook/shapes/profile';
+import { roles as rolesShape } from '../shapes/profile';
 
 export const withFirebase = firebaseConnect();
 export const withAuth = compose(connect(({ firebase: { auth } }) => ({ auth })));

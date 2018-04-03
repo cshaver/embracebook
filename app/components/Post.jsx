@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
-import CommentListContainer from 'embracebook/containers/CommentListContainer';
-import Button from 'embracebook/components/form/Button';
-import ProfileLink from 'embracebook/components/ProfileLink';
+import { withStyles, withStylesPropTypes } from './utils/withStyles';
+import CommentListContainer from '../containers/CommentListContainer';
+import Button from './form/Button';
+import ProfileLink from './ProfileLink';
 
-import postShape from 'embracebook/shapes/post';
-import profileShape from 'embracebook/shapes/profile';
+import postShape from '../shapes/post';
+import profileShape from '../shapes/profile';
 
 const propTypes = {
   ...withStylesPropTypes,

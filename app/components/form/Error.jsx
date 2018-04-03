@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 
-import { withStyles, withStylesPropTypes } from 'embracebook/components/utils/withStyles';
+import { withStyles, withStylesPropTypes } from '../utils/withStyles';
 
 const propTypes = {
   ...withStylesPropTypes,

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { withRoles } from 'embracebook/utils/components';
-import children from 'embracebook/shapes/children';
-import { roles } from 'embracebook/shapes/profile';
+import { withRoles } from '../utils/components';
+import children from '../shapes/children';
+import { roles } from '../shapes/profile';
 
 const propTypes = {
   children: children.isRequired,
