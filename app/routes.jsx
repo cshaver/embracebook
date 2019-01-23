@@ -6,10 +6,10 @@ import ProgressIndicator from './components/ProgressIndicator';
 
 // import Invite from './containers/Invite';
 
-const LoadablePostListContainer = Loadable({
+const LoadableFeed = Loadable({
   loader: () => import(
-    /* webpackChunkName: "PostListContainer" */
-    './containers/PostListContainer',
+    /* webpackChunkName: "Feed" */
+    './components/Feed',
   ),
   loading: ProgressIndicator,
 });
@@ -72,7 +72,7 @@ const LoadableNotFound = Loadable({
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={LoadablePostListContainer} />
+    <Route exact path="/" component={LoadableFeed} />
     <Route exact path="/login" component={LoadableLogin} />
     <Route exact path="/profile" component={LoadableProfile} />
     <Route exact path="/npcs" component={LoadableNPCList} />
